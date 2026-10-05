@@ -1,0 +1,509 @@
+A1	'AUDITORIA — checagens por linha das matrizes (⚠ = inconsistência). 0 ⚠ = OK.  |  v5 (sanitização): o parâmetro c é exclusivo do ANO-BASE (t0) — PIS/COFINS extinto desde 2027 (LC 214/2025, art. 378); a verificação de crédito cobre apenas c t0 e a coluna AE/X é legado ignorado.'
+A3	F:=IF(OR(NOT(ISNUMBER(Dashboard!$E$6)),ISNA(MATCH(Dashboard!$E$6,Parâmetros!$B$15:$B$22,0))),"⚠ ano-base fora de 2026–2033","ano-base OK")	V:'ano-base OK'
+B3	F:=IF(OR(NOT(ISNUMBER(Dashboard!$E$7)),ISNA(MATCH(Dashboard!$E$7,Parâmetros!$B$15:$B$22,0))),"⚠ ano-alvo fora de 2026–2033","ano-alvo OK")	V:'ano-alvo OK'
+C3	F:=IF(Dashboard!$E$10="","",IF(Dashboard!$E$10<DATE(2025,1,16),"regime especial OK","⚠ contrato fora do regime especial — conferir matriz de riscos"))	V:None
+A4	'MATRIZ_PRODUTOS'
+A5	'Matriz'
+B5	'Linha'
+C5	'Regime'
+D5	'Redução'
+E5	'NCM/Cód.Serviço'
+F5	'Categoria ICMS'
+G5	'Preço<0'
+H5	'Crédito c'
+I5	'Variação>25%'
+A6	'Produto'
+B6	7
+C6	F:=IF(Matriz_Produtos!$B7="","",IF(ISNA(MATCH(Matriz_Produtos!$D7,Parâmetros!$B$27:$B$501,0)),"⚠ regime não encontrado",""))	V:None
+D6	F:=IF(OR(Matriz_Produtos!$B7="",Matriz_Produtos!$F7=""),"",IF(ISNA(MATCH(Matriz_Produtos!$F7,Parâmetros!$B$36:$B$501,0)),"⚠ redução não encontrada",IF(AND(LEFT(Matriz_Produtos!$D7,7)="Simples",ISERROR(SEARCH("híbrido",Matriz_Produtos!$D7)),ISERROR(SEARCH("Regra geral",Matriz_Produtos!$F7))),"⚠ Simples puro: redução setorial de IBS/CBS não é captada pelo DAS — use Simples híbrido ou regra geral","")))	V:None
+E6	F:=IF(Matriz_Produtos!$B7="","",IF(ISNA(MATCH(Matriz_Produtos!$C7,'Alíquotas_IPI (TIPI)'!$B$6:$B$500,0)),"⚠ NCM não encontrado na TIPI",""))	V:None
+F6	F:=IF(Matriz_Produtos!$B7="","",IF(ISNA(MATCH(Matriz_Produtos!$E7,Alíquotas_ICMS!$B$6:$B$500,0)),"⚠ categoria ICMS não encontrada",""))	V:None
+G6	F:=IF(Matriz_Produtos!$B7="","",IF(AND(ISNUMBER(Matriz_Produtos!$G7),Matriz_Produtos!$G7<0),"⚠ preço < 0",""))	V:None
+H6	F:=IF(Matriz_Produtos!$B7="","",IF(AND(Matriz_Produtos!$AD7>=0,Matriz_Produtos!$AD7<=1),"","⚠ crédito c fora de [0,1]"))	V:None
+I6	F:=IF(OR(Matriz_Produtos!$B7="",NOT(ISNUMBER(Matriz_Produtos!$G7)),Matriz_Produtos!$G7<=0,NOT(ISNUMBER(Matriz_Produtos!$AA7))),"",IF(OR(Matriz_Produtos!$AA7>1.25,Matriz_Produtos!$AA7<0.75),"⚠ variação > 25%: limites do art. 125, Lei 14.133 (Ac. TCU 1753/2026) — alterações consensuais acima exigem justificativa excepcional",""))	V:None
+A7	'Produto'
+B7	8
+C7	F:=IF(Matriz_Produtos!$B8="","",IF(ISNA(MATCH(Matriz_Produtos!$D8,Parâmetros!$B$27:$B$501,0)),"⚠ regime não encontrado",""))	V:None
+D7	F:=IF(OR(Matriz_Produtos!$B8="",Matriz_Produtos!$F8=""),"",IF(ISNA(MATCH(Matriz_Produtos!$F8,Parâmetros!$B$36:$B$501,0)),"⚠ redução não encontrada",IF(AND(LEFT(Matriz_Produtos!$D8,7)="Simples",ISERROR(SEARCH("híbrido",Matriz_Produtos!$D8)),ISERROR(SEARCH("Regra geral",Matriz_Produtos!$F8))),"⚠ Simples puro: redução setorial de IBS/CBS não é captada pelo DAS — use Simples híbrido ou regra geral","")))	V:None
+E7	F:=IF(Matriz_Produtos!$B8="","",IF(ISNA(MATCH(Matriz_Produtos!$C8,'Alíquotas_IPI (TIPI)'!$B$6:$B$500,0)),"⚠ NCM não encontrado na TIPI",""))	V:None
+F7	F:=IF(Matriz_Produtos!$B8="","",IF(ISNA(MATCH(Matriz_Produtos!$E8,Alíquotas_ICMS!$B$6:$B$500,0)),"⚠ categoria ICMS não encontrada",""))	V:None
+G7	F:=IF(Matriz_Produtos!$B8="","",IF(AND(ISNUMBER(Matriz_Produtos!$G8),Matriz_Produtos!$G8<0),"⚠ preço < 0",""))	V:None
+H7	F:=IF(Matriz_Produtos!$B8="","",IF(AND(Matriz_Produtos!$AD8>=0,Matriz_Produtos!$AD8<=1),"","⚠ crédito c fora de [0,1]"))	V:None
+I7	F:=IF(OR(Matriz_Produtos!$B8="",NOT(ISNUMBER(Matriz_Produtos!$G8)),Matriz_Produtos!$G8<=0,NOT(ISNUMBER(Matriz_Produtos!$AA8))),"",IF(OR(Matriz_Produtos!$AA8>1.25,Matriz_Produtos!$AA8<0.75),"⚠ variação > 25%: limites do art. 125, Lei 14.133 (Ac. TCU 1753/2026) — alterações consensuais acima exigem justificativa excepcional",""))	V:None
+A8	'Produto'
+B8	9
+C8	F:=IF(Matriz_Produtos!$B9="","",IF(ISNA(MATCH(Matriz_Produtos!$D9,Parâmetros!$B$27:$B$501,0)),"⚠ regime não encontrado",""))	V:None
+D8	F:=IF(OR(Matriz_Produtos!$B9="",Matriz_Produtos!$F9=""),"",IF(ISNA(MATCH(Matriz_Produtos!$F9,Parâmetros!$B$36:$B$501,0)),"⚠ redução não encontrada",IF(AND(LEFT(Matriz_Produtos!$D9,7)="Simples",ISERROR(SEARCH("híbrido",Matriz_Produtos!$D9)),ISERROR(SEARCH("Regra geral",Matriz_Produtos!$F9))),"⚠ Simples puro: redução setorial de IBS/CBS não é captada pelo DAS — use Simples híbrido ou regra geral","")))	V:None
+E8	F:=IF(Matriz_Produtos!$B9="","",IF(ISNA(MATCH(Matriz_Produtos!$C9,'Alíquotas_IPI (TIPI)'!$B$6:$B$500,0)),"⚠ NCM não encontrado na TIPI",""))	V:None
+F8	F:=IF(Matriz_Produtos!$B9="","",IF(ISNA(MATCH(Matriz_Produtos!$E9,Alíquotas_ICMS!$B$6:$B$500,0)),"⚠ categoria ICMS não encontrada",""))	V:None
+G8	F:=IF(Matriz_Produtos!$B9="","",IF(AND(ISNUMBER(Matriz_Produtos!$G9),Matriz_Produtos!$G9<0),"⚠ preço < 0",""))	V:None
+H8	F:=IF(Matriz_Produtos!$B9="","",IF(AND(Matriz_Produtos!$AD9>=0,Matriz_Produtos!$AD9<=1),"","⚠ crédito c fora de [0,1]"))	V:None
+I8	F:=IF(OR(Matriz_Produtos!$B9="",NOT(ISNUMBER(Matriz_Produtos!$G9)),Matriz_Produtos!$G9<=0,NOT(ISNUMBER(Matriz_Produtos!$AA9))),"",IF(OR(Matriz_Produtos!$AA9>1.25,Matriz_Produtos!$AA9<0.75),"⚠ variação > 25%: limites do art. 125, Lei 14.133 (Ac. TCU 1753/2026) — alterações consensuais acima exigem justificativa excepcional",""))	V:None
+A9	'Produto'
+B9	10
+C9	F:=IF(Matriz_Produtos!$B10="","",IF(ISNA(MATCH(Matriz_Produtos!$D10,Parâmetros!$B$27:$B$501,0)),"⚠ regime não encontrado",""))	V:None
+D9	F:=IF(OR(Matriz_Produtos!$B10="",Matriz_Produtos!$F10=""),"",IF(ISNA(MATCH(Matriz_Produtos!$F10,Parâmetros!$B$36:$B$501,0)),"⚠ redução não encontrada",IF(AND(LEFT(Matriz_Produtos!$D10,7)="Simples",ISERROR(SEARCH("híbrido",Matriz_Produtos!$D10)),ISERROR(SEARCH("Regra geral",Matriz_Produtos!$F10))),"⚠ Simples puro: redução setorial de IBS/CBS não é captada pelo DAS — use Simples híbrido ou regra geral","")))	V:None
+E9	F:=IF(Matriz_Produtos!$B10="","",IF(ISNA(MATCH(Matriz_Produtos!$C10,'Alíquotas_IPI (TIPI)'!$B$6:$B$500,0)),"⚠ NCM não encontrado na TIPI",""))	V:None
+F9	F:=IF(Matriz_Produtos!$B10="","",IF(ISNA(MATCH(Matriz_Produtos!$E10,Alíquotas_ICMS!$B$6:$B$500,0)),"⚠ categoria ICMS não encontrada",""))	V:None
+G9	F:=IF(Matriz_Produtos!$B10="","",IF(AND(ISNUMBER(Matriz_Produtos!$G10),Matriz_Produtos!$G10<0),"⚠ preço < 0",""))	V:None
+H9	F:=IF(Matriz_Produtos!$B10="","",IF(AND(Matriz_Produtos!$AD10>=0,Matriz_Produtos!$AD10<=1),"","⚠ crédito c fora de [0,1]"))	V:None
+I9	F:=IF(OR(Matriz_Produtos!$B10="",NOT(ISNUMBER(Matriz_Produtos!$G10)),Matriz_Produtos!$G10<=0,NOT(ISNUMBER(Matriz_Produtos!$AA10))),"",IF(OR(Matriz_Produtos!$AA10>1.25,Matriz_Produtos!$AA10<0.75),"⚠ variação > 25%: limites do art. 125, Lei 14.133 (Ac. TCU 1753/2026) — alterações consensuais acima exigem justificativa excepcional",""))	V:None
+A10	'Produto'
+B10	11
+C10	F:=IF(Matriz_Produtos!$B11="","",IF(ISNA(MATCH(Matriz_Produtos!$D11,Parâmetros!$B$27:$B$501,0)),"⚠ regime não encontrado",""))	V:None
+D10	F:=IF(OR(Matriz_Produtos!$B11="",Matriz_Produtos!$F11=""),"",IF(ISNA(MATCH(Matriz_Produtos!$F11,Parâmetros!$B$36:$B$501,0)),"⚠ redução não encontrada",IF(AND(LEFT(Matriz_Produtos!$D11,7)="Simples",ISERROR(SEARCH("híbrido",Matriz_Produtos!$D11)),ISERROR(SEARCH("Regra geral",Matriz_Produtos!$F11))),"⚠ Simples puro: redução setorial de IBS/CBS não é captada pelo DAS — use Simples híbrido ou regra geral","")))	V:None
+E10	F:=IF(Matriz_Produtos!$B11="","",IF(ISNA(MATCH(Matriz_Produtos!$C11,'Alíquotas_IPI (TIPI)'!$B$6:$B$500,0)),"⚠ NCM não encontrado na TIPI",""))	V:None
+F10	F:=IF(Matriz_Produtos!$B11="","",IF(ISNA(MATCH(Matriz_Produtos!$E11,Alíquotas_ICMS!$B$6:$B$500,0)),"⚠ categoria ICMS não encontrada",""))	V:None
+G10	F:=IF(Matriz_Produtos!$B11="","",IF(AND(ISNUMBER(Matriz_Produtos!$G11),Matriz_Produtos!$G11<0),"⚠ preço < 0",""))	V:None
+H10	F:=IF(Matriz_Produtos!$B11="","",IF(AND(Matriz_Produtos!$AD11>=0,Matriz_Produtos!$AD11<=1),"","⚠ crédito c fora de [0,1]"))	V:None
+I10	F:=IF(OR(Matriz_Produtos!$B11="",NOT(ISNUMBER(Matriz_Produtos!$G11)),Matriz_Produtos!$G11<=0,NOT(ISNUMBER(Matriz_Produtos!$AA11))),"",IF(OR(Matriz_Produtos!$AA11>1.25,Matriz_Produtos!$AA11<0.75),"⚠ variação > 25%: limites do art. 125, Lei 14.133 (Ac. TCU 1753/2026) — alterações consensuais acima exigem justificativa excepcional",""))	V:None
+A11	'Produto'
+B11	12
+C11	F:=IF(Matriz_Produtos!$B12="","",IF(ISNA(MATCH(Matriz_Produtos!$D12,Parâmetros!$B$27:$B$501,0)),"⚠ regime não encontrado",""))	V:None
+D11	F:=IF(OR(Matriz_Produtos!$B12="",Matriz_Produtos!$F12=""),"",IF(ISNA(MATCH(Matriz_Produtos!$F12,Parâmetros!$B$36:$B$501,0)),"⚠ redução não encontrada",IF(AND(LEFT(Matriz_Produtos!$D12,7)="Simples",ISERROR(SEARCH("híbrido",Matriz_Produtos!$D12)),ISERROR(SEARCH("Regra geral",Matriz_Produtos!$F12))),"⚠ Simples puro: redução setorial de IBS/CBS não é captada pelo DAS — use Simples híbrido ou regra geral","")))	V:None
+E11	F:=IF(Matriz_Produtos!$B12="","",IF(ISNA(MATCH(Matriz_Produtos!$C12,'Alíquotas_IPI (TIPI)'!$B$6:$B$500,0)),"⚠ NCM não encontrado na TIPI",""))	V:None
+F11	F:=IF(Matriz_Produtos!$B12="","",IF(ISNA(MATCH(Matriz_Produtos!$E12,Alíquotas_ICMS!$B$6:$B$500,0)),"⚠ categoria ICMS não encontrada",""))	V:None
+G11	F:=IF(Matriz_Produtos!$B12="","",IF(AND(ISNUMBER(Matriz_Produtos!$G12),Matriz_Produtos!$G12<0),"⚠ preço < 0",""))	V:None
+H11	F:=IF(Matriz_Produtos!$B12="","",IF(AND(Matriz_Produtos!$AD12>=0,Matriz_Produtos!$AD12<=1),"","⚠ crédito c fora de [0,1]"))	V:None
+I11	F:=IF(OR(Matriz_Produtos!$B12="",NOT(ISNUMBER(Matriz_Produtos!$G12)),Matriz_Produtos!$G12<=0,NOT(ISNUMBER(Matriz_Produtos!$AA12))),"",IF(OR(Matriz_Produtos!$AA12>1.25,Matriz_Produtos!$AA12<0.75),"⚠ variação > 25%: limites do art. 125, Lei 14.133 (Ac. TCU 1753/2026) — alterações consensuais acima exigem justificativa excepcional",""))	V:None
+A12	'Produto'
+B12	13
+C12	F:=IF(Matriz_Produtos!$B13="","",IF(ISNA(MATCH(Matriz_Produtos!$D13,Parâmetros!$B$27:$B$501,0)),"⚠ regime não encontrado",""))	V:None
+D12	F:=IF(OR(Matriz_Produtos!$B13="",Matriz_Produtos!$F13=""),"",IF(ISNA(MATCH(Matriz_Produtos!$F13,Parâmetros!$B$36:$B$501,0)),"⚠ redução não encontrada",IF(AND(LEFT(Matriz_Produtos!$D13,7)="Simples",ISERROR(SEARCH("híbrido",Matriz_Produtos!$D13)),ISERROR(SEARCH("Regra geral",Matriz_Produtos!$F13))),"⚠ Simples puro: redução setorial de IBS/CBS não é captada pelo DAS — use Simples híbrido ou regra geral","")))	V:None
+E12	F:=IF(Matriz_Produtos!$B13="","",IF(ISNA(MATCH(Matriz_Produtos!$C13,'Alíquotas_IPI (TIPI)'!$B$6:$B$500,0)),"⚠ NCM não encontrado na TIPI",""))	V:None
+F12	F:=IF(Matriz_Produtos!$B13="","",IF(ISNA(MATCH(Matriz_Produtos!$E13,Alíquotas_ICMS!$B$6:$B$500,0)),"⚠ categoria ICMS não encontrada",""))	V:None
+G12	F:=IF(Matriz_Produtos!$B13="","",IF(AND(ISNUMBER(Matriz_Produtos!$G13),Matriz_Produtos!$G13<0),"⚠ preço < 0",""))	V:None
+H12	F:=IF(Matriz_Produtos!$B13="","",IF(AND(Matriz_Produtos!$AD13>=0,Matriz_Produtos!$AD13<=1),"","⚠ crédito c fora de [0,1]"))	V:None
+I12	F:=IF(OR(Matriz_Produtos!$B13="",NOT(ISNUMBER(Matriz_Produtos!$G13)),Matriz_Produtos!$G13<=0,NOT(ISNUMBER(Matriz_Produtos!$AA13))),"",IF(OR(Matriz_Produtos!$AA13>1.25,Matriz_Produtos!$AA13<0.75),"⚠ variação > 25%: limites do art. 125, Lei 14.133 (Ac. TCU 1753/2026) — alterações consensuais acima exigem justificativa excepcional",""))	V:None
+A13	'Produto'
+B13	14
+C13	F:=IF(Matriz_Produtos!$B14="","",IF(ISNA(MATCH(Matriz_Produtos!$D14,Parâmetros!$B$27:$B$501,0)),"⚠ regime não encontrado",""))	V:None
+D13	F:=IF(OR(Matriz_Produtos!$B14="",Matriz_Produtos!$F14=""),"",IF(ISNA(MATCH(Matriz_Produtos!$F14,Parâmetros!$B$36:$B$501,0)),"⚠ redução não encontrada",IF(AND(LEFT(Matriz_Produtos!$D14,7)="Simples",ISERROR(SEARCH("híbrido",Matriz_Produtos!$D14)),ISERROR(SEARCH("Regra geral",Matriz_Produtos!$F14))),"⚠ Simples puro: redução setorial de IBS/CBS não é captada pelo DAS — use Simples híbrido ou regra geral","")))	V:None
+E13	F:=IF(Matriz_Produtos!$B14="","",IF(ISNA(MATCH(Matriz_Produtos!$C14,'Alíquotas_IPI (TIPI)'!$B$6:$B$500,0)),"⚠ NCM não encontrado na TIPI",""))	V:None
+F13	F:=IF(Matriz_Produtos!$B14="","",IF(ISNA(MATCH(Matriz_Produtos!$E14,Alíquotas_ICMS!$B$6:$B$500,0)),"⚠ categoria ICMS não encontrada",""))	V:None
+G13	F:=IF(Matriz_Produtos!$B14="","",IF(AND(ISNUMBER(Matriz_Produtos!$G14),Matriz_Produtos!$G14<0),"⚠ preço < 0",""))	V:None
+H13	F:=IF(Matriz_Produtos!$B14="","",IF(AND(Matriz_Produtos!$AD14>=0,Matriz_Produtos!$AD14<=1),"","⚠ crédito c fora de [0,1]"))	V:None
+I13	F:=IF(OR(Matriz_Produtos!$B14="",NOT(ISNUMBER(Matriz_Produtos!$G14)),Matriz_Produtos!$G14<=0,NOT(ISNUMBER(Matriz_Produtos!$AA14))),"",IF(OR(Matriz_Produtos!$AA14>1.25,Matriz_Produtos!$AA14<0.75),"⚠ variação > 25%: limites do art. 125, Lei 14.133 (Ac. TCU 1753/2026) — alterações consensuais acima exigem justificativa excepcional",""))	V:None
+A14	'Produto'
+B14	15
+C14	F:=IF(Matriz_Produtos!$B15="","",IF(ISNA(MATCH(Matriz_Produtos!$D15,Parâmetros!$B$27:$B$501,0)),"⚠ regime não encontrado",""))	V:None
+D14	F:=IF(OR(Matriz_Produtos!$B15="",Matriz_Produtos!$F15=""),"",IF(ISNA(MATCH(Matriz_Produtos!$F15,Parâmetros!$B$36:$B$501,0)),"⚠ redução não encontrada",IF(AND(LEFT(Matriz_Produtos!$D15,7)="Simples",ISERROR(SEARCH("híbrido",Matriz_Produtos!$D15)),ISERROR(SEARCH("Regra geral",Matriz_Produtos!$F15))),"⚠ Simples puro: redução setorial de IBS/CBS não é captada pelo DAS — use Simples híbrido ou regra geral","")))	V:None
+E14	F:=IF(Matriz_Produtos!$B15="","",IF(ISNA(MATCH(Matriz_Produtos!$C15,'Alíquotas_IPI (TIPI)'!$B$6:$B$500,0)),"⚠ NCM não encontrado na TIPI",""))	V:None
+F14	F:=IF(Matriz_Produtos!$B15="","",IF(ISNA(MATCH(Matriz_Produtos!$E15,Alíquotas_ICMS!$B$6:$B$500,0)),"⚠ categoria ICMS não encontrada",""))	V:None
+G14	F:=IF(Matriz_Produtos!$B15="","",IF(AND(ISNUMBER(Matriz_Produtos!$G15),Matriz_Produtos!$G15<0),"⚠ preço < 0",""))	V:None
+H14	F:=IF(Matriz_Produtos!$B15="","",IF(AND(Matriz_Produtos!$AD15>=0,Matriz_Produtos!$AD15<=1),"","⚠ crédito c fora de [0,1]"))	V:None
+I14	F:=IF(OR(Matriz_Produtos!$B15="",NOT(ISNUMBER(Matriz_Produtos!$G15)),Matriz_Produtos!$G15<=0,NOT(ISNUMBER(Matriz_Produtos!$AA15))),"",IF(OR(Matriz_Produtos!$AA15>1.25,Matriz_Produtos!$AA15<0.75),"⚠ variação > 25%: limites do art. 125, Lei 14.133 (Ac. TCU 1753/2026) — alterações consensuais acima exigem justificativa excepcional",""))	V:None
+A15	'Produto'
+B15	16
+C15	F:=IF(Matriz_Produtos!$B16="","",IF(ISNA(MATCH(Matriz_Produtos!$D16,Parâmetros!$B$27:$B$501,0)),"⚠ regime não encontrado",""))	V:None
+D15	F:=IF(OR(Matriz_Produtos!$B16="",Matriz_Produtos!$F16=""),"",IF(ISNA(MATCH(Matriz_Produtos!$F16,Parâmetros!$B$36:$B$501,0)),"⚠ redução não encontrada",IF(AND(LEFT(Matriz_Produtos!$D16,7)="Simples",ISERROR(SEARCH("híbrido",Matriz_Produtos!$D16)),ISERROR(SEARCH("Regra geral",Matriz_Produtos!$F16))),"⚠ Simples puro: redução setorial de IBS/CBS não é captada pelo DAS — use Simples híbrido ou regra geral","")))	V:None
+E15	F:=IF(Matriz_Produtos!$B16="","",IF(ISNA(MATCH(Matriz_Produtos!$C16,'Alíquotas_IPI (TIPI)'!$B$6:$B$500,0)),"⚠ NCM não encontrado na TIPI",""))	V:None
+F15	F:=IF(Matriz_Produtos!$B16="","",IF(ISNA(MATCH(Matriz_Produtos!$E16,Alíquotas_ICMS!$B$6:$B$500,0)),"⚠ categoria ICMS não encontrada",""))	V:None
+G15	F:=IF(Matriz_Produtos!$B16="","",IF(AND(ISNUMBER(Matriz_Produtos!$G16),Matriz_Produtos!$G16<0),"⚠ preço < 0",""))	V:None
+H15	F:=IF(Matriz_Produtos!$B16="","",IF(AND(Matriz_Produtos!$AD16>=0,Matriz_Produtos!$AD16<=1),"","⚠ crédito c fora de [0,1]"))	V:None
+I15	F:=IF(OR(Matriz_Produtos!$B16="",NOT(ISNUMBER(Matriz_Produtos!$G16)),Matriz_Produtos!$G16<=0,NOT(ISNUMBER(Matriz_Produtos!$AA16))),"",IF(OR(Matriz_Produtos!$AA16>1.25,Matriz_Produtos!$AA16<0.75),"⚠ variação > 25%: limites do art. 125, Lei 14.133 (Ac. TCU 1753/2026) — alterações consensuais acima exigem justificativa excepcional",""))	V:None
+A16	'Produto'
+B16	17
+C16	F:=IF(Matriz_Produtos!$B17="","",IF(ISNA(MATCH(Matriz_Produtos!$D17,Parâmetros!$B$27:$B$501,0)),"⚠ regime não encontrado",""))	V:None
+D16	F:=IF(OR(Matriz_Produtos!$B17="",Matriz_Produtos!$F17=""),"",IF(ISNA(MATCH(Matriz_Produtos!$F17,Parâmetros!$B$36:$B$501,0)),"⚠ redução não encontrada",IF(AND(LEFT(Matriz_Produtos!$D17,7)="Simples",ISERROR(SEARCH("híbrido",Matriz_Produtos!$D17)),ISERROR(SEARCH("Regra geral",Matriz_Produtos!$F17))),"⚠ Simples puro: redução setorial de IBS/CBS não é captada pelo DAS — use Simples híbrido ou regra geral","")))	V:None
+E16	F:=IF(Matriz_Produtos!$B17="","",IF(ISNA(MATCH(Matriz_Produtos!$C17,'Alíquotas_IPI (TIPI)'!$B$6:$B$500,0)),"⚠ NCM não encontrado na TIPI",""))	V:None
+F16	F:=IF(Matriz_Produtos!$B17="","",IF(ISNA(MATCH(Matriz_Produtos!$E17,Alíquotas_ICMS!$B$6:$B$500,0)),"⚠ categoria ICMS não encontrada",""))	V:None
+G16	F:=IF(Matriz_Produtos!$B17="","",IF(AND(ISNUMBER(Matriz_Produtos!$G17),Matriz_Produtos!$G17<0),"⚠ preço < 0",""))	V:None
+H16	F:=IF(Matriz_Produtos!$B17="","",IF(AND(Matriz_Produtos!$AD17>=0,Matriz_Produtos!$AD17<=1),"","⚠ crédito c fora de [0,1]"))	V:None
+I16	F:=IF(OR(Matriz_Produtos!$B17="",NOT(ISNUMBER(Matriz_Produtos!$G17)),Matriz_Produtos!$G17<=0,NOT(ISNUMBER(Matriz_Produtos!$AA17))),"",IF(OR(Matriz_Produtos!$AA17>1.25,Matriz_Produtos!$AA17<0.75),"⚠ variação > 25%: limites do art. 125, Lei 14.133 (Ac. TCU 1753/2026) — alterações consensuais acima exigem justificativa excepcional",""))	V:None
+A17	'Produto'
+B17	18
+C17	F:=IF(Matriz_Produtos!$B18="","",IF(ISNA(MATCH(Matriz_Produtos!$D18,Parâmetros!$B$27:$B$501,0)),"⚠ regime não encontrado",""))	V:None
+D17	F:=IF(OR(Matriz_Produtos!$B18="",Matriz_Produtos!$F18=""),"",IF(ISNA(MATCH(Matriz_Produtos!$F18,Parâmetros!$B$36:$B$501,0)),"⚠ redução não encontrada",IF(AND(LEFT(Matriz_Produtos!$D18,7)="Simples",ISERROR(SEARCH("híbrido",Matriz_Produtos!$D18)),ISERROR(SEARCH("Regra geral",Matriz_Produtos!$F18))),"⚠ Simples puro: redução setorial de IBS/CBS não é captada pelo DAS — use Simples híbrido ou regra geral","")))	V:None
+E17	F:=IF(Matriz_Produtos!$B18="","",IF(ISNA(MATCH(Matriz_Produtos!$C18,'Alíquotas_IPI (TIPI)'!$B$6:$B$500,0)),"⚠ NCM não encontrado na TIPI",""))	V:None
+F17	F:=IF(Matriz_Produtos!$B18="","",IF(ISNA(MATCH(Matriz_Produtos!$E18,Alíquotas_ICMS!$B$6:$B$500,0)),"⚠ categoria ICMS não encontrada",""))	V:None
+G17	F:=IF(Matriz_Produtos!$B18="","",IF(AND(ISNUMBER(Matriz_Produtos!$G18),Matriz_Produtos!$G18<0),"⚠ preço < 0",""))	V:None
+H17	F:=IF(Matriz_Produtos!$B18="","",IF(AND(Matriz_Produtos!$AD18>=0,Matriz_Produtos!$AD18<=1),"","⚠ crédito c fora de [0,1]"))	V:None
+I17	F:=IF(OR(Matriz_Produtos!$B18="",NOT(ISNUMBER(Matriz_Produtos!$G18)),Matriz_Produtos!$G18<=0,NOT(ISNUMBER(Matriz_Produtos!$AA18))),"",IF(OR(Matriz_Produtos!$AA18>1.25,Matriz_Produtos!$AA18<0.75),"⚠ variação > 25%: limites do art. 125, Lei 14.133 (Ac. TCU 1753/2026) — alterações consensuais acima exigem justificativa excepcional",""))	V:None
+A18	'Produto'
+B18	19
+C18	F:=IF(Matriz_Produtos!$B19="","",IF(ISNA(MATCH(Matriz_Produtos!$D19,Parâmetros!$B$27:$B$501,0)),"⚠ regime não encontrado",""))	V:None
+D18	F:=IF(OR(Matriz_Produtos!$B19="",Matriz_Produtos!$F19=""),"",IF(ISNA(MATCH(Matriz_Produtos!$F19,Parâmetros!$B$36:$B$501,0)),"⚠ redução não encontrada",IF(AND(LEFT(Matriz_Produtos!$D19,7)="Simples",ISERROR(SEARCH("híbrido",Matriz_Produtos!$D19)),ISERROR(SEARCH("Regra geral",Matriz_Produtos!$F19))),"⚠ Simples puro: redução setorial de IBS/CBS não é captada pelo DAS — use Simples híbrido ou regra geral","")))	V:None
+E18	F:=IF(Matriz_Produtos!$B19="","",IF(ISNA(MATCH(Matriz_Produtos!$C19,'Alíquotas_IPI (TIPI)'!$B$6:$B$500,0)),"⚠ NCM não encontrado na TIPI",""))	V:None
+F18	F:=IF(Matriz_Produtos!$B19="","",IF(ISNA(MATCH(Matriz_Produtos!$E19,Alíquotas_ICMS!$B$6:$B$500,0)),"⚠ categoria ICMS não encontrada",""))	V:None
+G18	F:=IF(Matriz_Produtos!$B19="","",IF(AND(ISNUMBER(Matriz_Produtos!$G19),Matriz_Produtos!$G19<0),"⚠ preço < 0",""))	V:None
+H18	F:=IF(Matriz_Produtos!$B19="","",IF(AND(Matriz_Produtos!$AD19>=0,Matriz_Produtos!$AD19<=1),"","⚠ crédito c fora de [0,1]"))	V:None
+I18	F:=IF(OR(Matriz_Produtos!$B19="",NOT(ISNUMBER(Matriz_Produtos!$G19)),Matriz_Produtos!$G19<=0,NOT(ISNUMBER(Matriz_Produtos!$AA19))),"",IF(OR(Matriz_Produtos!$AA19>1.25,Matriz_Produtos!$AA19<0.75),"⚠ variação > 25%: limites do art. 125, Lei 14.133 (Ac. TCU 1753/2026) — alterações consensuais acima exigem justificativa excepcional",""))	V:None
+A19	'Produto'
+B19	20
+C19	F:=IF(Matriz_Produtos!$B20="","",IF(ISNA(MATCH(Matriz_Produtos!$D20,Parâmetros!$B$27:$B$501,0)),"⚠ regime não encontrado",""))	V:None
+D19	F:=IF(OR(Matriz_Produtos!$B20="",Matriz_Produtos!$F20=""),"",IF(ISNA(MATCH(Matriz_Produtos!$F20,Parâmetros!$B$36:$B$501,0)),"⚠ redução não encontrada",IF(AND(LEFT(Matriz_Produtos!$D20,7)="Simples",ISERROR(SEARCH("híbrido",Matriz_Produtos!$D20)),ISERROR(SEARCH("Regra geral",Matriz_Produtos!$F20))),"⚠ Simples puro: redução setorial de IBS/CBS não é captada pelo DAS — use Simples híbrido ou regra geral","")))	V:None
+E19	F:=IF(Matriz_Produtos!$B20="","",IF(ISNA(MATCH(Matriz_Produtos!$C20,'Alíquotas_IPI (TIPI)'!$B$6:$B$500,0)),"⚠ NCM não encontrado na TIPI",""))	V:None
+F19	F:=IF(Matriz_Produtos!$B20="","",IF(ISNA(MATCH(Matriz_Produtos!$E20,Alíquotas_ICMS!$B$6:$B$500,0)),"⚠ categoria ICMS não encontrada",""))	V:None
+G19	F:=IF(Matriz_Produtos!$B20="","",IF(AND(ISNUMBER(Matriz_Produtos!$G20),Matriz_Produtos!$G20<0),"⚠ preço < 0",""))	V:None
+H19	F:=IF(Matriz_Produtos!$B20="","",IF(AND(Matriz_Produtos!$AD20>=0,Matriz_Produtos!$AD20<=1),"","⚠ crédito c fora de [0,1]"))	V:None
+I19	F:=IF(OR(Matriz_Produtos!$B20="",NOT(ISNUMBER(Matriz_Produtos!$G20)),Matriz_Produtos!$G20<=0,NOT(ISNUMBER(Matriz_Produtos!$AA20))),"",IF(OR(Matriz_Produtos!$AA20>1.25,Matriz_Produtos!$AA20<0.75),"⚠ variação > 25%: limites do art. 125, Lei 14.133 (Ac. TCU 1753/2026) — alterações consensuais acima exigem justificativa excepcional",""))	V:None
+A20	'Produto'
+B20	21
+C20	F:=IF(Matriz_Produtos!$B21="","",IF(ISNA(MATCH(Matriz_Produtos!$D21,Parâmetros!$B$27:$B$501,0)),"⚠ regime não encontrado",""))	V:None
+D20	F:=IF(OR(Matriz_Produtos!$B21="",Matriz_Produtos!$F21=""),"",IF(ISNA(MATCH(Matriz_Produtos!$F21,Parâmetros!$B$36:$B$501,0)),"⚠ redução não encontrada",IF(AND(LEFT(Matriz_Produtos!$D21,7)="Simples",ISERROR(SEARCH("híbrido",Matriz_Produtos!$D21)),ISERROR(SEARCH("Regra geral",Matriz_Produtos!$F21))),"⚠ Simples puro: redução setorial de IBS/CBS não é captada pelo DAS — use Simples híbrido ou regra geral","")))	V:None
+E20	F:=IF(Matriz_Produtos!$B21="","",IF(ISNA(MATCH(Matriz_Produtos!$C21,'Alíquotas_IPI (TIPI)'!$B$6:$B$500,0)),"⚠ NCM não encontrado na TIPI",""))	V:None
+F20	F:=IF(Matriz_Produtos!$B21="","",IF(ISNA(MATCH(Matriz_Produtos!$E21,Alíquotas_ICMS!$B$6:$B$500,0)),"⚠ categoria ICMS não encontrada",""))	V:None
+G20	F:=IF(Matriz_Produtos!$B21="","",IF(AND(ISNUMBER(Matriz_Produtos!$G21),Matriz_Produtos!$G21<0),"⚠ preço < 0",""))	V:None
+H20	F:=IF(Matriz_Produtos!$B21="","",IF(AND(Matriz_Produtos!$AD21>=0,Matriz_Produtos!$AD21<=1),"","⚠ crédito c fora de [0,1]"))	V:None
+I20	F:=IF(OR(Matriz_Produtos!$B21="",NOT(ISNUMBER(Matriz_Produtos!$G21)),Matriz_Produtos!$G21<=0,NOT(ISNUMBER(Matriz_Produtos!$AA21))),"",IF(OR(Matriz_Produtos!$AA21>1.25,Matriz_Produtos!$AA21<0.75),"⚠ variação > 25%: limites do art. 125, Lei 14.133 (Ac. TCU 1753/2026) — alterações consensuais acima exigem justificativa excepcional",""))	V:None
+A21	'Produto'
+B21	22
+C21	F:=IF(Matriz_Produtos!$B22="","",IF(ISNA(MATCH(Matriz_Produtos!$D22,Parâmetros!$B$27:$B$501,0)),"⚠ regime não encontrado",""))	V:None
+D21	F:=IF(OR(Matriz_Produtos!$B22="",Matriz_Produtos!$F22=""),"",IF(ISNA(MATCH(Matriz_Produtos!$F22,Parâmetros!$B$36:$B$501,0)),"⚠ redução não encontrada",IF(AND(LEFT(Matriz_Produtos!$D22,7)="Simples",ISERROR(SEARCH("híbrido",Matriz_Produtos!$D22)),ISERROR(SEARCH("Regra geral",Matriz_Produtos!$F22))),"⚠ Simples puro: redução setorial de IBS/CBS não é captada pelo DAS — use Simples híbrido ou regra geral","")))	V:None
+E21	F:=IF(Matriz_Produtos!$B22="","",IF(ISNA(MATCH(Matriz_Produtos!$C22,'Alíquotas_IPI (TIPI)'!$B$6:$B$500,0)),"⚠ NCM não encontrado na TIPI",""))	V:None
+F21	F:=IF(Matriz_Produtos!$B22="","",IF(ISNA(MATCH(Matriz_Produtos!$E22,Alíquotas_ICMS!$B$6:$B$500,0)),"⚠ categoria ICMS não encontrada",""))	V:None
+G21	F:=IF(Matriz_Produtos!$B22="","",IF(AND(ISNUMBER(Matriz_Produtos!$G22),Matriz_Produtos!$G22<0),"⚠ preço < 0",""))	V:None
+H21	F:=IF(Matriz_Produtos!$B22="","",IF(AND(Matriz_Produtos!$AD22>=0,Matriz_Produtos!$AD22<=1),"","⚠ crédito c fora de [0,1]"))	V:None
+I21	F:=IF(OR(Matriz_Produtos!$B22="",NOT(ISNUMBER(Matriz_Produtos!$G22)),Matriz_Produtos!$G22<=0,NOT(ISNUMBER(Matriz_Produtos!$AA22))),"",IF(OR(Matriz_Produtos!$AA22>1.25,Matriz_Produtos!$AA22<0.75),"⚠ variação > 25%: limites do art. 125, Lei 14.133 (Ac. TCU 1753/2026) — alterações consensuais acima exigem justificativa excepcional",""))	V:None
+A22	'Produto'
+B22	23
+C22	F:=IF(Matriz_Produtos!$B23="","",IF(ISNA(MATCH(Matriz_Produtos!$D23,Parâmetros!$B$27:$B$501,0)),"⚠ regime não encontrado",""))	V:None
+D22	F:=IF(OR(Matriz_Produtos!$B23="",Matriz_Produtos!$F23=""),"",IF(ISNA(MATCH(Matriz_Produtos!$F23,Parâmetros!$B$36:$B$501,0)),"⚠ redução não encontrada",IF(AND(LEFT(Matriz_Produtos!$D23,7)="Simples",ISERROR(SEARCH("híbrido",Matriz_Produtos!$D23)),ISERROR(SEARCH("Regra geral",Matriz_Produtos!$F23))),"⚠ Simples puro: redução setorial de IBS/CBS não é captada pelo DAS — use Simples híbrido ou regra geral","")))	V:None
+E22	F:=IF(Matriz_Produtos!$B23="","",IF(ISNA(MATCH(Matriz_Produtos!$C23,'Alíquotas_IPI (TIPI)'!$B$6:$B$500,0)),"⚠ NCM não encontrado na TIPI",""))	V:None
+F22	F:=IF(Matriz_Produtos!$B23="","",IF(ISNA(MATCH(Matriz_Produtos!$E23,Alíquotas_ICMS!$B$6:$B$500,0)),"⚠ categoria ICMS não encontrada",""))	V:None
+G22	F:=IF(Matriz_Produtos!$B23="","",IF(AND(ISNUMBER(Matriz_Produtos!$G23),Matriz_Produtos!$G23<0),"⚠ preço < 0",""))	V:None
+H22	F:=IF(Matriz_Produtos!$B23="","",IF(AND(Matriz_Produtos!$AD23>=0,Matriz_Produtos!$AD23<=1),"","⚠ crédito c fora de [0,1]"))	V:None
+I22	F:=IF(OR(Matriz_Produtos!$B23="",NOT(ISNUMBER(Matriz_Produtos!$G23)),Matriz_Produtos!$G23<=0,NOT(ISNUMBER(Matriz_Produtos!$AA23))),"",IF(OR(Matriz_Produtos!$AA23>1.25,Matriz_Produtos!$AA23<0.75),"⚠ variação > 25%: limites do art. 125, Lei 14.133 (Ac. TCU 1753/2026) — alterações consensuais acima exigem justificativa excepcional",""))	V:None
+A23	'Produto'
+B23	24
+C23	F:=IF(Matriz_Produtos!$B24="","",IF(ISNA(MATCH(Matriz_Produtos!$D24,Parâmetros!$B$27:$B$501,0)),"⚠ regime não encontrado",""))	V:None
+D23	F:=IF(OR(Matriz_Produtos!$B24="",Matriz_Produtos!$F24=""),"",IF(ISNA(MATCH(Matriz_Produtos!$F24,Parâmetros!$B$36:$B$501,0)),"⚠ redução não encontrada",IF(AND(LEFT(Matriz_Produtos!$D24,7)="Simples",ISERROR(SEARCH("híbrido",Matriz_Produtos!$D24)),ISERROR(SEARCH("Regra geral",Matriz_Produtos!$F24))),"⚠ Simples puro: redução setorial de IBS/CBS não é captada pelo DAS — use Simples híbrido ou regra geral","")))	V:None
+E23	F:=IF(Matriz_Produtos!$B24="","",IF(ISNA(MATCH(Matriz_Produtos!$C24,'Alíquotas_IPI (TIPI)'!$B$6:$B$500,0)),"⚠ NCM não encontrado na TIPI",""))	V:None
+F23	F:=IF(Matriz_Produtos!$B24="","",IF(ISNA(MATCH(Matriz_Produtos!$E24,Alíquotas_ICMS!$B$6:$B$500,0)),"⚠ categoria ICMS não encontrada",""))	V:None
+G23	F:=IF(Matriz_Produtos!$B24="","",IF(AND(ISNUMBER(Matriz_Produtos!$G24),Matriz_Produtos!$G24<0),"⚠ preço < 0",""))	V:None
+H23	F:=IF(Matriz_Produtos!$B24="","",IF(AND(Matriz_Produtos!$AD24>=0,Matriz_Produtos!$AD24<=1),"","⚠ crédito c fora de [0,1]"))	V:None
+I23	F:=IF(OR(Matriz_Produtos!$B24="",NOT(ISNUMBER(Matriz_Produtos!$G24)),Matriz_Produtos!$G24<=0,NOT(ISNUMBER(Matriz_Produtos!$AA24))),"",IF(OR(Matriz_Produtos!$AA24>1.25,Matriz_Produtos!$AA24<0.75),"⚠ variação > 25%: limites do art. 125, Lei 14.133 (Ac. TCU 1753/2026) — alterações consensuais acima exigem justificativa excepcional",""))	V:None
+A24	'Produto'
+B24	25
+C24	F:=IF(Matriz_Produtos!$B25="","",IF(ISNA(MATCH(Matriz_Produtos!$D25,Parâmetros!$B$27:$B$501,0)),"⚠ regime não encontrado",""))	V:None
+D24	F:=IF(OR(Matriz_Produtos!$B25="",Matriz_Produtos!$F25=""),"",IF(ISNA(MATCH(Matriz_Produtos!$F25,Parâmetros!$B$36:$B$501,0)),"⚠ redução não encontrada",IF(AND(LEFT(Matriz_Produtos!$D25,7)="Simples",ISERROR(SEARCH("híbrido",Matriz_Produtos!$D25)),ISERROR(SEARCH("Regra geral",Matriz_Produtos!$F25))),"⚠ Simples puro: redução setorial de IBS/CBS não é captada pelo DAS — use Simples híbrido ou regra geral","")))	V:None
+E24	F:=IF(Matriz_Produtos!$B25="","",IF(ISNA(MATCH(Matriz_Produtos!$C25,'Alíquotas_IPI (TIPI)'!$B$6:$B$500,0)),"⚠ NCM não encontrado na TIPI",""))	V:None
+F24	F:=IF(Matriz_Produtos!$B25="","",IF(ISNA(MATCH(Matriz_Produtos!$E25,Alíquotas_ICMS!$B$6:$B$500,0)),"⚠ categoria ICMS não encontrada",""))	V:None
+G24	F:=IF(Matriz_Produtos!$B25="","",IF(AND(ISNUMBER(Matriz_Produtos!$G25),Matriz_Produtos!$G25<0),"⚠ preço < 0",""))	V:None
+H24	F:=IF(Matriz_Produtos!$B25="","",IF(AND(Matriz_Produtos!$AD25>=0,Matriz_Produtos!$AD25<=1),"","⚠ crédito c fora de [0,1]"))	V:None
+I24	F:=IF(OR(Matriz_Produtos!$B25="",NOT(ISNUMBER(Matriz_Produtos!$G25)),Matriz_Produtos!$G25<=0,NOT(ISNUMBER(Matriz_Produtos!$AA25))),"",IF(OR(Matriz_Produtos!$AA25>1.25,Matriz_Produtos!$AA25<0.75),"⚠ variação > 25%: limites do art. 125, Lei 14.133 (Ac. TCU 1753/2026) — alterações consensuais acima exigem justificativa excepcional",""))	V:None
+A25	'Produto'
+B25	26
+C25	F:=IF(Matriz_Produtos!$B26="","",IF(ISNA(MATCH(Matriz_Produtos!$D26,Parâmetros!$B$27:$B$501,0)),"⚠ regime não encontrado",""))	V:None
+D25	F:=IF(OR(Matriz_Produtos!$B26="",Matriz_Produtos!$F26=""),"",IF(ISNA(MATCH(Matriz_Produtos!$F26,Parâmetros!$B$36:$B$501,0)),"⚠ redução não encontrada",IF(AND(LEFT(Matriz_Produtos!$D26,7)="Simples",ISERROR(SEARCH("híbrido",Matriz_Produtos!$D26)),ISERROR(SEARCH("Regra geral",Matriz_Produtos!$F26))),"⚠ Simples puro: redução setorial de IBS/CBS não é captada pelo DAS — use Simples híbrido ou regra geral","")))	V:None
+E25	F:=IF(Matriz_Produtos!$B26="","",IF(ISNA(MATCH(Matriz_Produtos!$C26,'Alíquotas_IPI (TIPI)'!$B$6:$B$500,0)),"⚠ NCM não encontrado na TIPI",""))	V:None
+F25	F:=IF(Matriz_Produtos!$B26="","",IF(ISNA(MATCH(Matriz_Produtos!$E26,Alíquotas_ICMS!$B$6:$B$500,0)),"⚠ categoria ICMS não encontrada",""))	V:None
+G25	F:=IF(Matriz_Produtos!$B26="","",IF(AND(ISNUMBER(Matriz_Produtos!$G26),Matriz_Produtos!$G26<0),"⚠ preço < 0",""))	V:None
+H25	F:=IF(Matriz_Produtos!$B26="","",IF(AND(Matriz_Produtos!$AD26>=0,Matriz_Produtos!$AD26<=1),"","⚠ crédito c fora de [0,1]"))	V:None
+I25	F:=IF(OR(Matriz_Produtos!$B26="",NOT(ISNUMBER(Matriz_Produtos!$G26)),Matriz_Produtos!$G26<=0,NOT(ISNUMBER(Matriz_Produtos!$AA26))),"",IF(OR(Matriz_Produtos!$AA26>1.25,Matriz_Produtos!$AA26<0.75),"⚠ variação > 25%: limites do art. 125, Lei 14.133 (Ac. TCU 1753/2026) — alterações consensuais acima exigem justificativa excepcional",""))	V:None
+A26	'Produto'
+B26	27
+C26	F:=IF(Matriz_Produtos!$B27="","",IF(ISNA(MATCH(Matriz_Produtos!$D27,Parâmetros!$B$27:$B$501,0)),"⚠ regime não encontrado",""))	V:None
+D26	F:=IF(OR(Matriz_Produtos!$B27="",Matriz_Produtos!$F27=""),"",IF(ISNA(MATCH(Matriz_Produtos!$F27,Parâmetros!$B$36:$B$501,0)),"⚠ redução não encontrada",IF(AND(LEFT(Matriz_Produtos!$D27,7)="Simples",ISERROR(SEARCH("híbrido",Matriz_Produtos!$D27)),ISERROR(SEARCH("Regra geral",Matriz_Produtos!$F27))),"⚠ Simples puro: redução setorial de IBS/CBS não é captada pelo DAS — use Simples híbrido ou regra geral","")))	V:None
+E26	F:=IF(Matriz_Produtos!$B27="","",IF(ISNA(MATCH(Matriz_Produtos!$C27,'Alíquotas_IPI (TIPI)'!$B$6:$B$500,0)),"⚠ NCM não encontrado na TIPI",""))	V:None
+F26	F:=IF(Matriz_Produtos!$B27="","",IF(ISNA(MATCH(Matriz_Produtos!$E27,Alíquotas_ICMS!$B$6:$B$500,0)),"⚠ categoria ICMS não encontrada",""))	V:None
+G26	F:=IF(Matriz_Produtos!$B27="","",IF(AND(ISNUMBER(Matriz_Produtos!$G27),Matriz_Produtos!$G27<0),"⚠ preço < 0",""))	V:None
+H26	F:=IF(Matriz_Produtos!$B27="","",IF(AND(Matriz_Produtos!$AD27>=0,Matriz_Produtos!$AD27<=1),"","⚠ crédito c fora de [0,1]"))	V:None
+I26	F:=IF(OR(Matriz_Produtos!$B27="",NOT(ISNUMBER(Matriz_Produtos!$G27)),Matriz_Produtos!$G27<=0,NOT(ISNUMBER(Matriz_Produtos!$AA27))),"",IF(OR(Matriz_Produtos!$AA27>1.25,Matriz_Produtos!$AA27<0.75),"⚠ variação > 25%: limites do art. 125, Lei 14.133 (Ac. TCU 1753/2026) — alterações consensuais acima exigem justificativa excepcional",""))	V:None
+A27	'Produto'
+B27	28
+C27	F:=IF(Matriz_Produtos!$B28="","",IF(ISNA(MATCH(Matriz_Produtos!$D28,Parâmetros!$B$27:$B$501,0)),"⚠ regime não encontrado",""))	V:None
+D27	F:=IF(OR(Matriz_Produtos!$B28="",Matriz_Produtos!$F28=""),"",IF(ISNA(MATCH(Matriz_Produtos!$F28,Parâmetros!$B$36:$B$501,0)),"⚠ redução não encontrada",IF(AND(LEFT(Matriz_Produtos!$D28,7)="Simples",ISERROR(SEARCH("híbrido",Matriz_Produtos!$D28)),ISERROR(SEARCH("Regra geral",Matriz_Produtos!$F28))),"⚠ Simples puro: redução setorial de IBS/CBS não é captada pelo DAS — use Simples híbrido ou regra geral","")))	V:None
+E27	F:=IF(Matriz_Produtos!$B28="","",IF(ISNA(MATCH(Matriz_Produtos!$C28,'Alíquotas_IPI (TIPI)'!$B$6:$B$500,0)),"⚠ NCM não encontrado na TIPI",""))	V:None
+F27	F:=IF(Matriz_Produtos!$B28="","",IF(ISNA(MATCH(Matriz_Produtos!$E28,Alíquotas_ICMS!$B$6:$B$500,0)),"⚠ categoria ICMS não encontrada",""))	V:None
+G27	F:=IF(Matriz_Produtos!$B28="","",IF(AND(ISNUMBER(Matriz_Produtos!$G28),Matriz_Produtos!$G28<0),"⚠ preço < 0",""))	V:None
+H27	F:=IF(Matriz_Produtos!$B28="","",IF(AND(Matriz_Produtos!$AD28>=0,Matriz_Produtos!$AD28<=1),"","⚠ crédito c fora de [0,1]"))	V:None
+I27	F:=IF(OR(Matriz_Produtos!$B28="",NOT(ISNUMBER(Matriz_Produtos!$G28)),Matriz_Produtos!$G28<=0,NOT(ISNUMBER(Matriz_Produtos!$AA28))),"",IF(OR(Matriz_Produtos!$AA28>1.25,Matriz_Produtos!$AA28<0.75),"⚠ variação > 25%: limites do art. 125, Lei 14.133 (Ac. TCU 1753/2026) — alterações consensuais acima exigem justificativa excepcional",""))	V:None
+A28	'Produto'
+B28	29
+C28	F:=IF(Matriz_Produtos!$B29="","",IF(ISNA(MATCH(Matriz_Produtos!$D29,Parâmetros!$B$27:$B$501,0)),"⚠ regime não encontrado",""))	V:None
+D28	F:=IF(OR(Matriz_Produtos!$B29="",Matriz_Produtos!$F29=""),"",IF(ISNA(MATCH(Matriz_Produtos!$F29,Parâmetros!$B$36:$B$501,0)),"⚠ redução não encontrada",IF(AND(LEFT(Matriz_Produtos!$D29,7)="Simples",ISERROR(SEARCH("híbrido",Matriz_Produtos!$D29)),ISERROR(SEARCH("Regra geral",Matriz_Produtos!$F29))),"⚠ Simples puro: redução setorial de IBS/CBS não é captada pelo DAS — use Simples híbrido ou regra geral","")))	V:None
+E28	F:=IF(Matriz_Produtos!$B29="","",IF(ISNA(MATCH(Matriz_Produtos!$C29,'Alíquotas_IPI (TIPI)'!$B$6:$B$500,0)),"⚠ NCM não encontrado na TIPI",""))	V:None
+F28	F:=IF(Matriz_Produtos!$B29="","",IF(ISNA(MATCH(Matriz_Produtos!$E29,Alíquotas_ICMS!$B$6:$B$500,0)),"⚠ categoria ICMS não encontrada",""))	V:None
+G28	F:=IF(Matriz_Produtos!$B29="","",IF(AND(ISNUMBER(Matriz_Produtos!$G29),Matriz_Produtos!$G29<0),"⚠ preço < 0",""))	V:None
+H28	F:=IF(Matriz_Produtos!$B29="","",IF(AND(Matriz_Produtos!$AD29>=0,Matriz_Produtos!$AD29<=1),"","⚠ crédito c fora de [0,1]"))	V:None
+I28	F:=IF(OR(Matriz_Produtos!$B29="",NOT(ISNUMBER(Matriz_Produtos!$G29)),Matriz_Produtos!$G29<=0,NOT(ISNUMBER(Matriz_Produtos!$AA29))),"",IF(OR(Matriz_Produtos!$AA29>1.25,Matriz_Produtos!$AA29<0.75),"⚠ variação > 25%: limites do art. 125, Lei 14.133 (Ac. TCU 1753/2026) — alterações consensuais acima exigem justificativa excepcional",""))	V:None
+A29	'Produto'
+B29	30
+C29	F:=IF(Matriz_Produtos!$B30="","",IF(ISNA(MATCH(Matriz_Produtos!$D30,Parâmetros!$B$27:$B$501,0)),"⚠ regime não encontrado",""))	V:None
+D29	F:=IF(OR(Matriz_Produtos!$B30="",Matriz_Produtos!$F30=""),"",IF(ISNA(MATCH(Matriz_Produtos!$F30,Parâmetros!$B$36:$B$501,0)),"⚠ redução não encontrada",IF(AND(LEFT(Matriz_Produtos!$D30,7)="Simples",ISERROR(SEARCH("híbrido",Matriz_Produtos!$D30)),ISERROR(SEARCH("Regra geral",Matriz_Produtos!$F30))),"⚠ Simples puro: redução setorial de IBS/CBS não é captada pelo DAS — use Simples híbrido ou regra geral","")))	V:None
+E29	F:=IF(Matriz_Produtos!$B30="","",IF(ISNA(MATCH(Matriz_Produtos!$C30,'Alíquotas_IPI (TIPI)'!$B$6:$B$500,0)),"⚠ NCM não encontrado na TIPI",""))	V:None
+F29	F:=IF(Matriz_Produtos!$B30="","",IF(ISNA(MATCH(Matriz_Produtos!$E30,Alíquotas_ICMS!$B$6:$B$500,0)),"⚠ categoria ICMS não encontrada",""))	V:None
+G29	F:=IF(Matriz_Produtos!$B30="","",IF(AND(ISNUMBER(Matriz_Produtos!$G30),Matriz_Produtos!$G30<0),"⚠ preço < 0",""))	V:None
+H29	F:=IF(Matriz_Produtos!$B30="","",IF(AND(Matriz_Produtos!$AD30>=0,Matriz_Produtos!$AD30<=1),"","⚠ crédito c fora de [0,1]"))	V:None
+I29	F:=IF(OR(Matriz_Produtos!$B30="",NOT(ISNUMBER(Matriz_Produtos!$G30)),Matriz_Produtos!$G30<=0,NOT(ISNUMBER(Matriz_Produtos!$AA30))),"",IF(OR(Matriz_Produtos!$AA30>1.25,Matriz_Produtos!$AA30<0.75),"⚠ variação > 25%: limites do art. 125, Lei 14.133 (Ac. TCU 1753/2026) — alterações consensuais acima exigem justificativa excepcional",""))	V:None
+A30	'Produto'
+B30	31
+C30	F:=IF(Matriz_Produtos!$B31="","",IF(ISNA(MATCH(Matriz_Produtos!$D31,Parâmetros!$B$27:$B$501,0)),"⚠ regime não encontrado",""))	V:None
+D30	F:=IF(OR(Matriz_Produtos!$B31="",Matriz_Produtos!$F31=""),"",IF(ISNA(MATCH(Matriz_Produtos!$F31,Parâmetros!$B$36:$B$501,0)),"⚠ redução não encontrada",IF(AND(LEFT(Matriz_Produtos!$D31,7)="Simples",ISERROR(SEARCH("híbrido",Matriz_Produtos!$D31)),ISERROR(SEARCH("Regra geral",Matriz_Produtos!$F31))),"⚠ Simples puro: redução setorial de IBS/CBS não é captada pelo DAS — use Simples híbrido ou regra geral","")))	V:None
+E30	F:=IF(Matriz_Produtos!$B31="","",IF(ISNA(MATCH(Matriz_Produtos!$C31,'Alíquotas_IPI (TIPI)'!$B$6:$B$500,0)),"⚠ NCM não encontrado na TIPI",""))	V:None
+F30	F:=IF(Matriz_Produtos!$B31="","",IF(ISNA(MATCH(Matriz_Produtos!$E31,Alíquotas_ICMS!$B$6:$B$500,0)),"⚠ categoria ICMS não encontrada",""))	V:None
+G30	F:=IF(Matriz_Produtos!$B31="","",IF(AND(ISNUMBER(Matriz_Produtos!$G31),Matriz_Produtos!$G31<0),"⚠ preço < 0",""))	V:None
+H30	F:=IF(Matriz_Produtos!$B31="","",IF(AND(Matriz_Produtos!$AD31>=0,Matriz_Produtos!$AD31<=1),"","⚠ crédito c fora de [0,1]"))	V:None
+I30	F:=IF(OR(Matriz_Produtos!$B31="",NOT(ISNUMBER(Matriz_Produtos!$G31)),Matriz_Produtos!$G31<=0,NOT(ISNUMBER(Matriz_Produtos!$AA31))),"",IF(OR(Matriz_Produtos!$AA31>1.25,Matriz_Produtos!$AA31<0.75),"⚠ variação > 25%: limites do art. 125, Lei 14.133 (Ac. TCU 1753/2026) — alterações consensuais acima exigem justificativa excepcional",""))	V:None
+A31	'Produto'
+B31	32
+C31	F:=IF(Matriz_Produtos!$B32="","",IF(ISNA(MATCH(Matriz_Produtos!$D32,Parâmetros!$B$27:$B$501,0)),"⚠ regime não encontrado",""))	V:None
+D31	F:=IF(OR(Matriz_Produtos!$B32="",Matriz_Produtos!$F32=""),"",IF(ISNA(MATCH(Matriz_Produtos!$F32,Parâmetros!$B$36:$B$501,0)),"⚠ redução não encontrada",IF(AND(LEFT(Matriz_Produtos!$D32,7)="Simples",ISERROR(SEARCH("híbrido",Matriz_Produtos!$D32)),ISERROR(SEARCH("Regra geral",Matriz_Produtos!$F32))),"⚠ Simples puro: redução setorial de IBS/CBS não é captada pelo DAS — use Simples híbrido ou regra geral","")))	V:None
+E31	F:=IF(Matriz_Produtos!$B32="","",IF(ISNA(MATCH(Matriz_Produtos!$C32,'Alíquotas_IPI (TIPI)'!$B$6:$B$500,0)),"⚠ NCM não encontrado na TIPI",""))	V:None
+F31	F:=IF(Matriz_Produtos!$B32="","",IF(ISNA(MATCH(Matriz_Produtos!$E32,Alíquotas_ICMS!$B$6:$B$500,0)),"⚠ categoria ICMS não encontrada",""))	V:None
+G31	F:=IF(Matriz_Produtos!$B32="","",IF(AND(ISNUMBER(Matriz_Produtos!$G32),Matriz_Produtos!$G32<0),"⚠ preço < 0",""))	V:None
+H31	F:=IF(Matriz_Produtos!$B32="","",IF(AND(Matriz_Produtos!$AD32>=0,Matriz_Produtos!$AD32<=1),"","⚠ crédito c fora de [0,1]"))	V:None
+I31	F:=IF(OR(Matriz_Produtos!$B32="",NOT(ISNUMBER(Matriz_Produtos!$G32)),Matriz_Produtos!$G32<=0,NOT(ISNUMBER(Matriz_Produtos!$AA32))),"",IF(OR(Matriz_Produtos!$AA32>1.25,Matriz_Produtos!$AA32<0.75),"⚠ variação > 25%: limites do art. 125, Lei 14.133 (Ac. TCU 1753/2026) — alterações consensuais acima exigem justificativa excepcional",""))	V:None
+A32	'Produto'
+B32	33
+C32	F:=IF(Matriz_Produtos!$B33="","",IF(ISNA(MATCH(Matriz_Produtos!$D33,Parâmetros!$B$27:$B$501,0)),"⚠ regime não encontrado",""))	V:None
+D32	F:=IF(OR(Matriz_Produtos!$B33="",Matriz_Produtos!$F33=""),"",IF(ISNA(MATCH(Matriz_Produtos!$F33,Parâmetros!$B$36:$B$501,0)),"⚠ redução não encontrada",IF(AND(LEFT(Matriz_Produtos!$D33,7)="Simples",ISERROR(SEARCH("híbrido",Matriz_Produtos!$D33)),ISERROR(SEARCH("Regra geral",Matriz_Produtos!$F33))),"⚠ Simples puro: redução setorial de IBS/CBS não é captada pelo DAS — use Simples híbrido ou regra geral","")))	V:None
+E32	F:=IF(Matriz_Produtos!$B33="","",IF(ISNA(MATCH(Matriz_Produtos!$C33,'Alíquotas_IPI (TIPI)'!$B$6:$B$500,0)),"⚠ NCM não encontrado na TIPI",""))	V:None
+F32	F:=IF(Matriz_Produtos!$B33="","",IF(ISNA(MATCH(Matriz_Produtos!$E33,Alíquotas_ICMS!$B$6:$B$500,0)),"⚠ categoria ICMS não encontrada",""))	V:None
+G32	F:=IF(Matriz_Produtos!$B33="","",IF(AND(ISNUMBER(Matriz_Produtos!$G33),Matriz_Produtos!$G33<0),"⚠ preço < 0",""))	V:None
+H32	F:=IF(Matriz_Produtos!$B33="","",IF(AND(Matriz_Produtos!$AD33>=0,Matriz_Produtos!$AD33<=1),"","⚠ crédito c fora de [0,1]"))	V:None
+I32	F:=IF(OR(Matriz_Produtos!$B33="",NOT(ISNUMBER(Matriz_Produtos!$G33)),Matriz_Produtos!$G33<=0,NOT(ISNUMBER(Matriz_Produtos!$AA33))),"",IF(OR(Matriz_Produtos!$AA33>1.25,Matriz_Produtos!$AA33<0.75),"⚠ variação > 25%: limites do art. 125, Lei 14.133 (Ac. TCU 1753/2026) — alterações consensuais acima exigem justificativa excepcional",""))	V:None
+A33	'Produto'
+B33	34
+C33	F:=IF(Matriz_Produtos!$B34="","",IF(ISNA(MATCH(Matriz_Produtos!$D34,Parâmetros!$B$27:$B$501,0)),"⚠ regime não encontrado",""))	V:None
+D33	F:=IF(OR(Matriz_Produtos!$B34="",Matriz_Produtos!$F34=""),"",IF(ISNA(MATCH(Matriz_Produtos!$F34,Parâmetros!$B$36:$B$501,0)),"⚠ redução não encontrada",IF(AND(LEFT(Matriz_Produtos!$D34,7)="Simples",ISERROR(SEARCH("híbrido",Matriz_Produtos!$D34)),ISERROR(SEARCH("Regra geral",Matriz_Produtos!$F34))),"⚠ Simples puro: redução setorial de IBS/CBS não é captada pelo DAS — use Simples híbrido ou regra geral","")))	V:None
+E33	F:=IF(Matriz_Produtos!$B34="","",IF(ISNA(MATCH(Matriz_Produtos!$C34,'Alíquotas_IPI (TIPI)'!$B$6:$B$500,0)),"⚠ NCM não encontrado na TIPI",""))	V:None
+F33	F:=IF(Matriz_Produtos!$B34="","",IF(ISNA(MATCH(Matriz_Produtos!$E34,Alíquotas_ICMS!$B$6:$B$500,0)),"⚠ categoria ICMS não encontrada",""))	V:None
+G33	F:=IF(Matriz_Produtos!$B34="","",IF(AND(ISNUMBER(Matriz_Produtos!$G34),Matriz_Produtos!$G34<0),"⚠ preço < 0",""))	V:None
+H33	F:=IF(Matriz_Produtos!$B34="","",IF(AND(Matriz_Produtos!$AD34>=0,Matriz_Produtos!$AD34<=1),"","⚠ crédito c fora de [0,1]"))	V:None
+I33	F:=IF(OR(Matriz_Produtos!$B34="",NOT(ISNUMBER(Matriz_Produtos!$G34)),Matriz_Produtos!$G34<=0,NOT(ISNUMBER(Matriz_Produtos!$AA34))),"",IF(OR(Matriz_Produtos!$AA34>1.25,Matriz_Produtos!$AA34<0.75),"⚠ variação > 25%: limites do art. 125, Lei 14.133 (Ac. TCU 1753/2026) — alterações consensuais acima exigem justificativa excepcional",""))	V:None
+A34	'Produto'
+B34	35
+C34	F:=IF(Matriz_Produtos!$B35="","",IF(ISNA(MATCH(Matriz_Produtos!$D35,Parâmetros!$B$27:$B$501,0)),"⚠ regime não encontrado",""))	V:None
+D34	F:=IF(OR(Matriz_Produtos!$B35="",Matriz_Produtos!$F35=""),"",IF(ISNA(MATCH(Matriz_Produtos!$F35,Parâmetros!$B$36:$B$501,0)),"⚠ redução não encontrada",IF(AND(LEFT(Matriz_Produtos!$D35,7)="Simples",ISERROR(SEARCH("híbrido",Matriz_Produtos!$D35)),ISERROR(SEARCH("Regra geral",Matriz_Produtos!$F35))),"⚠ Simples puro: redução setorial de IBS/CBS não é captada pelo DAS — use Simples híbrido ou regra geral","")))	V:None
+E34	F:=IF(Matriz_Produtos!$B35="","",IF(ISNA(MATCH(Matriz_Produtos!$C35,'Alíquotas_IPI (TIPI)'!$B$6:$B$500,0)),"⚠ NCM não encontrado na TIPI",""))	V:None
+F34	F:=IF(Matriz_Produtos!$B35="","",IF(ISNA(MATCH(Matriz_Produtos!$E35,Alíquotas_ICMS!$B$6:$B$500,0)),"⚠ categoria ICMS não encontrada",""))	V:None
+G34	F:=IF(Matriz_Produtos!$B35="","",IF(AND(ISNUMBER(Matriz_Produtos!$G35),Matriz_Produtos!$G35<0),"⚠ preço < 0",""))	V:None
+H34	F:=IF(Matriz_Produtos!$B35="","",IF(AND(Matriz_Produtos!$AD35>=0,Matriz_Produtos!$AD35<=1),"","⚠ crédito c fora de [0,1]"))	V:None
+I34	F:=IF(OR(Matriz_Produtos!$B35="",NOT(ISNUMBER(Matriz_Produtos!$G35)),Matriz_Produtos!$G35<=0,NOT(ISNUMBER(Matriz_Produtos!$AA35))),"",IF(OR(Matriz_Produtos!$AA35>1.25,Matriz_Produtos!$AA35<0.75),"⚠ variação > 25%: limites do art. 125, Lei 14.133 (Ac. TCU 1753/2026) — alterações consensuais acima exigem justificativa excepcional",""))	V:None
+A35	'Produto'
+B35	36
+C35	F:=IF(Matriz_Produtos!$B36="","",IF(ISNA(MATCH(Matriz_Produtos!$D36,Parâmetros!$B$27:$B$501,0)),"⚠ regime não encontrado",""))	V:None
+D35	F:=IF(OR(Matriz_Produtos!$B36="",Matriz_Produtos!$F36=""),"",IF(ISNA(MATCH(Matriz_Produtos!$F36,Parâmetros!$B$36:$B$501,0)),"⚠ redução não encontrada",IF(AND(LEFT(Matriz_Produtos!$D36,7)="Simples",ISERROR(SEARCH("híbrido",Matriz_Produtos!$D36)),ISERROR(SEARCH("Regra geral",Matriz_Produtos!$F36))),"⚠ Simples puro: redução setorial de IBS/CBS não é captada pelo DAS — use Simples híbrido ou regra geral","")))	V:None
+E35	F:=IF(Matriz_Produtos!$B36="","",IF(ISNA(MATCH(Matriz_Produtos!$C36,'Alíquotas_IPI (TIPI)'!$B$6:$B$500,0)),"⚠ NCM não encontrado na TIPI",""))	V:None
+F35	F:=IF(Matriz_Produtos!$B36="","",IF(ISNA(MATCH(Matriz_Produtos!$E36,Alíquotas_ICMS!$B$6:$B$500,0)),"⚠ categoria ICMS não encontrada",""))	V:None
+G35	F:=IF(Matriz_Produtos!$B36="","",IF(AND(ISNUMBER(Matriz_Produtos!$G36),Matriz_Produtos!$G36<0),"⚠ preço < 0",""))	V:None
+H35	F:=IF(Matriz_Produtos!$B36="","",IF(AND(Matriz_Produtos!$AD36>=0,Matriz_Produtos!$AD36<=1),"","⚠ crédito c fora de [0,1]"))	V:None
+I35	F:=IF(OR(Matriz_Produtos!$B36="",NOT(ISNUMBER(Matriz_Produtos!$G36)),Matriz_Produtos!$G36<=0,NOT(ISNUMBER(Matriz_Produtos!$AA36))),"",IF(OR(Matriz_Produtos!$AA36>1.25,Matriz_Produtos!$AA36<0.75),"⚠ variação > 25%: limites do art. 125, Lei 14.133 (Ac. TCU 1753/2026) — alterações consensuais acima exigem justificativa excepcional",""))	V:None
+A36	'Produto'
+B36	37
+C36	F:=IF(Matriz_Produtos!$B37="","",IF(ISNA(MATCH(Matriz_Produtos!$D37,Parâmetros!$B$27:$B$501,0)),"⚠ regime não encontrado",""))	V:None
+D36	F:=IF(OR(Matriz_Produtos!$B37="",Matriz_Produtos!$F37=""),"",IF(ISNA(MATCH(Matriz_Produtos!$F37,Parâmetros!$B$36:$B$501,0)),"⚠ redução não encontrada",IF(AND(LEFT(Matriz_Produtos!$D37,7)="Simples",ISERROR(SEARCH("híbrido",Matriz_Produtos!$D37)),ISERROR(SEARCH("Regra geral",Matriz_Produtos!$F37))),"⚠ Simples puro: redução setorial de IBS/CBS não é captada pelo DAS — use Simples híbrido ou regra geral","")))	V:None
+E36	F:=IF(Matriz_Produtos!$B37="","",IF(ISNA(MATCH(Matriz_Produtos!$C37,'Alíquotas_IPI (TIPI)'!$B$6:$B$500,0)),"⚠ NCM não encontrado na TIPI",""))	V:None
+F36	F:=IF(Matriz_Produtos!$B37="","",IF(ISNA(MATCH(Matriz_Produtos!$E37,Alíquotas_ICMS!$B$6:$B$500,0)),"⚠ categoria ICMS não encontrada",""))	V:None
+G36	F:=IF(Matriz_Produtos!$B37="","",IF(AND(ISNUMBER(Matriz_Produtos!$G37),Matriz_Produtos!$G37<0),"⚠ preço < 0",""))	V:None
+H36	F:=IF(Matriz_Produtos!$B37="","",IF(AND(Matriz_Produtos!$AD37>=0,Matriz_Produtos!$AD37<=1),"","⚠ crédito c fora de [0,1]"))	V:None
+I36	F:=IF(OR(Matriz_Produtos!$B37="",NOT(ISNUMBER(Matriz_Produtos!$G37)),Matriz_Produtos!$G37<=0,NOT(ISNUMBER(Matriz_Produtos!$AA37))),"",IF(OR(Matriz_Produtos!$AA37>1.25,Matriz_Produtos!$AA37<0.75),"⚠ variação > 25%: limites do art. 125, Lei 14.133 (Ac. TCU 1753/2026) — alterações consensuais acima exigem justificativa excepcional",""))	V:None
+A37	'Produto'
+B37	38
+C37	F:=IF(Matriz_Produtos!$B38="","",IF(ISNA(MATCH(Matriz_Produtos!$D38,Parâmetros!$B$27:$B$501,0)),"⚠ regime não encontrado",""))	V:None
+D37	F:=IF(OR(Matriz_Produtos!$B38="",Matriz_Produtos!$F38=""),"",IF(ISNA(MATCH(Matriz_Produtos!$F38,Parâmetros!$B$36:$B$501,0)),"⚠ redução não encontrada",IF(AND(LEFT(Matriz_Produtos!$D38,7)="Simples",ISERROR(SEARCH("híbrido",Matriz_Produtos!$D38)),ISERROR(SEARCH("Regra geral",Matriz_Produtos!$F38))),"⚠ Simples puro: redução setorial de IBS/CBS não é captada pelo DAS — use Simples híbrido ou regra geral","")))	V:None
+E37	F:=IF(Matriz_Produtos!$B38="","",IF(ISNA(MATCH(Matriz_Produtos!$C38,'Alíquotas_IPI (TIPI)'!$B$6:$B$500,0)),"⚠ NCM não encontrado na TIPI",""))	V:None
+F37	F:=IF(Matriz_Produtos!$B38="","",IF(ISNA(MATCH(Matriz_Produtos!$E38,Alíquotas_ICMS!$B$6:$B$500,0)),"⚠ categoria ICMS não encontrada",""))	V:None
+G37	F:=IF(Matriz_Produtos!$B38="","",IF(AND(ISNUMBER(Matriz_Produtos!$G38),Matriz_Produtos!$G38<0),"⚠ preço < 0",""))	V:None
+H37	F:=IF(Matriz_Produtos!$B38="","",IF(AND(Matriz_Produtos!$AD38>=0,Matriz_Produtos!$AD38<=1),"","⚠ crédito c fora de [0,1]"))	V:None
+I37	F:=IF(OR(Matriz_Produtos!$B38="",NOT(ISNUMBER(Matriz_Produtos!$G38)),Matriz_Produtos!$G38<=0,NOT(ISNUMBER(Matriz_Produtos!$AA38))),"",IF(OR(Matriz_Produtos!$AA38>1.25,Matriz_Produtos!$AA38<0.75),"⚠ variação > 25%: limites do art. 125, Lei 14.133 (Ac. TCU 1753/2026) — alterações consensuais acima exigem justificativa excepcional",""))	V:None
+A38	'Produto'
+B38	39
+C38	F:=IF(Matriz_Produtos!$B39="","",IF(ISNA(MATCH(Matriz_Produtos!$D39,Parâmetros!$B$27:$B$501,0)),"⚠ regime não encontrado",""))	V:None
+D38	F:=IF(OR(Matriz_Produtos!$B39="",Matriz_Produtos!$F39=""),"",IF(ISNA(MATCH(Matriz_Produtos!$F39,Parâmetros!$B$36:$B$501,0)),"⚠ redução não encontrada",IF(AND(LEFT(Matriz_Produtos!$D39,7)="Simples",ISERROR(SEARCH("híbrido",Matriz_Produtos!$D39)),ISERROR(SEARCH("Regra geral",Matriz_Produtos!$F39))),"⚠ Simples puro: redução setorial de IBS/CBS não é captada pelo DAS — use Simples híbrido ou regra geral","")))	V:None
+E38	F:=IF(Matriz_Produtos!$B39="","",IF(ISNA(MATCH(Matriz_Produtos!$C39,'Alíquotas_IPI (TIPI)'!$B$6:$B$500,0)),"⚠ NCM não encontrado na TIPI",""))	V:None
+F38	F:=IF(Matriz_Produtos!$B39="","",IF(ISNA(MATCH(Matriz_Produtos!$E39,Alíquotas_ICMS!$B$6:$B$500,0)),"⚠ categoria ICMS não encontrada",""))	V:None
+G38	F:=IF(Matriz_Produtos!$B39="","",IF(AND(ISNUMBER(Matriz_Produtos!$G39),Matriz_Produtos!$G39<0),"⚠ preço < 0",""))	V:None
+H38	F:=IF(Matriz_Produtos!$B39="","",IF(AND(Matriz_Produtos!$AD39>=0,Matriz_Produtos!$AD39<=1),"","⚠ crédito c fora de [0,1]"))	V:None
+I38	F:=IF(OR(Matriz_Produtos!$B39="",NOT(ISNUMBER(Matriz_Produtos!$G39)),Matriz_Produtos!$G39<=0,NOT(ISNUMBER(Matriz_Produtos!$AA39))),"",IF(OR(Matriz_Produtos!$AA39>1.25,Matriz_Produtos!$AA39<0.75),"⚠ variação > 25%: limites do art. 125, Lei 14.133 (Ac. TCU 1753/2026) — alterações consensuais acima exigem justificativa excepcional",""))	V:None
+A39	'Produto'
+B39	40
+C39	F:=IF(Matriz_Produtos!$B40="","",IF(ISNA(MATCH(Matriz_Produtos!$D40,Parâmetros!$B$27:$B$501,0)),"⚠ regime não encontrado",""))	V:None
+D39	F:=IF(OR(Matriz_Produtos!$B40="",Matriz_Produtos!$F40=""),"",IF(ISNA(MATCH(Matriz_Produtos!$F40,Parâmetros!$B$36:$B$501,0)),"⚠ redução não encontrada",IF(AND(LEFT(Matriz_Produtos!$D40,7)="Simples",ISERROR(SEARCH("híbrido",Matriz_Produtos!$D40)),ISERROR(SEARCH("Regra geral",Matriz_Produtos!$F40))),"⚠ Simples puro: redução setorial de IBS/CBS não é captada pelo DAS — use Simples híbrido ou regra geral","")))	V:None
+E39	F:=IF(Matriz_Produtos!$B40="","",IF(ISNA(MATCH(Matriz_Produtos!$C40,'Alíquotas_IPI (TIPI)'!$B$6:$B$500,0)),"⚠ NCM não encontrado na TIPI",""))	V:None
+F39	F:=IF(Matriz_Produtos!$B40="","",IF(ISNA(MATCH(Matriz_Produtos!$E40,Alíquotas_ICMS!$B$6:$B$500,0)),"⚠ categoria ICMS não encontrada",""))	V:None
+G39	F:=IF(Matriz_Produtos!$B40="","",IF(AND(ISNUMBER(Matriz_Produtos!$G40),Matriz_Produtos!$G40<0),"⚠ preço < 0",""))	V:None
+H39	F:=IF(Matriz_Produtos!$B40="","",IF(AND(Matriz_Produtos!$AD40>=0,Matriz_Produtos!$AD40<=1),"","⚠ crédito c fora de [0,1]"))	V:None
+I39	F:=IF(OR(Matriz_Produtos!$B40="",NOT(ISNUMBER(Matriz_Produtos!$G40)),Matriz_Produtos!$G40<=0,NOT(ISNUMBER(Matriz_Produtos!$AA40))),"",IF(OR(Matriz_Produtos!$AA40>1.25,Matriz_Produtos!$AA40<0.75),"⚠ variação > 25%: limites do art. 125, Lei 14.133 (Ac. TCU 1753/2026) — alterações consensuais acima exigem justificativa excepcional",""))	V:None
+A40	'Produto'
+B40	41
+C40	F:=IF(Matriz_Produtos!$B41="","",IF(ISNA(MATCH(Matriz_Produtos!$D41,Parâmetros!$B$27:$B$501,0)),"⚠ regime não encontrado",""))	V:None
+D40	F:=IF(OR(Matriz_Produtos!$B41="",Matriz_Produtos!$F41=""),"",IF(ISNA(MATCH(Matriz_Produtos!$F41,Parâmetros!$B$36:$B$501,0)),"⚠ redução não encontrada",IF(AND(LEFT(Matriz_Produtos!$D41,7)="Simples",ISERROR(SEARCH("híbrido",Matriz_Produtos!$D41)),ISERROR(SEARCH("Regra geral",Matriz_Produtos!$F41))),"⚠ Simples puro: redução setorial de IBS/CBS não é captada pelo DAS — use Simples híbrido ou regra geral","")))	V:None
+E40	F:=IF(Matriz_Produtos!$B41="","",IF(ISNA(MATCH(Matriz_Produtos!$C41,'Alíquotas_IPI (TIPI)'!$B$6:$B$500,0)),"⚠ NCM não encontrado na TIPI",""))	V:None
+F40	F:=IF(Matriz_Produtos!$B41="","",IF(ISNA(MATCH(Matriz_Produtos!$E41,Alíquotas_ICMS!$B$6:$B$500,0)),"⚠ categoria ICMS não encontrada",""))	V:None
+G40	F:=IF(Matriz_Produtos!$B41="","",IF(AND(ISNUMBER(Matriz_Produtos!$G41),Matriz_Produtos!$G41<0),"⚠ preço < 0",""))	V:None
+H40	F:=IF(Matriz_Produtos!$B41="","",IF(AND(Matriz_Produtos!$AD41>=0,Matriz_Produtos!$AD41<=1),"","⚠ crédito c fora de [0,1]"))	V:None
+I40	F:=IF(OR(Matriz_Produtos!$B41="",NOT(ISNUMBER(Matriz_Produtos!$G41)),Matriz_Produtos!$G41<=0,NOT(ISNUMBER(Matriz_Produtos!$AA41))),"",IF(OR(Matriz_Produtos!$AA41>1.25,Matriz_Produtos!$AA41<0.75),"⚠ variação > 25%: limites do art. 125, Lei 14.133 (Ac. TCU 1753/2026) — alterações consensuais acima exigem justificativa excepcional",""))	V:None
+A41	'Produto'
+B41	42
+C41	F:=IF(Matriz_Produtos!$B42="","",IF(ISNA(MATCH(Matriz_Produtos!$D42,Parâmetros!$B$27:$B$501,0)),"⚠ regime não encontrado",""))	V:None
+D41	F:=IF(OR(Matriz_Produtos!$B42="",Matriz_Produtos!$F42=""),"",IF(ISNA(MATCH(Matriz_Produtos!$F42,Parâmetros!$B$36:$B$501,0)),"⚠ redução não encontrada",IF(AND(LEFT(Matriz_Produtos!$D42,7)="Simples",ISERROR(SEARCH("híbrido",Matriz_Produtos!$D42)),ISERROR(SEARCH("Regra geral",Matriz_Produtos!$F42))),"⚠ Simples puro: redução setorial de IBS/CBS não é captada pelo DAS — use Simples híbrido ou regra geral","")))	V:None
+E41	F:=IF(Matriz_Produtos!$B42="","",IF(ISNA(MATCH(Matriz_Produtos!$C42,'Alíquotas_IPI (TIPI)'!$B$6:$B$500,0)),"⚠ NCM não encontrado na TIPI",""))	V:None
+F41	F:=IF(Matriz_Produtos!$B42="","",IF(ISNA(MATCH(Matriz_Produtos!$E42,Alíquotas_ICMS!$B$6:$B$500,0)),"⚠ categoria ICMS não encontrada",""))	V:None
+G41	F:=IF(Matriz_Produtos!$B42="","",IF(AND(ISNUMBER(Matriz_Produtos!$G42),Matriz_Produtos!$G42<0),"⚠ preço < 0",""))	V:None
+H41	F:=IF(Matriz_Produtos!$B42="","",IF(AND(Matriz_Produtos!$AD42>=0,Matriz_Produtos!$AD42<=1),"","⚠ crédito c fora de [0,1]"))	V:None
+I41	F:=IF(OR(Matriz_Produtos!$B42="",NOT(ISNUMBER(Matriz_Produtos!$G42)),Matriz_Produtos!$G42<=0,NOT(ISNUMBER(Matriz_Produtos!$AA42))),"",IF(OR(Matriz_Produtos!$AA42>1.25,Matriz_Produtos!$AA42<0.75),"⚠ variação > 25%: limites do art. 125, Lei 14.133 (Ac. TCU 1753/2026) — alterações consensuais acima exigem justificativa excepcional",""))	V:None
+A42	'Produto'
+B42	43
+C42	F:=IF(Matriz_Produtos!$B43="","",IF(ISNA(MATCH(Matriz_Produtos!$D43,Parâmetros!$B$27:$B$501,0)),"⚠ regime não encontrado",""))	V:None
+D42	F:=IF(OR(Matriz_Produtos!$B43="",Matriz_Produtos!$F43=""),"",IF(ISNA(MATCH(Matriz_Produtos!$F43,Parâmetros!$B$36:$B$501,0)),"⚠ redução não encontrada",IF(AND(LEFT(Matriz_Produtos!$D43,7)="Simples",ISERROR(SEARCH("híbrido",Matriz_Produtos!$D43)),ISERROR(SEARCH("Regra geral",Matriz_Produtos!$F43))),"⚠ Simples puro: redução setorial de IBS/CBS não é captada pelo DAS — use Simples híbrido ou regra geral","")))	V:None
+E42	F:=IF(Matriz_Produtos!$B43="","",IF(ISNA(MATCH(Matriz_Produtos!$C43,'Alíquotas_IPI (TIPI)'!$B$6:$B$500,0)),"⚠ NCM não encontrado na TIPI",""))	V:None
+F42	F:=IF(Matriz_Produtos!$B43="","",IF(ISNA(MATCH(Matriz_Produtos!$E43,Alíquotas_ICMS!$B$6:$B$500,0)),"⚠ categoria ICMS não encontrada",""))	V:None
+G42	F:=IF(Matriz_Produtos!$B43="","",IF(AND(ISNUMBER(Matriz_Produtos!$G43),Matriz_Produtos!$G43<0),"⚠ preço < 0",""))	V:None
+H42	F:=IF(Matriz_Produtos!$B43="","",IF(AND(Matriz_Produtos!$AD43>=0,Matriz_Produtos!$AD43<=1),"","⚠ crédito c fora de [0,1]"))	V:None
+I42	F:=IF(OR(Matriz_Produtos!$B43="",NOT(ISNUMBER(Matriz_Produtos!$G43)),Matriz_Produtos!$G43<=0,NOT(ISNUMBER(Matriz_Produtos!$AA43))),"",IF(OR(Matriz_Produtos!$AA43>1.25,Matriz_Produtos!$AA43<0.75),"⚠ variação > 25%: limites do art. 125, Lei 14.133 (Ac. TCU 1753/2026) — alterações consensuais acima exigem justificativa excepcional",""))	V:None
+A43	'Produto'
+B43	44
+C43	F:=IF(Matriz_Produtos!$B44="","",IF(ISNA(MATCH(Matriz_Produtos!$D44,Parâmetros!$B$27:$B$501,0)),"⚠ regime não encontrado",""))	V:None
+D43	F:=IF(OR(Matriz_Produtos!$B44="",Matriz_Produtos!$F44=""),"",IF(ISNA(MATCH(Matriz_Produtos!$F44,Parâmetros!$B$36:$B$501,0)),"⚠ redução não encontrada",IF(AND(LEFT(Matriz_Produtos!$D44,7)="Simples",ISERROR(SEARCH("híbrido",Matriz_Produtos!$D44)),ISERROR(SEARCH("Regra geral",Matriz_Produtos!$F44))),"⚠ Simples puro: redução setorial de IBS/CBS não é captada pelo DAS — use Simples híbrido ou regra geral","")))	V:None
+E43	F:=IF(Matriz_Produtos!$B44="","",IF(ISNA(MATCH(Matriz_Produtos!$C44,'Alíquotas_IPI (TIPI)'!$B$6:$B$500,0)),"⚠ NCM não encontrado na TIPI",""))	V:None
+F43	F:=IF(Matriz_Produtos!$B44="","",IF(ISNA(MATCH(Matriz_Produtos!$E44,Alíquotas_ICMS!$B$6:$B$500,0)),"⚠ categoria ICMS não encontrada",""))	V:None
+G43	F:=IF(Matriz_Produtos!$B44="","",IF(AND(ISNUMBER(Matriz_Produtos!$G44),Matriz_Produtos!$G44<0),"⚠ preço < 0",""))	V:None
+H43	F:=IF(Matriz_Produtos!$B44="","",IF(AND(Matriz_Produtos!$AD44>=0,Matriz_Produtos!$AD44<=1),"","⚠ crédito c fora de [0,1]"))	V:None
+I43	F:=IF(OR(Matriz_Produtos!$B44="",NOT(ISNUMBER(Matriz_Produtos!$G44)),Matriz_Produtos!$G44<=0,NOT(ISNUMBER(Matriz_Produtos!$AA44))),"",IF(OR(Matriz_Produtos!$AA44>1.25,Matriz_Produtos!$AA44<0.75),"⚠ variação > 25%: limites do art. 125, Lei 14.133 (Ac. TCU 1753/2026) — alterações consensuais acima exigem justificativa excepcional",""))	V:None
+A44	'Produto'
+B44	45
+C44	F:=IF(Matriz_Produtos!$B45="","",IF(ISNA(MATCH(Matriz_Produtos!$D45,Parâmetros!$B$27:$B$501,0)),"⚠ regime não encontrado",""))	V:None
+D44	F:=IF(OR(Matriz_Produtos!$B45="",Matriz_Produtos!$F45=""),"",IF(ISNA(MATCH(Matriz_Produtos!$F45,Parâmetros!$B$36:$B$501,0)),"⚠ redução não encontrada",IF(AND(LEFT(Matriz_Produtos!$D45,7)="Simples",ISERROR(SEARCH("híbrido",Matriz_Produtos!$D45)),ISERROR(SEARCH("Regra geral",Matriz_Produtos!$F45))),"⚠ Simples puro: redução setorial de IBS/CBS não é captada pelo DAS — use Simples híbrido ou regra geral","")))	V:None
+E44	F:=IF(Matriz_Produtos!$B45="","",IF(ISNA(MATCH(Matriz_Produtos!$C45,'Alíquotas_IPI (TIPI)'!$B$6:$B$500,0)),"⚠ NCM não encontrado na TIPI",""))	V:None
+F44	F:=IF(Matriz_Produtos!$B45="","",IF(ISNA(MATCH(Matriz_Produtos!$E45,Alíquotas_ICMS!$B$6:$B$500,0)),"⚠ categoria ICMS não encontrada",""))	V:None
+G44	F:=IF(Matriz_Produtos!$B45="","",IF(AND(ISNUMBER(Matriz_Produtos!$G45),Matriz_Produtos!$G45<0),"⚠ preço < 0",""))	V:None
+H44	F:=IF(Matriz_Produtos!$B45="","",IF(AND(Matriz_Produtos!$AD45>=0,Matriz_Produtos!$AD45<=1),"","⚠ crédito c fora de [0,1]"))	V:None
+I44	F:=IF(OR(Matriz_Produtos!$B45="",NOT(ISNUMBER(Matriz_Produtos!$G45)),Matriz_Produtos!$G45<=0,NOT(ISNUMBER(Matriz_Produtos!$AA45))),"",IF(OR(Matriz_Produtos!$AA45>1.25,Matriz_Produtos!$AA45<0.75),"⚠ variação > 25%: limites do art. 125, Lei 14.133 (Ac. TCU 1753/2026) — alterações consensuais acima exigem justificativa excepcional",""))	V:None
+A45	'Produto'
+B45	46
+C45	F:=IF(Matriz_Produtos!$B46="","",IF(ISNA(MATCH(Matriz_Produtos!$D46,Parâmetros!$B$27:$B$501,0)),"⚠ regime não encontrado",""))	V:None
+D45	F:=IF(OR(Matriz_Produtos!$B46="",Matriz_Produtos!$F46=""),"",IF(ISNA(MATCH(Matriz_Produtos!$F46,Parâmetros!$B$36:$B$501,0)),"⚠ redução não encontrada",IF(AND(LEFT(Matriz_Produtos!$D46,7)="Simples",ISERROR(SEARCH("híbrido",Matriz_Produtos!$D46)),ISERROR(SEARCH("Regra geral",Matriz_Produtos!$F46))),"⚠ Simples puro: redução setorial de IBS/CBS não é captada pelo DAS — use Simples híbrido ou regra geral","")))	V:None
+E45	F:=IF(Matriz_Produtos!$B46="","",IF(ISNA(MATCH(Matriz_Produtos!$C46,'Alíquotas_IPI (TIPI)'!$B$6:$B$500,0)),"⚠ NCM não encontrado na TIPI",""))	V:None
+F45	F:=IF(Matriz_Produtos!$B46="","",IF(ISNA(MATCH(Matriz_Produtos!$E46,Alíquotas_ICMS!$B$6:$B$500,0)),"⚠ categoria ICMS não encontrada",""))	V:None
+G45	F:=IF(Matriz_Produtos!$B46="","",IF(AND(ISNUMBER(Matriz_Produtos!$G46),Matriz_Produtos!$G46<0),"⚠ preço < 0",""))	V:None
+H45	F:=IF(Matriz_Produtos!$B46="","",IF(AND(Matriz_Produtos!$AD46>=0,Matriz_Produtos!$AD46<=1),"","⚠ crédito c fora de [0,1]"))	V:None
+I45	F:=IF(OR(Matriz_Produtos!$B46="",NOT(ISNUMBER(Matriz_Produtos!$G46)),Matriz_Produtos!$G46<=0,NOT(ISNUMBER(Matriz_Produtos!$AA46))),"",IF(OR(Matriz_Produtos!$AA46>1.25,Matriz_Produtos!$AA46<0.75),"⚠ variação > 25%: limites do art. 125, Lei 14.133 (Ac. TCU 1753/2026) — alterações consensuais acima exigem justificativa excepcional",""))	V:None
+A46	'Produto'
+B46	47
+C46	F:=IF(Matriz_Produtos!$B47="","",IF(ISNA(MATCH(Matriz_Produtos!$D47,Parâmetros!$B$27:$B$501,0)),"⚠ regime não encontrado",""))	V:None
+D46	F:=IF(OR(Matriz_Produtos!$B47="",Matriz_Produtos!$F47=""),"",IF(ISNA(MATCH(Matriz_Produtos!$F47,Parâmetros!$B$36:$B$501,0)),"⚠ redução não encontrada",IF(AND(LEFT(Matriz_Produtos!$D47,7)="Simples",ISERROR(SEARCH("híbrido",Matriz_Produtos!$D47)),ISERROR(SEARCH("Regra geral",Matriz_Produtos!$F47))),"⚠ Simples puro: redução setorial de IBS/CBS não é captada pelo DAS — use Simples híbrido ou regra geral","")))	V:None
+E46	F:=IF(Matriz_Produtos!$B47="","",IF(ISNA(MATCH(Matriz_Produtos!$C47,'Alíquotas_IPI (TIPI)'!$B$6:$B$500,0)),"⚠ NCM não encontrado na TIPI",""))	V:None
+F46	F:=IF(Matriz_Produtos!$B47="","",IF(ISNA(MATCH(Matriz_Produtos!$E47,Alíquotas_ICMS!$B$6:$B$500,0)),"⚠ categoria ICMS não encontrada",""))	V:None
+G46	F:=IF(Matriz_Produtos!$B47="","",IF(AND(ISNUMBER(Matriz_Produtos!$G47),Matriz_Produtos!$G47<0),"⚠ preço < 0",""))	V:None
+H46	F:=IF(Matriz_Produtos!$B47="","",IF(AND(Matriz_Produtos!$AD47>=0,Matriz_Produtos!$AD47<=1),"","⚠ crédito c fora de [0,1]"))	V:None
+I46	F:=IF(OR(Matriz_Produtos!$B47="",NOT(ISNUMBER(Matriz_Produtos!$G47)),Matriz_Produtos!$G47<=0,NOT(ISNUMBER(Matriz_Produtos!$AA47))),"",IF(OR(Matriz_Produtos!$AA47>1.25,Matriz_Produtos!$AA47<0.75),"⚠ variação > 25%: limites do art. 125, Lei 14.133 (Ac. TCU 1753/2026) — alterações consensuais acima exigem justificativa excepcional",""))	V:None
+A47	'Produto'
+B47	48
+C47	F:=IF(Matriz_Produtos!$B48="","",IF(ISNA(MATCH(Matriz_Produtos!$D48,Parâmetros!$B$27:$B$501,0)),"⚠ regime não encontrado",""))	V:None
+D47	F:=IF(OR(Matriz_Produtos!$B48="",Matriz_Produtos!$F48=""),"",IF(ISNA(MATCH(Matriz_Produtos!$F48,Parâmetros!$B$36:$B$501,0)),"⚠ redução não encontrada",IF(AND(LEFT(Matriz_Produtos!$D48,7)="Simples",ISERROR(SEARCH("híbrido",Matriz_Produtos!$D48)),ISERROR(SEARCH("Regra geral",Matriz_Produtos!$F48))),"⚠ Simples puro: redução setorial de IBS/CBS não é captada pelo DAS — use Simples híbrido ou regra geral","")))	V:None
+E47	F:=IF(Matriz_Produtos!$B48="","",IF(ISNA(MATCH(Matriz_Produtos!$C48,'Alíquotas_IPI (TIPI)'!$B$6:$B$500,0)),"⚠ NCM não encontrado na TIPI",""))	V:None
+F47	F:=IF(Matriz_Produtos!$B48="","",IF(ISNA(MATCH(Matriz_Produtos!$E48,Alíquotas_ICMS!$B$6:$B$500,0)),"⚠ categoria ICMS não encontrada",""))	V:None
+G47	F:=IF(Matriz_Produtos!$B48="","",IF(AND(ISNUMBER(Matriz_Produtos!$G48),Matriz_Produtos!$G48<0),"⚠ preço < 0",""))	V:None
+H47	F:=IF(Matriz_Produtos!$B48="","",IF(AND(Matriz_Produtos!$AD48>=0,Matriz_Produtos!$AD48<=1),"","⚠ crédito c fora de [0,1]"))	V:None
+I47	F:=IF(OR(Matriz_Produtos!$B48="",NOT(ISNUMBER(Matriz_Produtos!$G48)),Matriz_Produtos!$G48<=0,NOT(ISNUMBER(Matriz_Produtos!$AA48))),"",IF(OR(Matriz_Produtos!$AA48>1.25,Matriz_Produtos!$AA48<0.75),"⚠ variação > 25%: limites do art. 125, Lei 14.133 (Ac. TCU 1753/2026) — alterações consensuais acima exigem justificativa excepcional",""))	V:None
+A48	'Produto'
+B48	49
+C48	F:=IF(Matriz_Produtos!$B49="","",IF(ISNA(MATCH(Matriz_Produtos!$D49,Parâmetros!$B$27:$B$501,0)),"⚠ regime não encontrado",""))	V:None
+D48	F:=IF(OR(Matriz_Produtos!$B49="",Matriz_Produtos!$F49=""),"",IF(ISNA(MATCH(Matriz_Produtos!$F49,Parâmetros!$B$36:$B$501,0)),"⚠ redução não encontrada",IF(AND(LEFT(Matriz_Produtos!$D49,7)="Simples",ISERROR(SEARCH("híbrido",Matriz_Produtos!$D49)),ISERROR(SEARCH("Regra geral",Matriz_Produtos!$F49))),"⚠ Simples puro: redução setorial de IBS/CBS não é captada pelo DAS — use Simples híbrido ou regra geral","")))	V:None
+E48	F:=IF(Matriz_Produtos!$B49="","",IF(ISNA(MATCH(Matriz_Produtos!$C49,'Alíquotas_IPI (TIPI)'!$B$6:$B$500,0)),"⚠ NCM não encontrado na TIPI",""))	V:None
+F48	F:=IF(Matriz_Produtos!$B49="","",IF(ISNA(MATCH(Matriz_Produtos!$E49,Alíquotas_ICMS!$B$6:$B$500,0)),"⚠ categoria ICMS não encontrada",""))	V:None
+G48	F:=IF(Matriz_Produtos!$B49="","",IF(AND(ISNUMBER(Matriz_Produtos!$G49),Matriz_Produtos!$G49<0),"⚠ preço < 0",""))	V:None
+H48	F:=IF(Matriz_Produtos!$B49="","",IF(AND(Matriz_Produtos!$AD49>=0,Matriz_Produtos!$AD49<=1),"","⚠ crédito c fora de [0,1]"))	V:None
+I48	F:=IF(OR(Matriz_Produtos!$B49="",NOT(ISNUMBER(Matriz_Produtos!$G49)),Matriz_Produtos!$G49<=0,NOT(ISNUMBER(Matriz_Produtos!$AA49))),"",IF(OR(Matriz_Produtos!$AA49>1.25,Matriz_Produtos!$AA49<0.75),"⚠ variação > 25%: limites do art. 125, Lei 14.133 (Ac. TCU 1753/2026) — alterações consensuais acima exigem justificativa excepcional",""))	V:None
+A49	'Produto'
+B49	50
+C49	F:=IF(Matriz_Produtos!$B50="","",IF(ISNA(MATCH(Matriz_Produtos!$D50,Parâmetros!$B$27:$B$501,0)),"⚠ regime não encontrado",""))	V:None
+D49	F:=IF(OR(Matriz_Produtos!$B50="",Matriz_Produtos!$F50=""),"",IF(ISNA(MATCH(Matriz_Produtos!$F50,Parâmetros!$B$36:$B$501,0)),"⚠ redução não encontrada",IF(AND(LEFT(Matriz_Produtos!$D50,7)="Simples",ISERROR(SEARCH("híbrido",Matriz_Produtos!$D50)),ISERROR(SEARCH("Regra geral",Matriz_Produtos!$F50))),"⚠ Simples puro: redução setorial de IBS/CBS não é captada pelo DAS — use Simples híbrido ou regra geral","")))	V:None
+E49	F:=IF(Matriz_Produtos!$B50="","",IF(ISNA(MATCH(Matriz_Produtos!$C50,'Alíquotas_IPI (TIPI)'!$B$6:$B$500,0)),"⚠ NCM não encontrado na TIPI",""))	V:None
+F49	F:=IF(Matriz_Produtos!$B50="","",IF(ISNA(MATCH(Matriz_Produtos!$E50,Alíquotas_ICMS!$B$6:$B$500,0)),"⚠ categoria ICMS não encontrada",""))	V:None
+G49	F:=IF(Matriz_Produtos!$B50="","",IF(AND(ISNUMBER(Matriz_Produtos!$G50),Matriz_Produtos!$G50<0),"⚠ preço < 0",""))	V:None
+H49	F:=IF(Matriz_Produtos!$B50="","",IF(AND(Matriz_Produtos!$AD50>=0,Matriz_Produtos!$AD50<=1),"","⚠ crédito c fora de [0,1]"))	V:None
+I49	F:=IF(OR(Matriz_Produtos!$B50="",NOT(ISNUMBER(Matriz_Produtos!$G50)),Matriz_Produtos!$G50<=0,NOT(ISNUMBER(Matriz_Produtos!$AA50))),"",IF(OR(Matriz_Produtos!$AA50>1.25,Matriz_Produtos!$AA50<0.75),"⚠ variação > 25%: limites do art. 125, Lei 14.133 (Ac. TCU 1753/2026) — alterações consensuais acima exigem justificativa excepcional",""))	V:None
+A50	'Produto'
+B50	51
+C50	F:=IF(Matriz_Produtos!$B51="","",IF(ISNA(MATCH(Matriz_Produtos!$D51,Parâmetros!$B$27:$B$501,0)),"⚠ regime não encontrado",""))	V:None
+D50	F:=IF(OR(Matriz_Produtos!$B51="",Matriz_Produtos!$F51=""),"",IF(ISNA(MATCH(Matriz_Produtos!$F51,Parâmetros!$B$36:$B$501,0)),"⚠ redução não encontrada",IF(AND(LEFT(Matriz_Produtos!$D51,7)="Simples",ISERROR(SEARCH("híbrido",Matriz_Produtos!$D51)),ISERROR(SEARCH("Regra geral",Matriz_Produtos!$F51))),"⚠ Simples puro: redução setorial de IBS/CBS não é captada pelo DAS — use Simples híbrido ou regra geral","")))	V:None
+E50	F:=IF(Matriz_Produtos!$B51="","",IF(ISNA(MATCH(Matriz_Produtos!$C51,'Alíquotas_IPI (TIPI)'!$B$6:$B$500,0)),"⚠ NCM não encontrado na TIPI",""))	V:None
+F50	F:=IF(Matriz_Produtos!$B51="","",IF(ISNA(MATCH(Matriz_Produtos!$E51,Alíquotas_ICMS!$B$6:$B$500,0)),"⚠ categoria ICMS não encontrada",""))	V:None
+G50	F:=IF(Matriz_Produtos!$B51="","",IF(AND(ISNUMBER(Matriz_Produtos!$G51),Matriz_Produtos!$G51<0),"⚠ preço < 0",""))	V:None
+H50	F:=IF(Matriz_Produtos!$B51="","",IF(AND(Matriz_Produtos!$AD51>=0,Matriz_Produtos!$AD51<=1),"","⚠ crédito c fora de [0,1]"))	V:None
+I50	F:=IF(OR(Matriz_Produtos!$B51="",NOT(ISNUMBER(Matriz_Produtos!$G51)),Matriz_Produtos!$G51<=0,NOT(ISNUMBER(Matriz_Produtos!$AA51))),"",IF(OR(Matriz_Produtos!$AA51>1.25,Matriz_Produtos!$AA51<0.75),"⚠ variação > 25%: limites do art. 125, Lei 14.133 (Ac. TCU 1753/2026) — alterações consensuais acima exigem justificativa excepcional",""))	V:None
+A51	'Produto'
+B51	52
+C51	F:=IF(Matriz_Produtos!$B52="","",IF(ISNA(MATCH(Matriz_Produtos!$D52,Parâmetros!$B$27:$B$501,0)),"⚠ regime não encontrado",""))	V:None
+D51	F:=IF(OR(Matriz_Produtos!$B52="",Matriz_Produtos!$F52=""),"",IF(ISNA(MATCH(Matriz_Produtos!$F52,Parâmetros!$B$36:$B$501,0)),"⚠ redução não encontrada",IF(AND(LEFT(Matriz_Produtos!$D52,7)="Simples",ISERROR(SEARCH("híbrido",Matriz_Produtos!$D52)),ISERROR(SEARCH("Regra geral",Matriz_Produtos!$F52))),"⚠ Simples puro: redução setorial de IBS/CBS não é captada pelo DAS — use Simples híbrido ou regra geral","")))	V:None
+E51	F:=IF(Matriz_Produtos!$B52="","",IF(ISNA(MATCH(Matriz_Produtos!$C52,'Alíquotas_IPI (TIPI)'!$B$6:$B$500,0)),"⚠ NCM não encontrado na TIPI",""))	V:None
+F51	F:=IF(Matriz_Produtos!$B52="","",IF(ISNA(MATCH(Matriz_Produtos!$E52,Alíquotas_ICMS!$B$6:$B$500,0)),"⚠ categoria ICMS não encontrada",""))	V:None
+G51	F:=IF(Matriz_Produtos!$B52="","",IF(AND(ISNUMBER(Matriz_Produtos!$G52),Matriz_Produtos!$G52<0),"⚠ preço < 0",""))	V:None
+H51	F:=IF(Matriz_Produtos!$B52="","",IF(AND(Matriz_Produtos!$AD52>=0,Matriz_Produtos!$AD52<=1),"","⚠ crédito c fora de [0,1]"))	V:None
+I51	F:=IF(OR(Matriz_Produtos!$B52="",NOT(ISNUMBER(Matriz_Produtos!$G52)),Matriz_Produtos!$G52<=0,NOT(ISNUMBER(Matriz_Produtos!$AA52))),"",IF(OR(Matriz_Produtos!$AA52>1.25,Matriz_Produtos!$AA52<0.75),"⚠ variação > 25%: limites do art. 125, Lei 14.133 (Ac. TCU 1753/2026) — alterações consensuais acima exigem justificativa excepcional",""))	V:None
+A52	'Produto'
+B52	53
+C52	F:=IF(Matriz_Produtos!$B53="","",IF(ISNA(MATCH(Matriz_Produtos!$D53,Parâmetros!$B$27:$B$501,0)),"⚠ regime não encontrado",""))	V:None
+D52	F:=IF(OR(Matriz_Produtos!$B53="",Matriz_Produtos!$F53=""),"",IF(ISNA(MATCH(Matriz_Produtos!$F53,Parâmetros!$B$36:$B$501,0)),"⚠ redução não encontrada",IF(AND(LEFT(Matriz_Produtos!$D53,7)="Simples",ISERROR(SEARCH("híbrido",Matriz_Produtos!$D53)),ISERROR(SEARCH("Regra geral",Matriz_Produtos!$F53))),"⚠ Simples puro: redução setorial de IBS/CBS não é captada pelo DAS — use Simples híbrido ou regra geral","")))	V:None
+E52	F:=IF(Matriz_Produtos!$B53="","",IF(ISNA(MATCH(Matriz_Produtos!$C53,'Alíquotas_IPI (TIPI)'!$B$6:$B$500,0)),"⚠ NCM não encontrado na TIPI",""))	V:None
+F52	F:=IF(Matriz_Produtos!$B53="","",IF(ISNA(MATCH(Matriz_Produtos!$E53,Alíquotas_ICMS!$B$6:$B$500,0)),"⚠ categoria ICMS não encontrada",""))	V:None
+G52	F:=IF(Matriz_Produtos!$B53="","",IF(AND(ISNUMBER(Matriz_Produtos!$G53),Matriz_Produtos!$G53<0),"⚠ preço < 0",""))	V:None
+H52	F:=IF(Matriz_Produtos!$B53="","",IF(AND(Matriz_Produtos!$AD53>=0,Matriz_Produtos!$AD53<=1),"","⚠ crédito c fora de [0,1]"))	V:None
+I52	F:=IF(OR(Matriz_Produtos!$B53="",NOT(ISNUMBER(Matriz_Produtos!$G53)),Matriz_Produtos!$G53<=0,NOT(ISNUMBER(Matriz_Produtos!$AA53))),"",IF(OR(Matriz_Produtos!$AA53>1.25,Matriz_Produtos!$AA53<0.75),"⚠ variação > 25%: limites do art. 125, Lei 14.133 (Ac. TCU 1753/2026) — alterações consensuais acima exigem justificativa excepcional",""))	V:None
+A53	'Produto'
+B53	54
+C53	F:=IF(Matriz_Produtos!$B54="","",IF(ISNA(MATCH(Matriz_Produtos!$D54,Parâmetros!$B$27:$B$501,0)),"⚠ regime não encontrado",""))	V:None
+D53	F:=IF(OR(Matriz_Produtos!$B54="",Matriz_Produtos!$F54=""),"",IF(ISNA(MATCH(Matriz_Produtos!$F54,Parâmetros!$B$36:$B$501,0)),"⚠ redução não encontrada",IF(AND(LEFT(Matriz_Produtos!$D54,7)="Simples",ISERROR(SEARCH("híbrido",Matriz_Produtos!$D54)),ISERROR(SEARCH("Regra geral",Matriz_Produtos!$F54))),"⚠ Simples puro: redução setorial de IBS/CBS não é captada pelo DAS — use Simples híbrido ou regra geral","")))	V:None
+E53	F:=IF(Matriz_Produtos!$B54="","",IF(ISNA(MATCH(Matriz_Produtos!$C54,'Alíquotas_IPI (TIPI)'!$B$6:$B$500,0)),"⚠ NCM não encontrado na TIPI",""))	V:None
+F53	F:=IF(Matriz_Produtos!$B54="","",IF(ISNA(MATCH(Matriz_Produtos!$E54,Alíquotas_ICMS!$B$6:$B$500,0)),"⚠ categoria ICMS não encontrada",""))	V:None
+G53	F:=IF(Matriz_Produtos!$B54="","",IF(AND(ISNUMBER(Matriz_Produtos!$G54),Matriz_Produtos!$G54<0),"⚠ preço < 0",""))	V:None
+H53	F:=IF(Matriz_Produtos!$B54="","",IF(AND(Matriz_Produtos!$AD54>=0,Matriz_Produtos!$AD54<=1),"","⚠ crédito c fora de [0,1]"))	V:None
+I53	F:=IF(OR(Matriz_Produtos!$B54="",NOT(ISNUMBER(Matriz_Produtos!$G54)),Matriz_Produtos!$G54<=0,NOT(ISNUMBER(Matriz_Produtos!$AA54))),"",IF(OR(Matriz_Produtos!$AA54>1.25,Matriz_Produtos!$AA54<0.75),"⚠ variação > 25%: limites do art. 125, Lei 14.133 (Ac. TCU 1753/2026) — alterações consensuais acima exigem justificativa excepcional",""))	V:None
+A54	'Produto'
+B54	55
+C54	F:=IF(Matriz_Produtos!$B55="","",IF(ISNA(MATCH(Matriz_Produtos!$D55,Parâmetros!$B$27:$B$501,0)),"⚠ regime não encontrado",""))	V:None
+D54	F:=IF(OR(Matriz_Produtos!$B55="",Matriz_Produtos!$F55=""),"",IF(ISNA(MATCH(Matriz_Produtos!$F55,Parâmetros!$B$36:$B$501,0)),"⚠ redução não encontrada",IF(AND(LEFT(Matriz_Produtos!$D55,7)="Simples",ISERROR(SEARCH("híbrido",Matriz_Produtos!$D55)),ISERROR(SEARCH("Regra geral",Matriz_Produtos!$F55))),"⚠ Simples puro: redução setorial de IBS/CBS não é captada pelo DAS — use Simples híbrido ou regra geral","")))	V:None
+E54	F:=IF(Matriz_Produtos!$B55="","",IF(ISNA(MATCH(Matriz_Produtos!$C55,'Alíquotas_IPI (TIPI)'!$B$6:$B$500,0)),"⚠ NCM não encontrado na TIPI",""))	V:None
+F54	F:=IF(Matriz_Produtos!$B55="","",IF(ISNA(MATCH(Matriz_Produtos!$E55,Alíquotas_ICMS!$B$6:$B$500,0)),"⚠ categoria ICMS não encontrada",""))	V:None
+G54	F:=IF(Matriz_Produtos!$B55="","",IF(AND(ISNUMBER(Matriz_Produtos!$G55),Matriz_Produtos!$G55<0),"⚠ preço < 0",""))	V:None
+H54	F:=IF(Matriz_Produtos!$B55="","",IF(AND(Matriz_Produtos!$AD55>=0,Matriz_Produtos!$AD55<=1),"","⚠ crédito c fora de [0,1]"))	V:None
+I54	F:=IF(OR(Matriz_Produtos!$B55="",NOT(ISNUMBER(Matriz_Produtos!$G55)),Matriz_Produtos!$G55<=0,NOT(ISNUMBER(Matriz_Produtos!$AA55))),"",IF(OR(Matriz_Produtos!$AA55>1.25,Matriz_Produtos!$AA55<0.75),"⚠ variação > 25%: limites do art. 125, Lei 14.133 (Ac. TCU 1753/2026) — alterações consensuais acima exigem justificativa excepcional",""))	V:None
+A55	'Produto'
+B55	56
+C55	F:=IF(Matriz_Produtos!$B56="","",IF(ISNA(MATCH(Matriz_Produtos!$D56,Parâmetros!$B$27:$B$501,0)),"⚠ regime não encontrado",""))	V:None
+D55	F:=IF(OR(Matriz_Produtos!$B56="",Matriz_Produtos!$F56=""),"",IF(ISNA(MATCH(Matriz_Produtos!$F56,Parâmetros!$B$36:$B$501,0)),"⚠ redução não encontrada",IF(AND(LEFT(Matriz_Produtos!$D56,7)="Simples",ISERROR(SEARCH("híbrido",Matriz_Produtos!$D56)),ISERROR(SEARCH("Regra geral",Matriz_Produtos!$F56))),"⚠ Simples puro: redução setorial de IBS/CBS não é captada pelo DAS — use Simples híbrido ou regra geral","")))	V:None
+E55	F:=IF(Matriz_Produtos!$B56="","",IF(ISNA(MATCH(Matriz_Produtos!$C56,'Alíquotas_IPI (TIPI)'!$B$6:$B$500,0)),"⚠ NCM não encontrado na TIPI",""))	V:None
+F55	F:=IF(Matriz_Produtos!$B56="","",IF(ISNA(MATCH(Matriz_Produtos!$E56,Alíquotas_ICMS!$B$6:$B$500,0)),"⚠ categoria ICMS não encontrada",""))	V:None
+G55	F:=IF(Matriz_Produtos!$B56="","",IF(AND(ISNUMBER(Matriz_Produtos!$G56),Matriz_Produtos!$G56<0),"⚠ preço < 0",""))	V:None
+H55	F:=IF(Matriz_Produtos!$B56="","",IF(AND(Matriz_Produtos!$AD56>=0,Matriz_Produtos!$AD56<=1),"","⚠ crédito c fora de [0,1]"))	V:None
+I55	F:=IF(OR(Matriz_Produtos!$B56="",NOT(ISNUMBER(Matriz_Produtos!$G56)),Matriz_Produtos!$G56<=0,NOT(ISNUMBER(Matriz_Produtos!$AA56))),"",IF(OR(Matriz_Produtos!$AA56>1.25,Matriz_Produtos!$AA56<0.75),"⚠ variação > 25%: limites do art. 125, Lei 14.133 (Ac. TCU 1753/2026) — alterações consensuais acima exigem justificativa excepcional",""))	V:None
+A56	'Produto'
+B56	57
+C56	F:=IF(Matriz_Produtos!$B57="","",IF(ISNA(MATCH(Matriz_Produtos!$D57,Parâmetros!$B$27:$B$501,0)),"⚠ regime não encontrado",""))	V:None
+D56	F:=IF(OR(Matriz_Produtos!$B57="",Matriz_Produtos!$F57=""),"",IF(ISNA(MATCH(Matriz_Produtos!$F57,Parâmetros!$B$36:$B$501,0)),"⚠ redução não encontrada",IF(AND(LEFT(Matriz_Produtos!$D57,7)="Simples",ISERROR(SEARCH("híbrido",Matriz_Produtos!$D57)),ISERROR(SEARCH("Regra geral",Matriz_Produtos!$F57))),"⚠ Simples puro: redução setorial de IBS/CBS não é captada pelo DAS — use Simples híbrido ou regra geral","")))	V:None
+E56	F:=IF(Matriz_Produtos!$B57="","",IF(ISNA(MATCH(Matriz_Produtos!$C57,'Alíquotas_IPI (TIPI)'!$B$6:$B$500,0)),"⚠ NCM não encontrado na TIPI",""))	V:None
+F56	F:=IF(Matriz_Produtos!$B57="","",IF(ISNA(MATCH(Matriz_Produtos!$E57,Alíquotas_ICMS!$B$6:$B$500,0)),"⚠ categoria ICMS não encontrada",""))	V:None
+G56	F:=IF(Matriz_Produtos!$B57="","",IF(AND(ISNUMBER(Matriz_Produtos!$G57),Matriz_Produtos!$G57<0),"⚠ preço < 0",""))	V:None
+H56	F:=IF(Matriz_Produtos!$B57="","",IF(AND(Matriz_Produtos!$AD57>=0,Matriz_Produtos!$AD57<=1),"","⚠ crédito c fora de [0,1]"))	V:None
+I56	F:=IF(OR(Matriz_Produtos!$B57="",NOT(ISNUMBER(Matriz_Produtos!$G57)),Matriz_Produtos!$G57<=0,NOT(ISNUMBER(Matriz_Produtos!$AA57))),"",IF(OR(Matriz_Produtos!$AA57>1.25,Matriz_Produtos!$AA57<0.75),"⚠ variação > 25%: limites do art. 125, Lei 14.133 (Ac. TCU 1753/2026) — alterações consensuais acima exigem justificativa excepcional",""))	V:None
+A57	'Produto'
+B57	58
+C57	F:=IF(Matriz_Produtos!$B58="","",IF(ISNA(MATCH(Matriz_Produtos!$D58,Parâmetros!$B$27:$B$501,0)),"⚠ regime não encontrado",""))	V:None
+D57	F:=IF(OR(Matriz_Produtos!$B58="",Matriz_Produtos!$F58=""),"",IF(ISNA(MATCH(Matriz_Produtos!$F58,Parâmetros!$B$36:$B$501,0)),"⚠ redução não encontrada",IF(AND(LEFT(Matriz_Produtos!$D58,7)="Simples",ISERROR(SEARCH("híbrido",Matriz_Produtos!$D58)),ISERROR(SEARCH("Regra geral",Matriz_Produtos!$F58))),"⚠ Simples puro: redução setorial de IBS/CBS não é captada pelo DAS — use Simples híbrido ou regra geral","")))	V:None
+E57	F:=IF(Matriz_Produtos!$B58="","",IF(ISNA(MATCH(Matriz_Produtos!$C58,'Alíquotas_IPI (TIPI)'!$B$6:$B$500,0)),"⚠ NCM não encontrado na TIPI",""))	V:None
+F57	F:=IF(Matriz_Produtos!$B58="","",IF(ISNA(MATCH(Matriz_Produtos!$E58,Alíquotas_ICMS!$B$6:$B$500,0)),"⚠ categoria ICMS não encontrada",""))	V:None
+G57	F:=IF(Matriz_Produtos!$B58="","",IF(AND(ISNUMBER(Matriz_Produtos!$G58),Matriz_Produtos!$G58<0),"⚠ preço < 0",""))	V:None
+H57	F:=IF(Matriz_Produtos!$B58="","",IF(AND(Matriz_Produtos!$AD58>=0,Matriz_Produtos!$AD58<=1),"","⚠ crédito c fora de [0,1]"))	V:None
+I57	F:=IF(OR(Matriz_Produtos!$B58="",NOT(ISNUMBER(Matriz_Produtos!$G58)),Matriz_Produtos!$G58<=0,NOT(ISNUMBER(Matriz_Produtos!$AA58))),"",IF(OR(Matriz_Produtos!$AA58>1.25,Matriz_Produtos!$AA58<0.75),"⚠ variação > 25%: limites do art. 125, Lei 14.133 (Ac. TCU 1753/2026) — alterações consensuais acima exigem justificativa excepcional",""))	V:None
+A58	'Produto'
+B58	59
+C58	F:=IF(Matriz_Produtos!$B59="","",IF(ISNA(MATCH(Matriz_Produtos!$D59,Parâmetros!$B$27:$B$501,0)),"⚠ regime não encontrado",""))	V:None
+D58	F:=IF(OR(Matriz_Produtos!$B59="",Matriz_Produtos!$F59=""),"",IF(ISNA(MATCH(Matriz_Produtos!$F59,Parâmetros!$B$36:$B$501,0)),"⚠ redução não encontrada",IF(AND(LEFT(Matriz_Produtos!$D59,7)="Simples",ISERROR(SEARCH("híbrido",Matriz_Produtos!$D59)),ISERROR(SEARCH("Regra geral",Matriz_Produtos!$F59))),"⚠ Simples puro: redução setorial de IBS/CBS não é captada pelo DAS — use Simples híbrido ou regra geral","")))	V:None
+E58	F:=IF(Matriz_Produtos!$B59="","",IF(ISNA(MATCH(Matriz_Produtos!$C59,'Alíquotas_IPI (TIPI)'!$B$6:$B$500,0)),"⚠ NCM não encontrado na TIPI",""))	V:None
+F58	F:=IF(Matriz_Produtos!$B59="","",IF(ISNA(MATCH(Matriz_Produtos!$E59,Alíquotas_ICMS!$B$6:$B$500,0)),"⚠ categoria ICMS não encontrada",""))	V:None
+G58	F:=IF(Matriz_Produtos!$B59="","",IF(AND(ISNUMBER(Matriz_Produtos!$G59),Matriz_Produtos!$G59<0),"⚠ preço < 0",""))	V:None
+H58	F:=IF(Matriz_Produtos!$B59="","",IF(AND(Matriz_Produtos!$AD59>=0,Matriz_Produtos!$AD59<=1),"","⚠ crédito c fora de [0,1]"))	V:None
+I58	F:=IF(OR(Matriz_Produtos!$B59="",NOT(ISNUMBER(Matriz_Produtos!$G59)),Matriz_Produtos!$G59<=0,NOT(ISNUMBER(Matriz_Produtos!$AA59))),"",IF(OR(Matriz_Produtos!$AA59>1.25,Matriz_Produtos!$AA59<0.75),"⚠ variação > 25%: limites do art. 125, Lei 14.133 (Ac. TCU 1753/2026) — alterações consensuais acima exigem justificativa excepcional",""))	V:None
+A59	'Produto'
+B59	60
+C59	F:=IF(Matriz_Produtos!$B60="","",IF(ISNA(MATCH(Matriz_Produtos!$D60,Parâmetros!$B$27:$B$501,0)),"⚠ regime não encontrado",""))	V:None
+D59	F:=IF(OR(Matriz_Produtos!$B60="",Matriz_Produtos!$F60=""),"",IF(ISNA(MATCH(Matriz_Produtos!$F60,Parâmetros!$B$36:$B$501,0)),"⚠ redução não encontrada",IF(AND(LEFT(Matriz_Produtos!$D60,7)="Simples",ISERROR(SEARCH("híbrido",Matriz_Produtos!$D60)),ISERROR(SEARCH("Regra geral",Matriz_Produtos!$F60))),"⚠ Simples puro: redução setorial de IBS/CBS não é captada pelo DAS — use Simples híbrido ou regra geral","")))	V:None
+E59	F:=IF(Matriz_Produtos!$B60="","",IF(ISNA(MATCH(Matriz_Produtos!$C60,'Alíquotas_IPI (TIPI)'!$B$6:$B$500,0)),"⚠ NCM não encontrado na TIPI",""))	V:None
+F59	F:=IF(Matriz_Produtos!$B60="","",IF(ISNA(MATCH(Matriz_Produtos!$E60,Alíquotas_ICMS!$B$6:$B$500,0)),"⚠ categoria ICMS não encontrada",""))	V:None
+G59	F:=IF(Matriz_Produtos!$B60="","",IF(AND(ISNUMBER(Matriz_Produtos!$G60),Matriz_Produtos!$G60<0),"⚠ preço < 0",""))	V:None
+H59	F:=IF(Matriz_Produtos!$B60="","",IF(AND(Matriz_Produtos!$AD60>=0,Matriz_Produtos!$AD60<=1),"","⚠ crédito c fora de [0,1]"))	V:None
+I59	F:=IF(OR(Matriz_Produtos!$B60="",NOT(ISNUMBER(Matriz_Produtos!$G60)),Matriz_Produtos!$G60<=0,NOT(ISNUMBER(Matriz_Produtos!$AA60))),"",IF(OR(Matriz_Produtos!$AA60>1.25,Matriz_Produtos!$AA60<0.75),"⚠ variação > 25%: limites do art. 125, Lei 14.133 (Ac. TCU 1753/2026) — alterações consensuais acima exigem justificativa excepcional",""))	V:None
+A60	'Produto'
+B60	61
+C60	F:=IF(Matriz_Produtos!$B61="","",IF(ISNA(MATCH(Matriz_Produtos!$D61,Parâmetros!$B$27:$B$501,0)),"⚠ regime não encontrado",""))	V:None
+D60	F:=IF(OR(Matriz_Produtos!$B61="",Matriz_Produtos!$F61=""),"",IF(ISNA(MATCH(Matriz_Produtos!$F61,Parâmetros!$B$36:$B$501,0)),"⚠ redução não encontrada",IF(AND(LEFT(Matriz_Produtos!$D61,7)="Simples",ISERROR(SEARCH("híbrido",Matriz_Produtos!$D61)),ISERROR(SEARCH("Regra geral",Matriz_Produtos!$F61))),"⚠ Simples puro: redução setorial de IBS/CBS não é captada pelo DAS — use Simples híbrido ou regra geral","")))	V:None
+E60	F:=IF(Matriz_Produtos!$B61="","",IF(ISNA(MATCH(Matriz_Produtos!$C61,'Alíquotas_IPI (TIPI)'!$B$6:$B$500,0)),"⚠ NCM não encontrado na TIPI",""))	V:None
+F60	F:=IF(Matriz_Produtos!$B61="","",IF(ISNA(MATCH(Matriz_Produtos!$E61,Alíquotas_ICMS!$B$6:$B$500,0)),"⚠ categoria ICMS não encontrada",""))	V:None
+G60	F:=IF(Matriz_Produtos!$B61="","",IF(AND(ISNUMBER(Matriz_Produtos!$G61),Matriz_Produtos!$G61<0),"⚠ preço < 0",""))	V:None
+H60	F:=IF(Matriz_Produtos!$B61="","",IF(AND(Matriz_Produtos!$AD61>=0,Matriz_Produtos!$AD61<=1),"","⚠ crédito c fora de [0,1]"))	V:None
+I60	F:=IF(OR(Matriz_Produtos!$B61="",NOT(ISNUMBER(Matriz_Produtos!$G61)),Matriz_Produtos!$G61<=0,NOT(ISNUMBER(Matriz_Produtos!$AA61))),"",IF(OR(Matriz_Produtos!$AA61>1.25,Matriz_Produtos!$AA61<0.75),"⚠ variação > 25%: limites do art. 125, Lei 14.133 (Ac. TCU 1753/2026) — alterações consensuais acima exigem justificativa excepcional",""))	V:None

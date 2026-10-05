@@ -1,0 +1,231 @@
+B2	'F E IRT-E COMO ÍNDICES CONTRATUAIS — REAJUSTE TRIBUTÁRIO (REEQUILÍBRIO, ART. 128 LEI 14.133/2021)'
+B3	'F é homogêneo de grau zero no preço: independe do valor do item → índice puro, candidato a cláusula de reajuste tributário na transição IBS/CBS. F é o TETO do reajuste (repasse integral); o ÍNDICE EXPURGADO é IRT-E = 1 + κ·(F−1), com κ = |ε|/(1+|ε|) e ε = elasticidade-preço da demanda (input). A compressão de margem = (1−κ)·(F−1).'
+B6	'Item'
+C6	'Tipo'
+D6	'Elasticidade ε da demanda (input)'
+E6	'κ = |ε|/(1+|ε|)'
+F6	'IRT-E 2027'
+G6	'IRT-E 2028'
+H6	'IRT-E 2029'
+I6	'IRT-E 2030'
+J6	'IRT-E 2031'
+K6	'IRT-E 2032'
+L6	'IRT-E 2033'
+M6	'Teto F (2033)'
+N6	'IRT-E (2033)'
+O6	'Compressão de margem (p.p.)'
+P6	'Sugestão de cláusula'
+B7	F:=Matriz_Produtos!$B$7	V:'Papel higiênico'
+C7	'Produto'
+D7	-1
+E7	F:=ABS(D7)/(1+ABS(D7))	V:0.5
+F7	F:=1+$E7*(Timing!D6-1)	V:0.994128035667345
+G7	F:=1+$E7*(Timing!E6-1)	V:0.994128035667345
+H7	F:=1+$E7*(Timing!F6-1)	V:0.986843319260939
+I7	F:=1+$E7*(Timing!G6-1)	V:0.979854181246798
+J7	F:=1+$E7*(Timing!H6-1)	V:0.973152925347656
+K7	F:=1+$E7*(Timing!I6-1)	V:0.966722123722471
+L7	F:=1+$E7*(Timing!J6-1)	V:0.932999
+M7	F:=Timing!J6	V:0.865998
+N7	F:=1+$E7*(M7-1)	V:0.932999
+O7	F:=(1-$E7)*(M7-1)*100	V:-6.70009999999999
+P7	F:="Reajuste anual pelo Índice de Reequilíbrio Tributário Expurgado (IRT-E = 1 + κ·(F−1)), com F = razão entre o fator de preservação da receita líquida do ano de reajuste e o do ano-base (teto), κ = |ε|/(1+|ε|) = "&ROUND(E7*100,1)&"% para ε = "&ROUND(D7,2)&" ⇒ IRT-E = "&ROUND(N7,4)&" e compressão de margem de "&ROUND(O7,1)&" p.p. a absorver."	V:'Reajuste anual pelo Índice de Reequilíbrio Tributário Expurgado (IRT-E = 1 + κ·(F−1)), com F = razão entre o fator de preservação da receita líquida do ano de reajuste e o do ano-base (teto), κ = |ε|/(1+|ε|) = 50% para ε = -1 ⇒ IRT-E = 0.933 e compressão de margem de -6.7 p.p. a absorver.'
+B8	F:=Matriz_Produtos!$B$8	V:'Papel A4 75g'
+C8	'Produto'
+D8	-1
+E8	F:=ABS(D8)/(1+ABS(D8))	V:0.5
+F8	F:=1+$E8*(Timing!D7-1)	V:1.01609498530241
+G8	F:=1+$E8*(Timing!E7-1)	V:1.01609498530241
+H8	F:=1+$E8*(Timing!F7-1)	V:1.01328278426908
+I8	F:=1+$E8*(Timing!G7-1)	V:1.01056204221701
+J8	F:=1+$E8*(Timing!H7-1)	V:1.0079533673433
+K8	F:=1+$E8*(Timing!I7-1)	V:1.00544997531202
+L8	F:=1+$E8*(Timing!J7-1)	V:0.9923221875
+M8	F:=Timing!J7	V:0.984644375
+N8	F:=1+$E8*(M8-1)	V:0.9923221875
+O8	F:=(1-$E8)*(M8-1)*100	V:-0.767781249999994
+P8	F:="Reajuste anual pelo Índice de Reequilíbrio Tributário Expurgado (IRT-E = 1 + κ·(F−1)), com F = razão entre o fator de preservação da receita líquida do ano de reajuste e o do ano-base (teto), κ = |ε|/(1+|ε|) = "&ROUND(E8*100,1)&"% para ε = "&ROUND(D8,2)&" ⇒ IRT-E = "&ROUND(N8,4)&" e compressão de margem de "&ROUND(O8,1)&" p.p. a absorver."	V:'Reajuste anual pelo Índice de Reequilíbrio Tributário Expurgado (IRT-E = 1 + κ·(F−1)), com F = razão entre o fator de preservação da receita líquida do ano de reajuste e o do ano-base (teto), κ = |ε|/(1+|ε|) = 50% para ε = -1 ⇒ IRT-E = 0.9923 e compressão de margem de -0.8 p.p. a absorver.'
+B9	F:=Matriz_Produtos!$B$9	V:'Álcool etílico 70%'
+C9	'Produto'
+D9	-1
+E9	F:=ABS(D9)/(1+ABS(D9))	V:0.5
+F9	F:=1+$E9*(Timing!D8-1)	V:1
+G9	F:=1+$E9*(Timing!E8-1)	V:1
+H9	F:=1+$E9*(Timing!F8-1)	V:1
+I9	F:=1+$E9*(Timing!G8-1)	V:1
+J9	F:=1+$E9*(Timing!H8-1)	V:1
+K9	F:=1+$E9*(Timing!I8-1)	V:1
+L9	F:=1+$E9*(Timing!J8-1)	V:1
+M9	F:=Timing!J8	V:1
+N9	F:=1+$E9*(M9-1)	V:1
+O9	F:=(1-$E9)*(M9-1)*100	V:0
+P9	F:="Reajuste anual pelo Índice de Reequilíbrio Tributário Expurgado (IRT-E = 1 + κ·(F−1)), com F = razão entre o fator de preservação da receita líquida do ano de reajuste e o do ano-base (teto), κ = |ε|/(1+|ε|) = "&ROUND(E9*100,1)&"% para ε = "&ROUND(D9,2)&" ⇒ IRT-E = "&ROUND(N9,4)&" e compressão de margem de "&ROUND(O9,1)&" p.p. a absorver."	V:'Reajuste anual pelo Índice de Reequilíbrio Tributário Expurgado (IRT-E = 1 + κ·(F−1)), com F = razão entre o fator de preservação da receita líquida do ano de reajuste e o do ano-base (teto), κ = |ε|/(1+|ε|) = 50% para ε = -1 ⇒ IRT-E = 1 e compressão de margem de 0 p.p. a absorver.'
+B10	F:=Matriz_Produtos!$B$10	V:'Caneta esferográfica'
+C10	'Produto'
+D10	-1
+E10	F:=ABS(D10)/(1+ABS(D10))	V:0.5
+F10	F:=1+$E10*(Timing!D9-1)	V:0.972266430336443
+G10	F:=1+$E10*(Timing!E9-1)	V:0.972266430336443
+H10	F:=1+$E10*(Timing!F9-1)	V:0.969693051053121
+I10	F:=1+$E10*(Timing!G9-1)	V:0.96720336374093
+J10	F:=1+$E10*(Timing!H9-1)	V:0.964816226478211
+K10	F:=1+$E10*(Timing!I9-1)	V:0.962525431078113
+L10	F:=1+$E10*(Timing!J9-1)	V:0.9505125
+M10	F:=Timing!J9	V:0.901025
+N10	F:=1+$E10*(M10-1)	V:0.9505125
+O10	F:=(1-$E10)*(M10-1)*100	V:-4.94875
+P10	F:="Reajuste anual pelo Índice de Reequilíbrio Tributário Expurgado (IRT-E = 1 + κ·(F−1)), com F = razão entre o fator de preservação da receita líquida do ano de reajuste e o do ano-base (teto), κ = |ε|/(1+|ε|) = "&ROUND(E10*100,1)&"% para ε = "&ROUND(D10,2)&" ⇒ IRT-E = "&ROUND(N10,4)&" e compressão de margem de "&ROUND(O10,1)&" p.p. a absorver."	V:'Reajuste anual pelo Índice de Reequilíbrio Tributário Expurgado (IRT-E = 1 + κ·(F−1)), com F = razão entre o fator de preservação da receita líquida do ano de reajuste e o do ano-base (teto), κ = |ε|/(1+|ε|) = 50% para ε = -1 ⇒ IRT-E = 0.9505 e compressão de margem de -4.9 p.p. a absorver.'
+B11	F:=Matriz_Produtos!$B$11	V:'Cartucho/toner'
+C11	'Produto'
+D11	-1
+E11	F:=ABS(D11)/(1+ABS(D11))	V:0.5
+F11	F:=1+$E11*(Timing!D10-1)	V:1.01302841802183
+G11	F:=1+$E11*(Timing!E10-1)	V:1.01302841802183
+H11	F:=1+$E11*(Timing!F10-1)	V:1.01023292671039
+I11	F:=1+$E11*(Timing!G10-1)	V:1.0075283509432
+J11	F:=1+$E11*(Timing!H10-1)	V:1.0049351764662
+K11	F:=1+$E11*(Timing!I10-1)	V:1.00244665925508
+L11	F:=1+$E11*(Timing!J10-1)	V:0.989396875
+M11	F:=Timing!J10	V:0.97879375
+N11	F:=1+$E11*(M11-1)	V:0.989396875
+O11	F:=(1-$E11)*(M11-1)*100	V:-1.0603125
+P11	F:="Reajuste anual pelo Índice de Reequilíbrio Tributário Expurgado (IRT-E = 1 + κ·(F−1)), com F = razão entre o fator de preservação da receita líquida do ano de reajuste e o do ano-base (teto), κ = |ε|/(1+|ε|) = "&ROUND(E11*100,1)&"% para ε = "&ROUND(D11,2)&" ⇒ IRT-E = "&ROUND(N11,4)&" e compressão de margem de "&ROUND(O11,1)&" p.p. a absorver."	V:'Reajuste anual pelo Índice de Reequilíbrio Tributário Expurgado (IRT-E = 1 + κ·(F−1)), com F = razão entre o fator de preservação da receita líquida do ano de reajuste e o do ano-base (teto), κ = |ε|/(1+|ε|) = 50% para ε = -1 ⇒ IRT-E = 0.9894 e compressão de margem de -1.1 p.p. a absorver.'
+B12	F:=Matriz_Produtos!$B$12	V:'Sabão líquido'
+C12	'Produto'
+D12	-1
+E12	F:=ABS(D12)/(1+ABS(D12))	V:0.5
+F12	F:=1+$E12*(Timing!D11-1)	V:0.991888861828817
+G12	F:=1+$E12*(Timing!E11-1)	V:0.991888861828817
+H12	F:=1+$E12*(Timing!F11-1)	V:0.995275533204282
+I12	F:=1+$E12*(Timing!G11-1)	V:0.998650993800165
+J12	F:=1+$E12*(Timing!H11-1)	V:1.00202645439605
+K12	F:=1+$E12*(Timing!I11-1)	V:1.00540191499193
+L12	F:=1+$E12*(Timing!J11-1)	V:1.02565467856723
+M12	F:=Timing!J11	V:1.05130935713446
+N12	F:=1+$E12*(M12-1)	V:1.02565467856723
+O12	F:=(1-$E12)*(M12-1)*100	V:2.56546785672311
+P12	F:="Reajuste anual pelo Índice de Reequilíbrio Tributário Expurgado (IRT-E = 1 + κ·(F−1)), com F = razão entre o fator de preservação da receita líquida do ano de reajuste e o do ano-base (teto), κ = |ε|/(1+|ε|) = "&ROUND(E12*100,1)&"% para ε = "&ROUND(D12,2)&" ⇒ IRT-E = "&ROUND(N12,4)&" e compressão de margem de "&ROUND(O12,1)&" p.p. a absorver."	V:'Reajuste anual pelo Índice de Reequilíbrio Tributário Expurgado (IRT-E = 1 + κ·(F−1)), com F = razão entre o fator de preservação da receita líquida do ano de reajuste e o do ano-base (teto), κ = |ε|/(1+|ε|) = 50% para ε = -1 ⇒ IRT-E = 1.0257 e compressão de margem de 2.6 p.p. a absorver.'
+B13	F:=Matriz_Produtos!$B$13	V:'Café torrado e moído'
+C13	'Produto'
+D13	-1
+E13	F:=ABS(D13)/(1+ABS(D13))	V:0.5
+F13	F:=1+$E13*(Timing!D12-1)	V:0.975134408602151
+G13	F:=1+$E13*(Timing!E12-1)	V:0.975134408602151
+H13	F:=1+$E13*(Timing!F12-1)	V:0.971584845250801
+I13	F:=1+$E13*(Timing!G12-1)	V:0.968087923728814
+J13	F:=1+$E13*(Timing!H12-1)	V:0.964642481598318
+K13	F:=1+$E13*(Timing!I12-1)	V:0.96124739039666
+L13	F:=1+$E13*(Timing!J12-1)	V:0.941875
+M13	F:=Timing!J12	V:0.88375
+N13	F:=1+$E13*(M13-1)	V:0.941875
+O13	F:=(1-$E13)*(M13-1)*100	V:-5.8125
+P13	F:="Reajuste anual pelo Índice de Reequilíbrio Tributário Expurgado (IRT-E = 1 + κ·(F−1)), com F = razão entre o fator de preservação da receita líquida do ano de reajuste e o do ano-base (teto), κ = |ε|/(1+|ε|) = "&ROUND(E13*100,1)&"% para ε = "&ROUND(D13,2)&" ⇒ IRT-E = "&ROUND(N13,4)&" e compressão de margem de "&ROUND(O13,1)&" p.p. a absorver."	V:'Reajuste anual pelo Índice de Reequilíbrio Tributário Expurgado (IRT-E = 1 + κ·(F−1)), com F = razão entre o fator de preservação da receita líquida do ano de reajuste e o do ano-base (teto), κ = |ε|/(1+|ε|) = 50% para ε = -1 ⇒ IRT-E = 0.9419 e compressão de margem de -5.8 p.p. a absorver.'
+B14	F:=Matriz_Produtos!$B$14	V:'Copo descartável'
+C14	'Produto'
+D14	-1
+E14	F:=ABS(D14)/(1+ABS(D14))	V:0.5
+F14	F:=1+$E14*(Timing!D13-1)	V:0.987786923352195
+G14	F:=1+$E14*(Timing!E13-1)	V:0.987786923352195
+H14	F:=1+$E14*(Timing!F13-1)	V:0.985128972918717
+I14	F:=1+$E14*(Timing!G13-1)	V:0.982557464896735
+J14	F:=1+$E14*(Timing!H13-1)	V:0.980091877113645
+K14	F:=1+$E14*(Timing!I13-1)	V:0.977725797357675
+L14	F:=1+$E14*(Timing!J13-1)	V:0.965318075117371
+M14	F:=Timing!J13	V:0.930636150234742
+N14	F:=1+$E14*(M14-1)	V:0.965318075117371
+O14	F:=(1-$E14)*(M14-1)*100	V:-3.46819248826291
+P14	F:="Reajuste anual pelo Índice de Reequilíbrio Tributário Expurgado (IRT-E = 1 + κ·(F−1)), com F = razão entre o fator de preservação da receita líquida do ano de reajuste e o do ano-base (teto), κ = |ε|/(1+|ε|) = "&ROUND(E14*100,1)&"% para ε = "&ROUND(D14,2)&" ⇒ IRT-E = "&ROUND(N14,4)&" e compressão de margem de "&ROUND(O14,1)&" p.p. a absorver."	V:'Reajuste anual pelo Índice de Reequilíbrio Tributário Expurgado (IRT-E = 1 + κ·(F−1)), com F = razão entre o fator de preservação da receita líquida do ano de reajuste e o do ano-base (teto), κ = |ε|/(1+|ε|) = 50% para ε = -1 ⇒ IRT-E = 0.9653 e compressão de margem de -3.5 p.p. a absorver.'
+B15	F:=Matriz_Serviços!$B$7	V:'Vigilância patrimonial'
+C15	'Serviço'
+D15	-1
+E15	F:=ABS(D15)/(1+ABS(D15))	V:0.5
+F15	F:=1+$E15*(Timing!D14-1)	V:1.00134318270003
+G15	F:=1+$E15*(Timing!E14-1)	V:1.00134318270003
+H15	F:=1+$E15*(Timing!F14-1)	V:1.0068886566957
+I15	F:=1+$E15*(Timing!G14-1)	V:1.01234946031888
+J15	F:=1+$E15*(Timing!H14-1)	V:1.01775367530348
+K15	F:=1+$E15*(Timing!I14-1)	V:1.02310217673154
+L15	F:=1+$E15*(Timing!J14-1)	V:1.05407
+M15	F:=Timing!J14	V:1.10814
+N15	F:=1+$E15*(M15-1)	V:1.05407
+O15	F:=(1-$E15)*(M15-1)*100	V:5.40700000000001
+P15	F:="Reajuste anual pelo Índice de Reequilíbrio Tributário Expurgado (IRT-E = 1 + κ·(F−1)), com F = razão entre o fator de preservação da receita líquida do ano de reajuste e o do ano-base (teto), κ = |ε|/(1+|ε|) = "&ROUND(E15*100,1)&"% para ε = "&ROUND(D15,2)&" ⇒ IRT-E = "&ROUND(N15,4)&" e compressão de margem de "&ROUND(O15,1)&" p.p. a absorver."	V:'Reajuste anual pelo Índice de Reequilíbrio Tributário Expurgado (IRT-E = 1 + κ·(F−1)), com F = razão entre o fator de preservação da receita líquida do ano de reajuste e o do ano-base (teto), κ = |ε|/(1+|ε|) = 50% para ε = -1 ⇒ IRT-E = 1.0541 e compressão de margem de 5.4 p.p. a absorver.'
+B16	F:=Matriz_Serviços!$B$8	V:'Limpeza e conservação'
+C16	'Serviço'
+D16	-1
+E16	F:=ABS(D16)/(1+ABS(D16))	V:0.5
+F16	F:=1+$E16*(Timing!D15-1)	V:1.00399011445801
+G16	F:=1+$E16*(Timing!E15-1)	V:1.00399011445801
+H16	F:=1+$E16*(Timing!F15-1)	V:1.00956486678385
+I16	F:=1+$E16*(Timing!G15-1)	V:1.0150545017047
+J16	F:=1+$E16*(Timing!H15-1)	V:1.02048724921704
+K16	F:=1+$E16*(Timing!I15-1)	V:1.02586398902307
+L16	F:=1+$E16*(Timing!J15-1)	V:1.0569953125
+M16	F:=Timing!J15	V:1.113990625
+N16	F:=1+$E16*(M16-1)	V:1.0569953125
+O16	F:=(1-$E16)*(M16-1)*100	V:5.69953125
+P16	F:="Reajuste anual pelo Índice de Reequilíbrio Tributário Expurgado (IRT-E = 1 + κ·(F−1)), com F = razão entre o fator de preservação da receita líquida do ano de reajuste e o do ano-base (teto), κ = |ε|/(1+|ε|) = "&ROUND(E16*100,1)&"% para ε = "&ROUND(D16,2)&" ⇒ IRT-E = "&ROUND(N16,4)&" e compressão de margem de "&ROUND(O16,1)&" p.p. a absorver."	V:'Reajuste anual pelo Índice de Reequilíbrio Tributário Expurgado (IRT-E = 1 + κ·(F−1)), com F = razão entre o fator de preservação da receita líquida do ano de reajuste e o do ano-base (teto), κ = |ε|/(1+|ε|) = 50% para ε = -1 ⇒ IRT-E = 1.057 e compressão de margem de 5.7 p.p. a absorver.'
+B17	F:=Matriz_Serviços!$B$9	V:'Manutenção predial'
+C17	'Serviço'
+D17	-1
+E17	F:=ABS(D17)/(1+ABS(D17))	V:0.5
+F17	F:=1+$E17*(Timing!D16-1)	V:1.02280479154849
+G17	F:=1+$E17*(Timing!E16-1)	V:1.02280479154849
+H17	F:=1+$E17*(Timing!F16-1)	V:1.02858765741041
+I17	F:=1+$E17*(Timing!G16-1)	V:1.03428222831199
+J17	F:=1+$E17*(Timing!H16-1)	V:1.03991778811613
+K17	F:=1+$E17*(Timing!I16-1)	V:1.0454952493656
+L17	F:=1+$E17*(Timing!J16-1)	V:1.07778875
+M17	F:=Timing!J16	V:1.1555775
+N17	F:=1+$E17*(M17-1)	V:1.07778875
+O17	F:=(1-$E17)*(M17-1)*100	V:7.77887500000001
+P17	F:="Reajuste anual pelo Índice de Reequilíbrio Tributário Expurgado (IRT-E = 1 + κ·(F−1)), com F = razão entre o fator de preservação da receita líquida do ano de reajuste e o do ano-base (teto), κ = |ε|/(1+|ε|) = "&ROUND(E17*100,1)&"% para ε = "&ROUND(D17,2)&" ⇒ IRT-E = "&ROUND(N17,4)&" e compressão de margem de "&ROUND(O17,1)&" p.p. a absorver."	V:'Reajuste anual pelo Índice de Reequilíbrio Tributário Expurgado (IRT-E = 1 + κ·(F−1)), com F = razão entre o fator de preservação da receita líquida do ano de reajuste e o do ano-base (teto), κ = |ε|/(1+|ε|) = 50% para ε = -1 ⇒ IRT-E = 1.0778 e compressão de margem de 7.8 p.p. a absorver.'
+B18	F:=Matriz_Serviços!$B$10	V:'Suporte técnico de TI'
+C18	'Serviço'
+D18	-1
+E18	F:=ABS(D18)/(1+ABS(D18))	V:0.5
+F18	F:=1+$E18*(Timing!D17-1)	V:1
+G18	F:=1+$E18*(Timing!E17-1)	V:1
+H18	F:=1+$E18*(Timing!F17-1)	V:1
+I18	F:=1+$E18*(Timing!G17-1)	V:1
+J18	F:=1+$E18*(Timing!H17-1)	V:1
+K18	F:=1+$E18*(Timing!I17-1)	V:1
+L18	F:=1+$E18*(Timing!J17-1)	V:1
+M18	F:=Timing!J17	V:1
+N18	F:=1+$E18*(M18-1)	V:1
+O18	F:=(1-$E18)*(M18-1)*100	V:0
+P18	F:="Reajuste anual pelo Índice de Reequilíbrio Tributário Expurgado (IRT-E = 1 + κ·(F−1)), com F = razão entre o fator de preservação da receita líquida do ano de reajuste e o do ano-base (teto), κ = |ε|/(1+|ε|) = "&ROUND(E18*100,1)&"% para ε = "&ROUND(D18,2)&" ⇒ IRT-E = "&ROUND(N18,4)&" e compressão de margem de "&ROUND(O18,1)&" p.p. a absorver."	V:'Reajuste anual pelo Índice de Reequilíbrio Tributário Expurgado (IRT-E = 1 + κ·(F−1)), com F = razão entre o fator de preservação da receita líquida do ano de reajuste e o do ano-base (teto), κ = |ε|/(1+|ε|) = 50% para ε = -1 ⇒ IRT-E = 1 e compressão de margem de 0 p.p. a absorver.'
+B19	F:=Matriz_Serviços!$B$11	V:'Assessoria contábil'
+C19	'Serviço'
+D19	-1
+E19	F:=ABS(D19)/(1+ABS(D19))	V:0.5
+F19	F:=1+$E19*(Timing!D18-1)	V:1.01020019618921
+G19	F:=1+$E19*(Timing!E18-1)	V:1.01020019618921
+H19	F:=1+$E19*(Timing!F18-1)	V:1.01349303557996
+I19	F:=1+$E19*(Timing!G18-1)	V:1.01673193481839
+J19	F:=1+$E19*(Timing!H18-1)	V:1.01993727033414
+K19	F:=1+$E19*(Timing!I18-1)	V:1.02310956115386
+L19	F:=1+$E19*(Timing!J18-1)	V:1.041477125
+M19	F:=Timing!J18	V:1.08295425
+N19	F:=1+$E19*(M19-1)	V:1.041477125
+O19	F:=(1-$E19)*(M19-1)*100	V:4.1477125
+P19	F:="Reajuste anual pelo Índice de Reequilíbrio Tributário Expurgado (IRT-E = 1 + κ·(F−1)), com F = razão entre o fator de preservação da receita líquida do ano de reajuste e o do ano-base (teto), κ = |ε|/(1+|ε|) = "&ROUND(E19*100,1)&"% para ε = "&ROUND(D19,2)&" ⇒ IRT-E = "&ROUND(N19,4)&" e compressão de margem de "&ROUND(O19,1)&" p.p. a absorver."	V:'Reajuste anual pelo Índice de Reequilíbrio Tributário Expurgado (IRT-E = 1 + κ·(F−1)), com F = razão entre o fator de preservação da receita líquida do ano de reajuste e o do ano-base (teto), κ = |ε|/(1+|ε|) = 50% para ε = -1 ⇒ IRT-E = 1.0415 e compressão de margem de 4.1 p.p. a absorver.'
+B20	F:=Matriz_Serviços!$B$12	V:'Portaria e recepção'
+C20	'Serviço'
+D20	-1
+E20	F:=ABS(D20)/(1+ABS(D20))	V:0.5
+F20	F:=1+$E20*(Timing!D19-1)	V:1.01680893770871
+G20	F:=1+$E20*(Timing!E19-1)	V:1.01680893770871
+H20	F:=1+$E20*(Timing!F19-1)	V:1.02527561614737
+I20	F:=1+$E20*(Timing!G19-1)	V:1.03371426763708
+J20	F:=1+$E20*(Timing!H19-1)	V:1.04215291912679
+K20	F:=1+$E20*(Timing!I19-1)	V:1.0505915706165
+L20	F:=1+$E20*(Timing!J19-1)	V:1.10122347955474
+M20	F:=Timing!J19	V:1.20244695910949
+N20	F:=1+$E20*(M20-1)	V:1.10122347955474
+O20	F:=(1-$E20)*(M20-1)*100	V:10.1223479554744
+P20	F:="Reajuste anual pelo Índice de Reequilíbrio Tributário Expurgado (IRT-E = 1 + κ·(F−1)), com F = razão entre o fator de preservação da receita líquida do ano de reajuste e o do ano-base (teto), κ = |ε|/(1+|ε|) = "&ROUND(E20*100,1)&"% para ε = "&ROUND(D20,2)&" ⇒ IRT-E = "&ROUND(N20,4)&" e compressão de margem de "&ROUND(O20,1)&" p.p. a absorver."	V:'Reajuste anual pelo Índice de Reequilíbrio Tributário Expurgado (IRT-E = 1 + κ·(F−1)), com F = razão entre o fator de preservação da receita líquida do ano de reajuste e o do ano-base (teto), κ = |ε|/(1+|ε|) = 50% para ε = -1 ⇒ IRT-E = 1.1012 e compressão de margem de 10.1 p.p. a absorver.'
+B23	'MODELO DE CLÁUSULA (contratos administrativos — Lei 14.133/2021, art. 128, e LC 214/2025, arts. 373–377):'
+B24	'"Face à implantação do IBS/CBS (EC 132/2023 e LC 214/2025), as partes acordam que os preços serão reajustados anualmente pelo Índice de Reequilíbrio Tributário Expurgado (IRT-E), definido como IRT-E = 1 + κ·(F−1), em que F é a razão entre o fator de preservação da receita líquida do fornecedor apurado no ano do reajuste e o apurado na base contratual, conforme metodologia objetiva anexa (planilha de formação de preços), e κ = |ε|/(1+|ε|) é o coeficiente de repasse parametrizado pela elasticidade-preço da demanda do objeto, vedado o enriquecimento sem causa de qualquer das partes."'
+B25	'Em contratos administrativos (art. 128), o IRT-E dá lastro técnico ao pedido de reequilíbrio: o fator é calculável a partir da planilha de formação de preços da proposta — não é mais discussão subjetiva de "o tributo subiu, meu custo mudou". No regime especial (LC 214/2025, arts. 373–377, propostas até 16/01/2025), a matriz de riscos não obsta o pedido (art. 374, §2º).'
+B26	'RESSALVA: o fator F mede o preço que preserva a receita líquida do fornecedor (teto, repasse integral). O IRT-E expurga o componente repassável a terceiros: IRT-E = 1 + κ(F−1), κ = |ε|/(1+|ε|). Quanto mais concorrido o mercado, maior a compressão de margem (coluna O) — o mercado decide onde o preço para entre o teto e a margem.'

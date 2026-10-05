@@ -1,0 +1,280 @@
+B2	'MATRIZ DE SERVIÇOS — cruzamento de incidência tributária e fator de correção — SETOR PÚBLICO'
+B3	'ISS por descrição (Lei 8.725/2003-BH) · PIS/COFINS pelo regime · DAS t1 automática com Anexos XVIII–XXII da LC 214/2025 · colunas ε/κ/IRT-E: expurgo do repasse (metodologia IRT-E) — verde = busca · azul = input · preto = fórmula'
+E4	'Use o preço do item multiplicado pela quantidade contratada (valor do lote/item) na coluna Preço t0 das matrizes — a ponderação reflete o peso real no contrato.'
+E5	'Percentual de creditamento de PIS/COFINS do ANO-BASE (t0) — digite UM número entre 0 e 1 (ex.: 0,2). Formato legado "(c t0; c t1)" ainda é aceito, mas o 2º valor é IGNORADO: NÃO EXISTE crédito de PIS/COFINS no ano-alvo — PIS/COFINS está extinto desde 2027 (LC 214/2025, art. 378). Créditos na transição: ver bloco "CREDITAMENTO NA TRANSIÇÃO" na aba Parâmetros (cenário conservador: não abatidos no preço de t1). Coluna W extrai o valor utilizado; coluna X é legado e não alimenta cálculo algum.'
+B6	'Item'
+C6	'Serviço (selecionar — lista LC 116/BH)'
+D6	'Regime na proposta (planilha)'
+E6	'Redução IBS/CBS (LC 214) — selecionar'
+F6	'Preço t0 (R$, c/ tributos por dentro)'
+G6	'c: crédito PIS/COFINS do ANO-BASE (t0) — número entre 0 e 1 (tupla legada aceita; 2º valor ignorado — PIS/COFINS extinto desde 2027)'
+H6	'DAS Simples t0 — calculado (alíquota efetiva = nominal − parcela/RBT12)'
+I6	'DAS Simples t1 — automática pela tabela legal do ANO-ALVO (Dashboard E7; padrão 2027), Anexo/Faixa em Simples_Tabelas C6:D6 e Anexos XVIII–XXII. PURO: alíquota efetiva t1. HÍBRIDO: alíquota efetiva t1 × [IRPJ+CSLL+CPP(+IPI) + ICMS/ISS% do ano-alvo].'
+J6	'ρ redução IBS/CBS '
+K6	'k repasse'
+L6	'ISS t0 '
+M6	'PIS/COFINS t0 (pelo regime)'
+N6	'Receita líquida t0'
+O6	'IBS+CBS efetivos no ANO-BASE (t0)'
+P6	'Carga por dentro ANO-BASE (t0)'
+Q6	'Preço em t0 (R$)'
+R6	'IBS+CBS efetivos no ANO-ALVO (t1)'
+S6	'Carga por dentro ANO-ALVO (t1)'
+T6	'Preço em t1 — REPASSAR (R$)'
+U6	'FATOR F (t0→t1)'
+V6	'Variação %'
+W6	'c t0 — extraído do input (único valor usado pelo modelo)'
+X6	'LEGADO — ignorado: não alimenta cálculo algum (PIS/COFINS extinto desde 2027)'
+Y6	'ε elasticidade-preço da demanda (input — vazio = padrão de Parâmetros!D79)'
+Z6	'κ = |ε|/(1+|ε|)'
+AA6	'IRT-E = 1 + κ·(F−1)'
+AB6	'Preço t1 reajustado pelo IRT-E (R$)'
+AC6	'Variação IRT-E (%)'
+B7	'Vigilância patrimonial'
+C7	'Vigilância, segurança ou monitoramento de bens e pessoas'
+D7	'Lucro real'
+E7	'Regra geral (sem redução)'
+F7	100
+G7	'(0,20; 0,20)'
+H7	F:=IF($B7="",0,IF(LEFT($D7,7)<>"Simples",0,IF(OR(Simples_Tabelas!$P$6="",Simples_Tabelas!$E$6="",Simples_Tabelas!$D$6="",Simples_Tabelas!$D$6=0,NOT(ISNUMBER(Simples_Tabelas!$D$6))),0,MAX(SUMIFS(Simples_Tabelas!$E$8:$E$248,Simples_Tabelas!$B$8:$B$248,Simples_Tabelas!$P$6,Simples_Tabelas!$C$8:$C$248,MIN(Dashboard!$E$6,2033),Simples_Tabelas!$D$8:$D$248,Simples_Tabelas!$E$6)-IF(Simples_Tabelas!$D$6>0,SUMIFS(Simples_Tabelas!$F$8:$F$248,Simples_Tabelas!$B$8:$B$248,Simples_Tabelas!$P$6,Simples_Tabelas!$C$8:$C$248,MIN(Dashboard!$E$6,2033),Simples_Tabelas!$D$8:$D$248,Simples_Tabelas!$E$6)/Simples_Tabelas!$D$6*100,0),0)/100)))	V:0
+I7	F:=IF($B7="",0,IF(LEFT($D7,7)<>"Simples",0,IF(OR(Simples_Tabelas!$P$6="",Simples_Tabelas!$E$6="",Simples_Tabelas!$D$6="",Simples_Tabelas!$D$6=0,NOT(ISNUMBER(Simples_Tabelas!$D$6))),$H7,IF(ISNUMBER(SEARCH("híbrido",$D7)),Simples_Tabelas!$Q$6*(SUMIFS(Simples_Tabelas!$N$8:$N$248,Simples_Tabelas!$B$8:$B$248,Simples_Tabelas!$P$6,Simples_Tabelas!$C$8:$C$248,MIN(Dashboard!$E$7,2033),Simples_Tabelas!$D$8:$D$248,Simples_Tabelas!$E$6)+SUMIFS(Simples_Tabelas!$K$8:$K$248,Simples_Tabelas!$B$8:$B$248,Simples_Tabelas!$P$6,Simples_Tabelas!$C$8:$C$248,MIN(Dashboard!$E$7,2033),Simples_Tabelas!$D$8:$D$248,Simples_Tabelas!$E$6))/100,Simples_Tabelas!$Q$6))))	V:0
+J7	<openpyxl.worksheet.formula.ArrayFormula object at 0x000001EAEE56DBB0>
+K7	1
+L7	<openpyxl.worksheet.formula.ArrayFormula object at 0x000001EAEE56DC10>
+M7	<openpyxl.worksheet.formula.ArrayFormula object at 0x000001EAEE56DC70>
+N7	F:=IF($F7="",0,$F7*(1-L7-M7*(1-W7)-H7))	V:87.6
+O7	<openpyxl.worksheet.formula.ArrayFormula object at 0x000001EAEE56DCD0>
+P7	F:=IF($F7="",0,L7*INDEX(Parâmetros!$E$15:$E$501,MATCH(Dashboard!$E$6,Parâmetros!$B$15:$B$501,0))+M7*(1-W7)*INDEX(Parâmetros!$F$15:$F$501,MATCH(Dashboard!$E$6,Parâmetros!$B$15:$B$501,0)))	V:0.124
+Q7	F:=IF(OR($F7="",$F7=0),0,N7*(1+O7)/(1-P7-H7))	V:100
+R7	<openpyxl.worksheet.formula.ArrayFormula object at 0x000001EAEE56DDF0>
+S7	F:=IF($F7="",0,L7*INDEX(Parâmetros!$E$15:$E$501,MATCH(Dashboard!$E$7,Parâmetros!$B$15:$B$501,0))+M7*(1-W7)*INDEX(Parâmetros!$F$15:$F$501,MATCH(Dashboard!$E$7,Parâmetros!$B$15:$B$501,0)))	V:0
+T7	F:=IF(OR($F7="",$F7=0),0,N7*(1+R7)/(1-S7-I7))	V:110.814
+U7	F:=IF(Q7=0,0,T7/Q7)	V:1.10814
+V7	F:=IF(U7=0,"",U7-1)	V:0.10814
+W7	F:=IF($G7="",0,IF(ISNUMBER($G7),$G7,IFERROR(VALUE(SUBSTITUTE(TRIM(MID($G7,2,FIND(";",$G7)-2)),",",".")),VALUE(SUBSTITUTE(TRIM(MID($G7,2,FIND(";",$G7)-2)),".",",")))))	V:0.2
+X7	F:=IF($G7="",0,IF(ISNUMBER($G7),$G7,IFERROR(VALUE(SUBSTITUTE(TRIM(MID($G7,FIND(";",$G7)+1,LEN($G7)-FIND(";",$G7)-1)),",",".")),VALUE(SUBSTITUTE(TRIM(MID($G7,FIND(";",$G7)+1,LEN($G7)-FIND(";",$G7)-1)),".",",")))))	V:0.2
+Y7	-0.5
+Z7	F:=IF($B7="",0,IF($Y7="",Parâmetros!$D$80,ABS($Y7)/(1+ABS($Y7))))	V:0.333333333333333
+AA7	F:=IF($B7="",0,IF($U7=0,0,1+$Z7*($U7-1)))	V:1.03604666666667
+AB7	F:=IF(OR($F7="",$F7=0),0,$Q7*$AA7)	V:103.604666666667
+AC7	F:=IF($B7="","",IF($AA7=0,"",$AA7-1))	V:0.0360466666666668
+B8	'Limpeza e conservação'
+C8	'Limpeza, manutenção e conservação'
+D8	'Lucro real'
+E8	'Regra geral (sem redução)'
+F8	100
+G8	'(0,25; 0,25)'
+H8	F:=IF($B8="",0,IF(LEFT($D8,7)<>"Simples",0,IF(OR(Simples_Tabelas!$P$6="",Simples_Tabelas!$E$6="",Simples_Tabelas!$D$6="",Simples_Tabelas!$D$6=0,NOT(ISNUMBER(Simples_Tabelas!$D$6))),0,MAX(SUMIFS(Simples_Tabelas!$E$8:$E$248,Simples_Tabelas!$B$8:$B$248,Simples_Tabelas!$P$6,Simples_Tabelas!$C$8:$C$248,MIN(Dashboard!$E$6,2033),Simples_Tabelas!$D$8:$D$248,Simples_Tabelas!$E$6)-IF(Simples_Tabelas!$D$6>0,SUMIFS(Simples_Tabelas!$F$8:$F$248,Simples_Tabelas!$B$8:$B$248,Simples_Tabelas!$P$6,Simples_Tabelas!$C$8:$C$248,MIN(Dashboard!$E$6,2033),Simples_Tabelas!$D$8:$D$248,Simples_Tabelas!$E$6)/Simples_Tabelas!$D$6*100,0),0)/100)))	V:0
+I8	F:=IF($B8="",0,IF(LEFT($D8,7)<>"Simples",0,IF(OR(Simples_Tabelas!$P$6="",Simples_Tabelas!$E$6="",Simples_Tabelas!$D$6="",Simples_Tabelas!$D$6=0,NOT(ISNUMBER(Simples_Tabelas!$D$6))),$H8,IF(ISNUMBER(SEARCH("híbrido",$D8)),Simples_Tabelas!$Q$6*(SUMIFS(Simples_Tabelas!$N$8:$N$248,Simples_Tabelas!$B$8:$B$248,Simples_Tabelas!$P$6,Simples_Tabelas!$C$8:$C$248,MIN(Dashboard!$E$7,2033),Simples_Tabelas!$D$8:$D$248,Simples_Tabelas!$E$6)+SUMIFS(Simples_Tabelas!$K$8:$K$248,Simples_Tabelas!$B$8:$B$248,Simples_Tabelas!$P$6,Simples_Tabelas!$C$8:$C$248,MIN(Dashboard!$E$7,2033),Simples_Tabelas!$D$8:$D$248,Simples_Tabelas!$E$6))/100,Simples_Tabelas!$Q$6))))	V:0
+J8	<openpyxl.worksheet.formula.ArrayFormula object at 0x000001EAEE56DF10>
+K8	1
+L8	<openpyxl.worksheet.formula.ArrayFormula object at 0x000001EAEE56DF70>
+M8	<openpyxl.worksheet.formula.ArrayFormula object at 0x000001EAEE56DFD0>
+N8	F:=IF($F8="",0,$F8*(1-L8-M8*(1-W8)-H8))	V:88.0625
+O8	<openpyxl.worksheet.formula.ArrayFormula object at 0x000001EAEE56E030>
+P8	F:=IF($F8="",0,L8*INDEX(Parâmetros!$E$15:$E$501,MATCH(Dashboard!$E$6,Parâmetros!$B$15:$B$501,0))+M8*(1-W8)*INDEX(Parâmetros!$F$15:$F$501,MATCH(Dashboard!$E$6,Parâmetros!$B$15:$B$501,0)))	V:0.119375
+Q8	F:=IF(OR($F8="",$F8=0),0,N8*(1+O8)/(1-P8-H8))	V:100
+R8	<openpyxl.worksheet.formula.ArrayFormula object at 0x000001EAEE56DB50>
+S8	F:=IF($F8="",0,L8*INDEX(Parâmetros!$E$15:$E$501,MATCH(Dashboard!$E$7,Parâmetros!$B$15:$B$501,0))+M8*(1-W8)*INDEX(Parâmetros!$F$15:$F$501,MATCH(Dashboard!$E$7,Parâmetros!$B$15:$B$501,0)))	V:0
+T8	F:=IF(OR($F8="",$F8=0),0,N8*(1+R8)/(1-S8-I8))	V:111.3990625
+U8	F:=IF(Q8=0,0,T8/Q8)	V:1.113990625
+V8	F:=IF(U8=0,"",U8-1)	V:0.113990625
+W8	F:=IF($G8="",0,IF(ISNUMBER($G8),$G8,IFERROR(VALUE(SUBSTITUTE(TRIM(MID($G8,2,FIND(";",$G8)-2)),",",".")),VALUE(SUBSTITUTE(TRIM(MID($G8,2,FIND(";",$G8)-2)),".",",")))))	V:0.25
+X8	F:=IF($G8="",0,IF(ISNUMBER($G8),$G8,IFERROR(VALUE(SUBSTITUTE(TRIM(MID($G8,FIND(";",$G8)+1,LEN($G8)-FIND(";",$G8)-1)),",",".")),VALUE(SUBSTITUTE(TRIM(MID($G8,FIND(";",$G8)+1,LEN($G8)-FIND(";",$G8)-1)),".",",")))))	V:0.25
+Y8	-0.5
+Z8	F:=IF($B8="",0,IF($Y8="",Parâmetros!$D$80,ABS($Y8)/(1+ABS($Y8))))	V:0.333333333333333
+AA8	F:=IF($B8="",0,IF($U8=0,0,1+$Z8*($U8-1)))	V:1.037996875
+AB8	F:=IF(OR($F8="",$F8=0),0,$Q8*$AA8)	V:103.7996875
+AC8	F:=IF($B8="","",IF($AA8=0,"",$AA8-1))	V:0.0379968750000002
+B9	'Manutenção predial'
+C9	'Manutenção predial / obras (execução)'
+D9	'Lucro presumido'
+E9	'Regra geral (sem redução)'
+F9	100
+G9	'(0,00; 0,00)'
+H9	F:=IF($B9="",0,IF(LEFT($D9,7)<>"Simples",0,IF(OR(Simples_Tabelas!$P$6="",Simples_Tabelas!$E$6="",Simples_Tabelas!$D$6="",Simples_Tabelas!$D$6=0,NOT(ISNUMBER(Simples_Tabelas!$D$6))),0,MAX(SUMIFS(Simples_Tabelas!$E$8:$E$248,Simples_Tabelas!$B$8:$B$248,Simples_Tabelas!$P$6,Simples_Tabelas!$C$8:$C$248,MIN(Dashboard!$E$6,2033),Simples_Tabelas!$D$8:$D$248,Simples_Tabelas!$E$6)-IF(Simples_Tabelas!$D$6>0,SUMIFS(Simples_Tabelas!$F$8:$F$248,Simples_Tabelas!$B$8:$B$248,Simples_Tabelas!$P$6,Simples_Tabelas!$C$8:$C$248,MIN(Dashboard!$E$6,2033),Simples_Tabelas!$D$8:$D$248,Simples_Tabelas!$E$6)/Simples_Tabelas!$D$6*100,0),0)/100)))	V:0
+I9	F:=IF($B9="",0,IF(LEFT($D9,7)<>"Simples",0,IF(OR(Simples_Tabelas!$P$6="",Simples_Tabelas!$E$6="",Simples_Tabelas!$D$6="",Simples_Tabelas!$D$6=0,NOT(ISNUMBER(Simples_Tabelas!$D$6))),$H9,IF(ISNUMBER(SEARCH("híbrido",$D9)),Simples_Tabelas!$Q$6*(SUMIFS(Simples_Tabelas!$N$8:$N$248,Simples_Tabelas!$B$8:$B$248,Simples_Tabelas!$P$6,Simples_Tabelas!$C$8:$C$248,MIN(Dashboard!$E$7,2033),Simples_Tabelas!$D$8:$D$248,Simples_Tabelas!$E$6)+SUMIFS(Simples_Tabelas!$K$8:$K$248,Simples_Tabelas!$B$8:$B$248,Simples_Tabelas!$P$6,Simples_Tabelas!$C$8:$C$248,MIN(Dashboard!$E$7,2033),Simples_Tabelas!$D$8:$D$248,Simples_Tabelas!$E$6))/100,Simples_Tabelas!$Q$6))))	V:0
+J9	<openpyxl.worksheet.formula.ArrayFormula object at 0x000001EAEE56E150>
+K9	1
+L9	<openpyxl.worksheet.formula.ArrayFormula object at 0x000001EAEE56E090>
+M9	<openpyxl.worksheet.formula.ArrayFormula object at 0x000001EAEE56DE50>
+N9	F:=IF($F9="",0,$F9*(1-L9-M9*(1-W9)-H9))	V:91.35
+O9	<openpyxl.worksheet.formula.ArrayFormula object at 0x000001EAEE56E210>
+P9	F:=IF($F9="",0,L9*INDEX(Parâmetros!$E$15:$E$501,MATCH(Dashboard!$E$6,Parâmetros!$B$15:$B$501,0))+M9*(1-W9)*INDEX(Parâmetros!$F$15:$F$501,MATCH(Dashboard!$E$6,Parâmetros!$B$15:$B$501,0)))	V:0.0865
+Q9	F:=IF(OR($F9="",$F9=0),0,N9*(1+O9)/(1-P9-H9))	V:100
+R9	<openpyxl.worksheet.formula.ArrayFormula object at 0x000001EAEE56E330>
+S9	F:=IF($F9="",0,L9*INDEX(Parâmetros!$E$15:$E$501,MATCH(Dashboard!$E$7,Parâmetros!$B$15:$B$501,0))+M9*(1-W9)*INDEX(Parâmetros!$F$15:$F$501,MATCH(Dashboard!$E$7,Parâmetros!$B$15:$B$501,0)))	V:0
+T9	F:=IF(OR($F9="",$F9=0),0,N9*(1+R9)/(1-S9-I9))	V:115.55775
+U9	F:=IF(Q9=0,0,T9/Q9)	V:1.1555775
+V9	F:=IF(U9=0,"",U9-1)	V:0.1555775
+W9	F:=IF($G9="",0,IF(ISNUMBER($G9),$G9,IFERROR(VALUE(SUBSTITUTE(TRIM(MID($G9,2,FIND(";",$G9)-2)),",",".")),VALUE(SUBSTITUTE(TRIM(MID($G9,2,FIND(";",$G9)-2)),".",",")))))	V:0
+X9	F:=IF($G9="",0,IF(ISNUMBER($G9),$G9,IFERROR(VALUE(SUBSTITUTE(TRIM(MID($G9,FIND(";",$G9)+1,LEN($G9)-FIND(";",$G9)-1)),",",".")),VALUE(SUBSTITUTE(TRIM(MID($G9,FIND(";",$G9)+1,LEN($G9)-FIND(";",$G9)-1)),".",",")))))	V:0
+Y9	-0.5
+Z9	F:=IF($B9="",0,IF($Y9="",Parâmetros!$D$80,ABS($Y9)/(1+ABS($Y9))))	V:0.333333333333333
+AA9	F:=IF($B9="",0,IF($U9=0,0,1+$Z9*($U9-1)))	V:1.05185916666667
+AB9	F:=IF(OR($F9="",$F9=0),0,$Q9*$AA9)	V:105.185916666667
+AC9	F:=IF($B9="","",IF($AA9=0,"",$AA9-1))	V:0.0518591666666666
+B10	'Suporte técnico de TI'
+C10	'Suporte técnico em informática'
+D10	'Simples Nacional'
+E10	'Regra geral (sem redução)'
+F10	100
+G10	'(0,00; 0,00)'
+H10	F:=IF($B10="",0,IF(LEFT($D10,7)<>"Simples",0,IF(OR(Simples_Tabelas!$P$6="",Simples_Tabelas!$E$6="",Simples_Tabelas!$D$6="",Simples_Tabelas!$D$6=0,NOT(ISNUMBER(Simples_Tabelas!$D$6))),0,MAX(SUMIFS(Simples_Tabelas!$E$8:$E$248,Simples_Tabelas!$B$8:$B$248,Simples_Tabelas!$P$6,Simples_Tabelas!$C$8:$C$248,MIN(Dashboard!$E$6,2033),Simples_Tabelas!$D$8:$D$248,Simples_Tabelas!$E$6)-IF(Simples_Tabelas!$D$6>0,SUMIFS(Simples_Tabelas!$F$8:$F$248,Simples_Tabelas!$B$8:$B$248,Simples_Tabelas!$P$6,Simples_Tabelas!$C$8:$C$248,MIN(Dashboard!$E$6,2033),Simples_Tabelas!$D$8:$D$248,Simples_Tabelas!$E$6)/Simples_Tabelas!$D$6*100,0),0)/100)))	V:0.0958
+I10	F:=IF($B10="",0,IF(LEFT($D10,7)<>"Simples",0,IF(OR(Simples_Tabelas!$P$6="",Simples_Tabelas!$E$6="",Simples_Tabelas!$D$6="",Simples_Tabelas!$D$6=0,NOT(ISNUMBER(Simples_Tabelas!$D$6))),$H10,IF(ISNUMBER(SEARCH("híbrido",$D10)),Simples_Tabelas!$Q$6*(SUMIFS(Simples_Tabelas!$N$8:$N$248,Simples_Tabelas!$B$8:$B$248,Simples_Tabelas!$P$6,Simples_Tabelas!$C$8:$C$248,MIN(Dashboard!$E$7,2033),Simples_Tabelas!$D$8:$D$248,Simples_Tabelas!$E$6)+SUMIFS(Simples_Tabelas!$K$8:$K$248,Simples_Tabelas!$B$8:$B$248,Simples_Tabelas!$P$6,Simples_Tabelas!$C$8:$C$248,MIN(Dashboard!$E$7,2033),Simples_Tabelas!$D$8:$D$248,Simples_Tabelas!$E$6))/100,Simples_Tabelas!$Q$6))))	V:0.0958
+J10	<openpyxl.worksheet.formula.ArrayFormula object at 0x000001EAEE56E390>
+K10	1
+L10	<openpyxl.worksheet.formula.ArrayFormula object at 0x000001EAEE56E270>
+M10	<openpyxl.worksheet.formula.ArrayFormula object at 0x000001EAEE56DD30>
+N10	F:=IF($F10="",0,$F10*(1-L10-M10*(1-W10)-H10))	V:90.42
+O10	<openpyxl.worksheet.formula.ArrayFormula object at 0x000001EAEE56E510>
+P10	F:=IF($F10="",0,L10*INDEX(Parâmetros!$E$15:$E$501,MATCH(Dashboard!$E$6,Parâmetros!$B$15:$B$501,0))+M10*(1-W10)*INDEX(Parâmetros!$F$15:$F$501,MATCH(Dashboard!$E$6,Parâmetros!$B$15:$B$501,0)))	V:0
+Q10	F:=IF(OR($F10="",$F10=0),0,N10*(1+O10)/(1-P10-H10))	V:100
+R10	<openpyxl.worksheet.formula.ArrayFormula object at 0x000001EAEE56E630>
+S10	F:=IF($F10="",0,L10*INDEX(Parâmetros!$E$15:$E$501,MATCH(Dashboard!$E$7,Parâmetros!$B$15:$B$501,0))+M10*(1-W10)*INDEX(Parâmetros!$F$15:$F$501,MATCH(Dashboard!$E$7,Parâmetros!$B$15:$B$501,0)))	V:0
+T10	F:=IF(OR($F10="",$F10=0),0,N10*(1+R10)/(1-S10-I10))	V:100
+U10	F:=IF(Q10=0,0,T10/Q10)	V:1
+V10	F:=IF(U10=0,"",U10-1)	V:0
+W10	F:=IF($G10="",0,IF(ISNUMBER($G10),$G10,IFERROR(VALUE(SUBSTITUTE(TRIM(MID($G10,2,FIND(";",$G10)-2)),",",".")),VALUE(SUBSTITUTE(TRIM(MID($G10,2,FIND(";",$G10)-2)),".",",")))))	V:0
+X10	F:=IF($G10="",0,IF(ISNUMBER($G10),$G10,IFERROR(VALUE(SUBSTITUTE(TRIM(MID($G10,FIND(";",$G10)+1,LEN($G10)-FIND(";",$G10)-1)),",",".")),VALUE(SUBSTITUTE(TRIM(MID($G10,FIND(";",$G10)+1,LEN($G10)-FIND(";",$G10)-1)),".",",")))))	V:0
+Y10	-0.5
+Z10	F:=IF($B10="",0,IF($Y10="",Parâmetros!$D$80,ABS($Y10)/(1+ABS($Y10))))	V:0.333333333333333
+AA10	F:=IF($B10="",0,IF($U10=0,0,1+$Z10*($U10-1)))	V:1
+AB10	F:=IF(OR($F10="",$F10=0),0,$Q10*$AA10)	V:100
+AC10	F:=IF($B10="","",IF($AA10=0,"",$AA10-1))	V:0
+B11	'Assessoria contábil'
+C11	'Contabilidade e serviços técnicos auxiliares'
+D11	'Lucro presumido'
+E11	'Profissões regulamentadas (30%)'
+F11	100
+G11	'(0,00; 0,00)'
+H11	F:=IF($B11="",0,IF(LEFT($D11,7)<>"Simples",0,IF(OR(Simples_Tabelas!$P$6="",Simples_Tabelas!$E$6="",Simples_Tabelas!$D$6="",Simples_Tabelas!$D$6=0,NOT(ISNUMBER(Simples_Tabelas!$D$6))),0,MAX(SUMIFS(Simples_Tabelas!$E$8:$E$248,Simples_Tabelas!$B$8:$B$248,Simples_Tabelas!$P$6,Simples_Tabelas!$C$8:$C$248,MIN(Dashboard!$E$6,2033),Simples_Tabelas!$D$8:$D$248,Simples_Tabelas!$E$6)-IF(Simples_Tabelas!$D$6>0,SUMIFS(Simples_Tabelas!$F$8:$F$248,Simples_Tabelas!$B$8:$B$248,Simples_Tabelas!$P$6,Simples_Tabelas!$C$8:$C$248,MIN(Dashboard!$E$6,2033),Simples_Tabelas!$D$8:$D$248,Simples_Tabelas!$E$6)/Simples_Tabelas!$D$6*100,0),0)/100)))	V:0
+I11	F:=IF($B11="",0,IF(LEFT($D11,7)<>"Simples",0,IF(OR(Simples_Tabelas!$P$6="",Simples_Tabelas!$E$6="",Simples_Tabelas!$D$6="",Simples_Tabelas!$D$6=0,NOT(ISNUMBER(Simples_Tabelas!$D$6))),$H11,IF(ISNUMBER(SEARCH("híbrido",$D11)),Simples_Tabelas!$Q$6*(SUMIFS(Simples_Tabelas!$N$8:$N$248,Simples_Tabelas!$B$8:$B$248,Simples_Tabelas!$P$6,Simples_Tabelas!$C$8:$C$248,MIN(Dashboard!$E$7,2033),Simples_Tabelas!$D$8:$D$248,Simples_Tabelas!$E$6)+SUMIFS(Simples_Tabelas!$K$8:$K$248,Simples_Tabelas!$B$8:$B$248,Simples_Tabelas!$P$6,Simples_Tabelas!$C$8:$C$248,MIN(Dashboard!$E$7,2033),Simples_Tabelas!$D$8:$D$248,Simples_Tabelas!$E$6))/100,Simples_Tabelas!$Q$6))))	V:0
+J11	<openpyxl.worksheet.formula.ArrayFormula object at 0x000001EAEE56E450>
+K11	1
+L11	<openpyxl.worksheet.formula.ArrayFormula object at 0x000001EAEE56E7B0>
+M11	<openpyxl.worksheet.formula.ArrayFormula object at 0x000001EAEE56E810>
+N11	F:=IF($F11="",0,$F11*(1-L11-M11*(1-W11)-H11))	V:91.35
+O11	<openpyxl.worksheet.formula.ArrayFormula object at 0x000001EAEE56E930>
+P11	F:=IF($F11="",0,L11*INDEX(Parâmetros!$E$15:$E$501,MATCH(Dashboard!$E$6,Parâmetros!$B$15:$B$501,0))+M11*(1-W11)*INDEX(Parâmetros!$F$15:$F$501,MATCH(Dashboard!$E$6,Parâmetros!$B$15:$B$501,0)))	V:0.0865
+Q11	F:=IF(OR($F11="",$F11=0),0,N11*(1+O11)/(1-P11-H11))	V:100
+R11	<openpyxl.worksheet.formula.ArrayFormula object at 0x000001EAEE56EA50>
+S11	F:=IF($F11="",0,L11*INDEX(Parâmetros!$E$15:$E$501,MATCH(Dashboard!$E$7,Parâmetros!$B$15:$B$501,0))+M11*(1-W11)*INDEX(Parâmetros!$F$15:$F$501,MATCH(Dashboard!$E$7,Parâmetros!$B$15:$B$501,0)))	V:0
+T11	F:=IF(OR($F11="",$F11=0),0,N11*(1+R11)/(1-S11-I11))	V:108.295425
+U11	F:=IF(Q11=0,0,T11/Q11)	V:1.08295425
+V11	F:=IF(U11=0,"",U11-1)	V:0.08295425
+W11	F:=IF($G11="",0,IF(ISNUMBER($G11),$G11,IFERROR(VALUE(SUBSTITUTE(TRIM(MID($G11,2,FIND(";",$G11)-2)),",",".")),VALUE(SUBSTITUTE(TRIM(MID($G11,2,FIND(";",$G11)-2)),".",",")))))	V:0
+X11	F:=IF($G11="",0,IF(ISNUMBER($G11),$G11,IFERROR(VALUE(SUBSTITUTE(TRIM(MID($G11,FIND(";",$G11)+1,LEN($G11)-FIND(";",$G11)-1)),",",".")),VALUE(SUBSTITUTE(TRIM(MID($G11,FIND(";",$G11)+1,LEN($G11)-FIND(";",$G11)-1)),".",",")))))	V:0
+Y11	-0.5
+Z11	F:=IF($B11="",0,IF($Y11="",Parâmetros!$D$80,ABS($Y11)/(1+ABS($Y11))))	V:0.333333333333333
+AA11	F:=IF($B11="",0,IF($U11=0,0,1+$Z11*($U11-1)))	V:1.02765141666667
+AB11	F:=IF(OR($F11="",$F11=0),0,$Q11*$AA11)	V:102.765141666667
+AC11	F:=IF($B11="","",IF($AA11=0,"",$AA11-1))	V:0.0276514166666666
+B12	'Portaria e recepção'
+C12	'Fornecimento de mão de obra — portaria e recepção'
+D12	'Simples híbrido (IBS/CBS pelo regime regular)'
+E12	'Regra geral (sem redução)'
+F12	100
+G12	'(0,00; 0,00)'
+H12	F:=IF($B12="",0,IF(LEFT($D12,7)<>"Simples",0,IF(OR(Simples_Tabelas!$P$6="",Simples_Tabelas!$E$6="",Simples_Tabelas!$D$6="",Simples_Tabelas!$D$6=0,NOT(ISNUMBER(Simples_Tabelas!$D$6))),0,MAX(SUMIFS(Simples_Tabelas!$E$8:$E$248,Simples_Tabelas!$B$8:$B$248,Simples_Tabelas!$P$6,Simples_Tabelas!$C$8:$C$248,MIN(Dashboard!$E$6,2033),Simples_Tabelas!$D$8:$D$248,Simples_Tabelas!$E$6)-IF(Simples_Tabelas!$D$6>0,SUMIFS(Simples_Tabelas!$F$8:$F$248,Simples_Tabelas!$B$8:$B$248,Simples_Tabelas!$P$6,Simples_Tabelas!$C$8:$C$248,MIN(Dashboard!$E$6,2033),Simples_Tabelas!$D$8:$D$248,Simples_Tabelas!$E$6)/Simples_Tabelas!$D$6*100,0),0)/100)))	V:0.0958
+I12	F:=IF($B12="",0,IF(LEFT($D12,7)<>"Simples",0,IF(OR(Simples_Tabelas!$P$6="",Simples_Tabelas!$E$6="",Simples_Tabelas!$D$6="",Simples_Tabelas!$D$6=0,NOT(ISNUMBER(Simples_Tabelas!$D$6))),$H12,IF(ISNUMBER(SEARCH("híbrido",$D12)),Simples_Tabelas!$Q$6*(SUMIFS(Simples_Tabelas!$N$8:$N$248,Simples_Tabelas!$B$8:$B$248,Simples_Tabelas!$P$6,Simples_Tabelas!$C$8:$C$248,MIN(Dashboard!$E$7,2033),Simples_Tabelas!$D$8:$D$248,Simples_Tabelas!$E$6)+SUMIFS(Simples_Tabelas!$K$8:$K$248,Simples_Tabelas!$B$8:$B$248,Simples_Tabelas!$P$6,Simples_Tabelas!$C$8:$C$248,MIN(Dashboard!$E$7,2033),Simples_Tabelas!$D$8:$D$248,Simples_Tabelas!$E$6))/100,Simples_Tabelas!$Q$6))))	V:0.0487622
+J12	<openpyxl.worksheet.formula.ArrayFormula object at 0x000001EAEE56D8B0>
+K12	1
+L12	<openpyxl.worksheet.formula.ArrayFormula object at 0x000001EAEE56EAB0>
+M12	<openpyxl.worksheet.formula.ArrayFormula object at 0x000001EAEE56E990>
+N12	F:=IF($F12="",0,$F12*(1-L12-M12*(1-W12)-H12))	V:90.42
+O12	<openpyxl.worksheet.formula.ArrayFormula object at 0x000001EAEE56EC30>
+P12	F:=IF($F12="",0,L12*INDEX(Parâmetros!$E$15:$E$501,MATCH(Dashboard!$E$6,Parâmetros!$B$15:$B$501,0))+M12*(1-W12)*INDEX(Parâmetros!$F$15:$F$501,MATCH(Dashboard!$E$6,Parâmetros!$B$15:$B$501,0)))	V:0
+Q12	F:=IF(OR($F12="",$F12=0),0,N12*(1+O12)/(1-P12-H12))	V:100
+R12	<openpyxl.worksheet.formula.ArrayFormula object at 0x000001EAEE56ED50>
+S12	F:=IF($F12="",0,L12*INDEX(Parâmetros!$E$15:$E$501,MATCH(Dashboard!$E$7,Parâmetros!$B$15:$B$501,0))+M12*(1-W12)*INDEX(Parâmetros!$F$15:$F$501,MATCH(Dashboard!$E$7,Parâmetros!$B$15:$B$501,0)))	V:0
+T12	F:=IF(OR($F12="",$F12=0),0,N12*(1+R12)/(1-S12-I12))	V:120.244695910949
+U12	F:=IF(Q12=0,0,T12/Q12)	V:1.20244695910949
+V12	F:=IF(U12=0,"",U12-1)	V:0.202446959109489
+W12	F:=IF($G12="",0,IF(ISNUMBER($G12),$G12,IFERROR(VALUE(SUBSTITUTE(TRIM(MID($G12,2,FIND(";",$G12)-2)),",",".")),VALUE(SUBSTITUTE(TRIM(MID($G12,2,FIND(";",$G12)-2)),".",",")))))	V:0
+X12	F:=IF($G12="",0,IF(ISNUMBER($G12),$G12,IFERROR(VALUE(SUBSTITUTE(TRIM(MID($G12,FIND(";",$G12)+1,LEN($G12)-FIND(";",$G12)-1)),",",".")),VALUE(SUBSTITUTE(TRIM(MID($G12,FIND(";",$G12)+1,LEN($G12)-FIND(";",$G12)-1)),".",",")))))	V:0
+Y12	-0.5
+Z12	F:=IF($B12="",0,IF($Y12="",Parâmetros!$D$80,ABS($Y12)/(1+ABS($Y12))))	V:0.333333333333333
+AA12	F:=IF($B12="",0,IF($U12=0,0,1+$Z12*($U12-1)))	V:1.06748231970316
+AB12	F:=IF(OR($F12="",$F12=0),0,$Q12*$AA12)	V:106.748231970316
+AC12	F:=IF($B12="","",IF($AA12=0,"",$AA12-1))	V:0.0674823197031629
+H13	F:=IF($B13="",0,IF(LEFT($D13,7)<>"Simples",0,IF(OR(Simples_Tabelas!$P$6="",Simples_Tabelas!$E$6="",Simples_Tabelas!$D$6="",Simples_Tabelas!$D$6=0,NOT(ISNUMBER(Simples_Tabelas!$D$6))),0,MAX(SUMIFS(Simples_Tabelas!$E$8:$E$248,Simples_Tabelas!$B$8:$B$248,Simples_Tabelas!$P$6,Simples_Tabelas!$C$8:$C$248,MIN(Dashboard!$E$6,2033),Simples_Tabelas!$D$8:$D$248,Simples_Tabelas!$E$6)-IF(Simples_Tabelas!$D$6>0,SUMIFS(Simples_Tabelas!$F$8:$F$248,Simples_Tabelas!$B$8:$B$248,Simples_Tabelas!$P$6,Simples_Tabelas!$C$8:$C$248,MIN(Dashboard!$E$6,2033),Simples_Tabelas!$D$8:$D$248,Simples_Tabelas!$E$6)/Simples_Tabelas!$D$6*100,0),0)/100)))	V:0
+I13	F:=IF($B13="",0,IF(LEFT($D13,7)<>"Simples",0,IF(OR(Simples_Tabelas!$P$6="",Simples_Tabelas!$E$6="",Simples_Tabelas!$D$6="",Simples_Tabelas!$D$6=0,NOT(ISNUMBER(Simples_Tabelas!$D$6))),$H13,IF(ISNUMBER(SEARCH("híbrido",$D13)),Simples_Tabelas!$Q$6*(SUMIFS(Simples_Tabelas!$N$8:$N$248,Simples_Tabelas!$B$8:$B$248,Simples_Tabelas!$P$6,Simples_Tabelas!$C$8:$C$248,MIN(Dashboard!$E$7,2033),Simples_Tabelas!$D$8:$D$248,Simples_Tabelas!$E$6)+SUMIFS(Simples_Tabelas!$K$8:$K$248,Simples_Tabelas!$B$8:$B$248,Simples_Tabelas!$P$6,Simples_Tabelas!$C$8:$C$248,MIN(Dashboard!$E$7,2033),Simples_Tabelas!$D$8:$D$248,Simples_Tabelas!$E$6))/100,Simples_Tabelas!$Q$6))))	V:0
+J13	<openpyxl.worksheet.formula.ArrayFormula object at 0x000001EAEE56E690>
+L13	<openpyxl.worksheet.formula.ArrayFormula object at 0x000001EAEE56EDB0>
+M13	<openpyxl.worksheet.formula.ArrayFormula object at 0x000001EAEE56EC90>
+N13	F:=IF($F13="",0,$F13*(1-L13-M13*(1-W13)-H13))	V:0
+O13	<openpyxl.worksheet.formula.ArrayFormula object at 0x000001EAEE56EF30>
+P13	F:=IF($F13="",0,L13*INDEX(Parâmetros!$E$15:$E$501,MATCH(Dashboard!$E$6,Parâmetros!$B$15:$B$501,0))+M13*(1-W13)*INDEX(Parâmetros!$F$15:$F$501,MATCH(Dashboard!$E$6,Parâmetros!$B$15:$B$501,0)))	V:0
+Q13	F:=IF(OR($F13="",$F13=0),0,N13*(1+O13)/(1-P13-H13))	V:0
+R13	<openpyxl.worksheet.formula.ArrayFormula object at 0x000001EAEE56F050>
+S13	F:=IF($F13="",0,L13*INDEX(Parâmetros!$E$15:$E$501,MATCH(Dashboard!$E$7,Parâmetros!$B$15:$B$501,0))+M13*(1-W13)*INDEX(Parâmetros!$F$15:$F$501,MATCH(Dashboard!$E$7,Parâmetros!$B$15:$B$501,0)))	V:0
+T13	F:=IF(OR($F13="",$F13=0),0,N13*(1+R13)/(1-S13-I13))	V:0
+U13	F:=IF(Q13=0,0,T13/Q13)	V:0
+V13	F:=IF(U13=0,"",U13-1)	V:None
+W13	F:=IF($G13="",0,IF(ISNUMBER($G13),$G13,IFERROR(VALUE(SUBSTITUTE(TRIM(MID($G13,2,FIND(";",$G13)-2)),",",".")),VALUE(SUBSTITUTE(TRIM(MID($G13,2,FIND(";",$G13)-2)),".",",")))))	V:0
+X13	F:=IF($G13="",0,IF(ISNUMBER($G13),$G13,IFERROR(VALUE(SUBSTITUTE(TRIM(MID($G13,FIND(";",$G13)+1,LEN($G13)-FIND(";",$G13)-1)),",",".")),VALUE(SUBSTITUTE(TRIM(MID($G13,FIND(";",$G13)+1,LEN($G13)-FIND(";",$G13)-1)),".",",")))))	V:0
+Z13	F:=IF($B13="",0,IF($Y13="",Parâmetros!$D$80,ABS($Y13)/(1+ABS($Y13))))	V:0
+AA13	F:=IF($B13="",0,IF($U13=0,0,1+$Z13*($U13-1)))	V:0
+AB13	F:=IF(OR($F13="",$F13=0),0,$Q13*$AA13)	V:0
+AC13	F:=IF($B13="","",IF($AA13=0,"",$AA13-1))	V:None
+H14	F:=IF($B14="",0,IF(LEFT($D14,7)<>"Simples",0,IF(OR(Simples_Tabelas!$P$6="",Simples_Tabelas!$E$6="",Simples_Tabelas!$D$6="",Simples_Tabelas!$D$6=0,NOT(ISNUMBER(Simples_Tabelas!$D$6))),0,MAX(SUMIFS(Simples_Tabelas!$E$8:$E$248,Simples_Tabelas!$B$8:$B$248,Simples_Tabelas!$P$6,Simples_Tabelas!$C$8:$C$248,MIN(Dashboard!$E$6,2033),Simples_Tabelas!$D$8:$D$248,Simples_Tabelas!$E$6)-IF(Simples_Tabelas!$D$6>0,SUMIFS(Simples_Tabelas!$F$8:$F$248,Simples_Tabelas!$B$8:$B$248,Simples_Tabelas!$P$6,Simples_Tabelas!$C$8:$C$248,MIN(Dashboard!$E$6,2033),Simples_Tabelas!$D$8:$D$248,Simples_Tabelas!$E$6)/Simples_Tabelas!$D$6*100,0),0)/100)))	V:0
+I14	F:=IF($B14="",0,IF(LEFT($D14,7)<>"Simples",0,IF(OR(Simples_Tabelas!$P$6="",Simples_Tabelas!$E$6="",Simples_Tabelas!$D$6="",Simples_Tabelas!$D$6=0,NOT(ISNUMBER(Simples_Tabelas!$D$6))),$H14,IF(ISNUMBER(SEARCH("híbrido",$D14)),Simples_Tabelas!$Q$6*(SUMIFS(Simples_Tabelas!$N$8:$N$248,Simples_Tabelas!$B$8:$B$248,Simples_Tabelas!$P$6,Simples_Tabelas!$C$8:$C$248,MIN(Dashboard!$E$7,2033),Simples_Tabelas!$D$8:$D$248,Simples_Tabelas!$E$6)+SUMIFS(Simples_Tabelas!$K$8:$K$248,Simples_Tabelas!$B$8:$B$248,Simples_Tabelas!$P$6,Simples_Tabelas!$C$8:$C$248,MIN(Dashboard!$E$7,2033),Simples_Tabelas!$D$8:$D$248,Simples_Tabelas!$E$6))/100,Simples_Tabelas!$Q$6))))	V:0
+J14	<openpyxl.worksheet.formula.ArrayFormula object at 0x000001EAEE56E870>
+L14	<openpyxl.worksheet.formula.ArrayFormula object at 0x000001EAEE56F1D0>
+M14	<openpyxl.worksheet.formula.ArrayFormula object at 0x000001EAEE56F230>
+N14	F:=IF($F14="",0,$F14*(1-L14-M14*(1-W14)-H14))	V:0
+O14	<openpyxl.worksheet.formula.ArrayFormula object at 0x000001EAEE56F350>
+P14	F:=IF($F14="",0,L14*INDEX(Parâmetros!$E$15:$E$501,MATCH(Dashboard!$E$6,Parâmetros!$B$15:$B$501,0))+M14*(1-W14)*INDEX(Parâmetros!$F$15:$F$501,MATCH(Dashboard!$E$6,Parâmetros!$B$15:$B$501,0)))	V:0
+Q14	F:=IF(OR($F14="",$F14=0),0,N14*(1+O14)/(1-P14-H14))	V:0
+R14	<openpyxl.worksheet.formula.ArrayFormula object at 0x000001EAEE56F470>
+S14	F:=IF($F14="",0,L14*INDEX(Parâmetros!$E$15:$E$501,MATCH(Dashboard!$E$7,Parâmetros!$B$15:$B$501,0))+M14*(1-W14)*INDEX(Parâmetros!$F$15:$F$501,MATCH(Dashboard!$E$7,Parâmetros!$B$15:$B$501,0)))	V:0
+T14	F:=IF(OR($F14="",$F14=0),0,N14*(1+R14)/(1-S14-I14))	V:0
+U14	F:=IF(Q14=0,0,T14/Q14)	V:0
+V14	F:=IF(U14=0,"",U14-1)	V:None
+W14	F:=IF($G14="",0,IF(ISNUMBER($G14),$G14,IFERROR(VALUE(SUBSTITUTE(TRIM(MID($G14,2,FIND(";",$G14)-2)),",",".")),VALUE(SUBSTITUTE(TRIM(MID($G14,2,FIND(";",$G14)-2)),".",",")))))	V:0
+X14	F:=IF($G14="",0,IF(ISNUMBER($G14),$G14,IFERROR(VALUE(SUBSTITUTE(TRIM(MID($G14,FIND(";",$G14)+1,LEN($G14)-FIND(";",$G14)-1)),",",".")),VALUE(SUBSTITUTE(TRIM(MID($G14,FIND(";",$G14)+1,LEN($G14)-FIND(";",$G14)-1)),".",",")))))	V:0
+Z14	F:=IF($B14="",0,IF($Y14="",Parâmetros!$D$80,ABS($Y14)/(1+ABS($Y14))))	V:0
+AA14	F:=IF($B14="",0,IF($U14=0,0,1+$Z14*($U14-1)))	V:0
+AB14	F:=IF(OR($F14="",$F14=0),0,$Q14*$AA14)	V:0
+AC14	F:=IF($B14="","",IF($AA14=0,"",$AA14-1))	V:None
+H15	F:=IF($B15="",0,IF(LEFT($D15,7)<>"Simples",0,IF(OR(Simples_Tabelas!$P$6="",Simples_Tabelas!$E$6="",Simples_Tabelas!$D$6="",Simples_Tabelas!$D$6=0,NOT(ISNUMBER(Simples_Tabelas!$D$6))),0,MAX(SUMIFS(Simples_Tabelas!$E$8:$E$248,Simples_Tabelas!$B$8:$B$248,Simples_Tabelas!$P$6,Simples_Tabelas!$C$8:$C$248,MIN(Dashboard!$E$6,2033),Simples_Tabelas!$D$8:$D$248,Simples_Tabelas!$E$6)-IF(Simples_Tabelas!$D$6>0,SUMIFS(Simples_Tabelas!$F$8:$F$248,Simples_Tabelas!$B$8:$B$248,Simples_Tabelas!$P$6,Simples_Tabelas!$C$8:$C$248,MIN(Dashboard!$E$6,2033),Simples_Tabelas!$D$8:$D$248,Simples_Tabelas!$E$6)/Simples_Tabelas!$D$6*100,0),0)/100)))	V:0
+I15	F:=IF($B15="",0,IF(LEFT($D15,7)<>"Simples",0,IF(OR(Simples_Tabelas!$P$6="",Simples_Tabelas!$E$6="",Simples_Tabelas!$D$6="",Simples_Tabelas!$D$6=0,NOT(ISNUMBER(Simples_Tabelas!$D$6))),$H15,IF(ISNUMBER(SEARCH("híbrido",$D15)),Simples_Tabelas!$Q$6*(SUMIFS(Simples_Tabelas!$N$8:$N$248,Simples_Tabelas!$B$8:$B$248,Simples_Tabelas!$P$6,Simples_Tabelas!$C$8:$C$248,MIN(Dashboard!$E$7,2033),Simples_Tabelas!$D$8:$D$248,Simples_Tabelas!$E$6)+SUMIFS(Simples_Tabelas!$K$8:$K$248,Simples_Tabelas!$B$8:$B$248,Simples_Tabelas!$P$6,Simples_Tabelas!$C$8:$C$248,MIN(Dashboard!$E$7,2033),Simples_Tabelas!$D$8:$D$248,Simples_Tabelas!$E$6))/100,Simples_Tabelas!$Q$6))))	V:0
+J15	<openpyxl.worksheet.formula.ArrayFormula object at 0x000001EAEE56E570>
+L15	<openpyxl.worksheet.formula.ArrayFormula object at 0x000001EAEE56F4D0>
+M15	<openpyxl.worksheet.formula.ArrayFormula object at 0x000001EAEE56F3B0>
+N15	F:=IF($F15="",0,$F15*(1-L15-M15*(1-W15)-H15))	V:0
+O15	<openpyxl.worksheet.formula.ArrayFormula object at 0x000001EAEE56F650>
+P15	F:=IF($F15="",0,L15*INDEX(Parâmetros!$E$15:$E$501,MATCH(Dashboard!$E$6,Parâmetros!$B$15:$B$501,0))+M15*(1-W15)*INDEX(Parâmetros!$F$15:$F$501,MATCH(Dashboard!$E$6,Parâmetros!$B$15:$B$501,0)))	V:0
+Q15	F:=IF(OR($F15="",$F15=0),0,N15*(1+O15)/(1-P15-H15))	V:0
+R15	<openpyxl.worksheet.formula.ArrayFormula object at 0x000001EAEE56F770>
+S15	F:=IF($F15="",0,L15*INDEX(Parâmetros!$E$15:$E$501,MATCH(Dashboard!$E$7,Parâmetros!$B$15:$B$501,0))+M15*(1-W15)*INDEX(Parâmetros!$F$15:$F$501,MATCH(Dashboard!$E$7,Parâmetros!$B$15:$B$501,0)))	V:0
+T15	F:=IF(OR($F15="",$F15=0),0,N15*(1+R15)/(1-S15-I15))	V:0
+U15	F:=IF(Q15=0,0,T15/Q15)	V:0
+V15	F:=IF(U15=0,"",U15-1)	V:None
+W15	F:=IF($G15="",0,IF(ISNUMBER($G15),$G15,IFERROR(VALUE(SUBSTITUTE(TRIM(MID($G15,2,FIND(";",$G15)-2)),",",".")),VALUE(SUBSTITUTE(TRIM(MID($G15,2,FIND(";",$G15)-2)),".",",")))))	V:0
+X15	F:=IF($G15="",0,IF(ISNUMBER($G15),$G15,IFERROR(VALUE(SUBSTITUTE(TRIM(MID($G15,FIND(";",$G15)+1,LEN($G15)-FIND(";",$G15)-1)),",",".")),VALUE(SUBSTITUTE(TRIM(MID($G15,FIND(";",$G15)+1,LEN($G15)-FIND(";",$G15)-1)),".",",")))))	V:0
+Z15	F:=IF($B15="",0,IF($Y15="",Parâmetros!$D$80,ABS($Y15)/(1+ABS($Y15))))	V:0
+AA15	F:=IF($B15="",0,IF($U15=0,0,1+$Z15*($U15-1)))	V:0
+AB15	F:=IF(OR($F15="",$F15=0),0,$Q15*$AA15)	V:0
+AC15	F:=IF($B15="","",IF($AA15=0,"",$AA15-1))	V:None
+H16	F:=IF($B16="",0,IF(LEFT($D16,7)<>"Simples",0,IF(OR(Simples_Tabelas!$P$6="",Simples_Tabelas!$E$6="",Simples_Tabelas!$D$6="",Simples_Tabelas!$D$6=0,NOT(ISNUMBER(Simples_Tabelas!$D$6))),0,MAX(SUMIFS(Simples_Tabelas!$E$8:$E$248,Simples_Tabelas!$B$8:$B$248,Simples_Tabelas!$P$6,Simples_Tabelas!$C$8:$C$248,MIN(Dashboard!$E$6,2033),Simples_Tabelas!$D$8:$D$248,Simples_Tabelas!$E$6)-IF(Simples_Tabelas!$D$6>0,SUMIFS(Simples_Tabelas!$F$8:$F$248,Simples_Tabelas!$B$8:$B$248,Simples_Tabelas!$P$6,Simples_Tabelas!$C$8:$C$248,MIN(Dashboard!$E$6,2033),Simples_Tabelas!$D$8:$D$248,Simples_Tabelas!$E$6)/Simples_Tabelas!$D$6*100,0),0)/100)))	V:0
+I16	F:=IF($B16="",0,IF(LEFT($D16,7)<>"Simples",0,IF(OR(Simples_Tabelas!$P$6="",Simples_Tabelas!$E$6="",Simples_Tabelas!$D$6="",Simples_Tabelas!$D$6=0,NOT(ISNUMBER(Simples_Tabelas!$D$6))),$H16,IF(ISNUMBER(SEARCH("híbrido",$D16)),Simples_Tabelas!$Q$6*(SUMIFS(Simples_Tabelas!$N$8:$N$248,Simples_Tabelas!$B$8:$B$248,Simples_Tabelas!$P$6,Simples_Tabelas!$C$8:$C$248,MIN(Dashboard!$E$7,2033),Simples_Tabelas!$D$8:$D$248,Simples_Tabelas!$E$6)+SUMIFS(Simples_Tabelas!$K$8:$K$248,Simples_Tabelas!$B$8:$B$248,Simples_Tabelas!$P$6,Simples_Tabelas!$C$8:$C$248,MIN(Dashboard!$E$7,2033),Simples_Tabelas!$D$8:$D$248,Simples_Tabelas!$E$6))/100,Simples_Tabelas!$Q$6))))	V:0
+J16	<openpyxl.worksheet.formula.ArrayFormula object at 0x000001EAEE56F0B0>
+L16	<openpyxl.worksheet.formula.ArrayFormula object at 0x000001EAEE56F7D0>
+M16	<openpyxl.worksheet.formula.ArrayFormula object at 0x000001EAEE56F6B0>
+N16	F:=IF($F16="",0,$F16*(1-L16-M16*(1-W16)-H16))	V:0
+O16	<openpyxl.worksheet.formula.ArrayFormula object at 0x000001EAEE56F950>
+P16	F:=IF($F16="",0,L16*INDEX(Parâmetros!$E$15:$E$501,MATCH(Dashboard!$E$6,Parâmetros!$B$15:$B$501,0))+M16*(1-W16)*INDEX(Parâmetros!$F$15:$F$501,MATCH(Dashboard!$E$6,Parâmetros!$B$15:$B$501,0)))	V:0
+Q16	F:=IF(OR($F16="",$F16=0),0,N16*(1+O16)/(1-P16-H16))	V:0
+R16	<openpyxl.worksheet.formula.ArrayFormula object at 0x000001EAEE56FA70>
+S16	F:=IF($F16="",0,L16*INDEX(Parâmetros!$E$15:$E$501,MATCH(Dashboard!$E$7,Parâmetros!$B$15:$B$501,0))+M16*(1-W16)*INDEX(Parâmetros!$F$15:$F$501,MATCH(Dashboard!$E$7,Parâmetros!$B$15:$B$501,0)))	V:0
+T16	F:=IF(OR($F16="",$F16=0),0,N16*(1+R16)/(1-S16-I16))	V:0
+U16	F:=IF(Q16=0,0,T16/Q16)	V:0
+V16	F:=IF(U16=0,"",U16-1)	V:None
+W16	F:=IF($G16="",0,IF(ISNUMBER($G16),$G16,IFERROR(VALUE(SUBSTITUTE(TRIM(MID($G16,2,FIND(";",$G16)-2)),",",".")),VALUE(SUBSTITUTE(TRIM(MID($G16,2,FIND(";",$G16)-2)),".",",")))))	V:0
+X16	F:=IF($G16="",0,IF(ISNUMBER($G16),$G16,IFERROR(VALUE(SUBSTITUTE(TRIM(MID($G16,FIND(";",$G16)+1,LEN($G16)-FIND(";",$G16)-1)),",",".")),VALUE(SUBSTITUTE(TRIM(MID($G16,FIND(";",$G16)+1,LEN($G16)-FIND(";",$G16)-1)),".",",")))))	V:0
+Z16	F:=IF($B16="",0,IF($Y16="",Parâmetros!$D$80,ABS($Y16)/(1+ABS($Y16))))	V:0
+AA16	F:=IF($B16="",0,IF($U16=0,0,1+$Z16*($U16-1)))	V:0
+AB16	F:=IF(OR($F16="",$F16=0),0,$Q16*$AA16)	V:0
+AC16	F:=IF($B16="","",IF($AA16=0,"",$AA16-1))	V:None

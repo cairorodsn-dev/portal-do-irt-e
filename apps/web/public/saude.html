@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>Diagnóstico da API — Portal do IRT-E</title>
+<style>
+  body { font-family: monospace; margin: 2rem; background: #111; color: #eee; }
+  .ok { color: #6f6; } .erro { color: #f66; } .info { color: #8af; }
+</style>
+</head>
+<body>
+<h1>Diagnóstico: POST /api/wizard/calcular</h1>
+<div id="saida">Iniciando…</div>
+<script>
+const saida = (msg, cls) => {
+  const d = document.getElementById('saida');
+  d.innerHTML += `<div class="${cls}">${msg}</div>`;
+};
+const item = {tipo:'S',uf:'MG',ibsMunicipal:0.0935,regime:'P',aliquotaLegada:0.05,reducaoBase:0,rho:0,epsilon:0.2,creditamento:0};
+const t0 = Date.now();
+fetch('/api/wizard/calcular', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({ itens: [item] }),
+}).then(async (res) => {
+  const j = await res.json();
+  saida(`RESPOSTA: HTTP ${res.status} em ${Date.now() - t0} ms`, 'ok');
+  saida(`ok: ${j.ok} | código: ${j.ok ? j.resultados[0].codigo : JSON.stringify(j.erros)}`, 'ok');
+}).catch((e) => {
+  saida(`FALHOU em ${Date.now() - t0} ms: ${e.message}`, 'erro');
+});
+setTimeout(() => {
+  if (!document.querySelector('.ok, .erro')) saida(`Após 10 s segue sem resposta — o navegador não está conseguindo falar com a API.`, 'info');
+}, 10000);
+</script>
+</body>
+</html>

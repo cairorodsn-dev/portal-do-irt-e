@@ -1,0 +1,16 @@
+{
+  "name": "portal-do-irt-e",
+  "private": true,
+  "version": "0.0.0",
+  "description": "Portal do IRT-E — Índice de Reequilíbrio Tributário Expurgado",
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ],
+  "scripts": {
+    "test": "npm run test --workspace packages/engine",
+    "typecheck": "npm run typecheck --workspace packages/engine && npm run typecheck --workspace apps/web",
+    "dev": "npm run dev --workspace apps/web",
+    "build": "npm run build --workspace apps/web"
+  }
+}

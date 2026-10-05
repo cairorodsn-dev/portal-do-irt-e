@@ -1,0 +1,409 @@
+
+===== PÁGINA 1 =====
+O MÉTODO DE CÁLCULO DO ÍNDICE DE REEQUILÍBRIO TRIBUTÁRIO
+EXPURGADO: uma proposta de mensuração da carga tributária efeƟva para o
+reequilíbrio de contratos administraƟvos na transição para o IVA dual
+brasileiro
+1 INTRODUÇÃO
+1.1 Conceituação do tema
+A Emenda Cons Ɵtucional nº 132/2023 redesenhou a tributação brasileira sobre o
+consumo, subsƟtuindo PIS, Coﬁns, IPI, ICMS e ISS por um imposto sobre valor agregado de
+desenho  dual: a  Contribuição sobre Bens  e Serviços (CBS),  de  competência federal,  e o
+Imposto  sobre  Bens  e  Serviços  (IBS),  de  competência  parƟlhada  entre  Estados,  Distrito
+Federal e Municípios, ambos disciplinados pela Lei Complementar nº 214, de 16 de janeiro
+de 2025, já alterada pela Lei Complementar nº 227, de 15 de janeiro de 2026. A transição é
+escalonada:  2026  funciona  como  ano-teste,  com  alíquotas  simbólicas  destacadas  nos
+documentos ﬁscais; em 2027 a CBS passa a vigorar em plenitude, com a ex Ɵnção de PIS e
+Coﬁns; entre 2029 e 2032 o IBS cresce na razão inversa da redução de ICMS e ISS; e em 2033
+o novo sistema se consolida por completo.
+Sobre esse cenário incide um conjunto numeroso de contratos administra Ɵvos de
+longo  prazo  —  fornecimentos  conƟnuados,  serviços  com  dedicação  de  mão  de  obra,
+concessões e parcerias — cuja equação econômico-ﬁnanceira foi calibrada sob o regime
+tributário anterior. O art. 37, inciso XXI, da Cons Ɵtuição Federal assegura a manutenção das
+condições efeƟvas da proposta, e a Lei nº 14.133/2021 admite a revisão contratual em caso
+de fato do príncipe e de álea econômica extraordinária (art. 124, II, "d"). A LC 214/2025, por
+sua  vez,  criou  um  microssistema  especíﬁco  em  seus  arts.  373  a  377:  contratos
+administraƟvos vigentes serão ajustados para restabelecer o equilíbrio econômico-ﬁnanceiro
+quando comprovada a alteração da carga tributária efe Ɵva suportada pela contratada em
+razão da ins Ɵtuição  do IBS e da  CBS,  considerados  os efeitos da  não  cumulaƟvidade,  a
+possibilidade de repasse do encargo, os impactos do período de transição e a perda de
+beneİcios ﬁscais (art. 374,  § 1º). O mesmo diploma impõe à Administração o dever de
+revisão de oİcio quando a carga efe Ɵva se reduzir (art. 375) e regulamenta o procedimento
+1
+===== PÁGINA 2 =====
+de  pedido  da  contratada,  com  decisão  em  noventa  dias  prorrogáveis  uma  única  vez  e
+possibilidade de reequilíbrio provisório (art. 376).
+O ponto crí Ɵco — e ainda não resolvido — é de natureza metrológica. A lei exige a
+comprovação da alteração da carga tributária efe Ɵva, mas não oferece método de cálculo. A
+carga efeƟva não se confunde com a alíquota nominal: depende da estrutura de créditos, da
+forma de tributação incidente sobre o objeto (tributos "por dentro", re Ɵdos no preço, versus
+tributos "por fora", adicionados sobre a receita líquida), do regime tributário da contratada
+(Simples Nacional, lucro presumido ou lucro real) e da parcela do encargo que pode ser
+repassada a terceiros. Sem um método obje Ɵvo, reproduzível e auditável, o reequilíbrio
+tributário  tende  a  se  converter  em  discussão  casuís Ɵca,  com  risco  simultâneo  de
+enriquecimento  sem  causa  da  contratada,  de  lesão  à  contratada  por  recomposição
+insuﬁciente e de judicialização em massa dos contratos públicos na virada de 2027.
+1.2 Delimitação do problema
+Parte-se  da  seguinte  intuição  formal.  O  preço  de  um  item  contratual  pode  ser
+decomposto entre a receita líquida do fornecedor e os tributos que o atravessam. Sejam A
+os tributos cobrados por fora e B os tributos re Ɵdos por dentro do preço P; a receita líquida
+preservada R obedece à idenƟdade:
+Pi ,t (1− Bi ,t)=Ri(1+ A i ,t)
+Exigindo-se a preservação da receita líquida entre o ano-base e o ano-alvo, obtém-se
+o  fator  bruto  de  correção  do  preço,  que  independe  do  nível  absoluto  do  preço  —  é
+homogêneo de grau zero e, por isso, candidato natural a índice contratual:
+F i=(1+ Ai ,1)(1− Bi ,0)
+(1+ Ai , 0)(1 − Bi ,1)
+Visando o cenário nacional, a notação algébrica empregada no método é a seguinte:
+Símbolo Signiﬁcado
+i; t item contratual; ano de referência (t = 0 no ano-base e t = 1 no ano-alvo)
+P; R preço do item; receita líquida preservada
+A; B tributos cobrados por fora do preço; tributos re Ɵdos por dentro do preço
+F fator bruto de correção do preço com preservação da receita líquida
+g; h IBS/CBS efe Ɵvo por fora; IPI remanescente e Imposto SeleƟvo (produtos)
+2
+===== PÁGINA 3 =====
+Símbolo Signiﬁcado
+b; d carga legada por dentro; alíquota efe Ɵva do DAS (Simples Nacional)
+τ_nom; τ_ef alíquota nominal; carga efe Ɵva de tributo que admite creditamento
+ρ; q redução setorial da alíquota de referência; redutor de compras governamentais
+φ(t) fatores de transição do cronograma cons Ɵtucional (IBS, CBS, legado, IPI, PIS/Coﬁns)
+i_E; i_M; c_CBS alíquotas de referência estadual e municipal do IBS; alíquota da CBS
+π; s; k alíquota do IPI; alíquota do Imposto Sele Ɵvo; fator de repasse do Imposto SeleƟvo
+ℓ; p; carga legada por dentro (ICMS/ISS); alíquota de PIS/Coﬁns; 
+c; das percentual de creditamento es Ɵmado; alíquota efeƟva do DAS
+κ; ε coeﬁciente de repasse; elas Ɵcidade-preço da demanda
+IRT-E Índice de Reequilíbrio Tributário Expurgado
+F pode  ser calculado  por  suas  componentes temporais, diretamente a  parƟr dos
+parâmetros  legais  e  da  planilha  de  formação  de  preços.  O  primeiro  passo  do  método
+consiste em decompor, para cada item i e ano t, os tributos cobrados por fora do preço (A) e
+os reƟdos por dentro dele (B):
+Ai , t=gi , t+hi , t; Bi , t=bi ,t+d i ,t
+Antes de detalhar cada componente, convém ﬁxar a regra geral de cálculo das cargas
+efeƟvas dos impostos e contribuições que admitem creditamento — o ICMS e PIS/Coﬁns no
+regime de origem e o IBS e a CBS no regime de des Ɵno. Para todos eles, a carga efe Ɵva
+corresponde  à  alíquota  nominal  mul Ɵplicada  pelo  complemento  do  percentual  de
+creditamento esƟmado:
+τ ef=τ nom·(1 − ci)
+Em que τ_nom é a alíquota nominal do tributo e c_i é o percentual de creditamento
+esƟmado, apurado a par Ɵr do perﬁl de aquisições da contratada registrado na planilha de
+formação  de  preços.  Nas  componentes  que  seguem,  as  alíquotas  dos  tributos  com
+creditamento  entram  depuradas  por  esse  fator  —  em  atendimento  ao  vetor  da  não
+cumulaƟvidade previsto no art. 374, § 1º, I, da LC 214/2025.
+A componente g é o IBS/CBS efe Ɵvo cobrado por fora, apurado a par Ɵr das alíquotas
+de referência estadual e municipal do IBS e da alíquota da CBS, consideradas em sua carga
+efeƟva, além de  ponderadas  pelos  fatores  de  transição do  cronograma  consƟtucional  e
+reduzidas pela alíquota setorial e pelo redutor de compras governamentais:
+3
+===== PÁGINA 4 =====
+gi ,t=(1− ρi)(1 − qt)[( i E+iM )φ IBS (t)+cCBS φ CBS(t )]
+No caso dos produtos, soma-se a g a componente h, que agrega os demais tributos
+cobrados por fora, ou seja, o IPI remanescente e o Imposto SeleƟvo:
+hi , t=πi φ IPI(t )+si ki
+Do lado dos tributos re Ɵdos no preço, a componente b combina a carga legada por
+dentro  —  o  ICMS efeƟvo  ou  o  ISS  remanescentes —  com  a  parcela  de  PIS/Coﬁns  não
+recuperada como crédito, ponderada pelo respecƟvo fator de transição:
+bi, t=ℓi φlegado(t )+ piφ PC (t )
+Ressalte-se que o PIS/Coﬁns existe apenas no ano-base, pois essas contribuições se
+exƟnguem em 2027 (LC 214/2025, art. 378). Já o IPI, só pode exis Ɵr além de 2026 se tratar-
+se de operação da Zona Franca de Manaus. Quando forem vigentes no tempo t, o fator é
+igual a 1, quando não o forem é nulo.  Por ﬁm, para as contratadas do Simples Nacional, a
+componente d corresponde à alíquota efe Ɵva do DAS conforme as tabelas legais do regime,
+sendo nula para as demais:
+d i ,t=dasi(t)
+Deﬁnidas as componentes nos dois extremos temporais, a subs Ɵtuição na idenƟdade
+de preservação da receita líquida fornece a fórmula geral de F em forma expandida:
+F i=(1+gi ,1+hi , 1)(1 −b i ,0− di ,0)
+(1+gi ,0+hi ,0)( 1− bi ,1 −d i ,1)
+Esse fator bruto, contudo, superes Ɵma o reequilíbrio devido, pois pressupõe repasse
+integral do encargo ao contratante. A literatura sobre incidência tributária demonstra que o
+repasse efeƟvo depende da elas Ɵcidade-preço da demanda e da estrutura de concorrência
+do  mercado,  de  modo  que  apenas  uma  fração  κ  do  choque  tributário  é  efeƟvamente
+suportada  pela  contratada.  O  índice  expurgado  —  objeto  deste  projeto  —  é,  portanto,
+deﬁnido como:
+IRT− E= 1+ κ( F −1), com κ = |ε| ⁄ (1 + |ε|),
+Em que ε é a elas Ɵcidade-preço da demanda do objeto contratado. O "expurgo"
+consiste em re Ɵrar do fator bruto tudo aquilo que não é efeito tributário líquido suportado
+pela contratada:  o componente repassável a terceiros (mercado), os efeitos de escolhas
+4
+===== PÁGINA 5 =====
+gerenciais e de regime tributário (álea ordinária), a variação de preços já absorvida pelo
+reajuste  anual  e  os  saltos  arƟﬁciais  de  Ɵming  decorrentes  da  função  em  degraus  da
+transição. Diante disso, a questão de pesquisa é: como construir, validar e operacionalizar
+um método de cálculo do Índice de Reequilíbrio Tributário Expurgado que forneça lastro
+técnico objeƟvo aos pedidos de reequilíbrio e às revisões de o İcio previstos nos arts. 374 a
+376 da LC 214/2025?
+Três hipóteses orientam a invesƟgação: (H1) é possível derivar, a parƟr da planilha de
+formação de preços da proposta — documento cuja apresentação a Lei nº 14.133/2021
+passou a exigir em diversos casos (art. 128, § 2º) —, um índice homogêneo de grau zero no
+preço,  calculável  por  qualquer  das  partes  e  por  terceiros  auditores;  (H2)  o  expurgo  do
+componente de repasse, parametrizado por elas Ɵcidades setoriais, aproxima o índice da
+carga  tributária  efeƟvamente  suportada,  reduzindo  a  assimetria  informacional  e  o
+contencioso; (H3) a não linearidade do fator — cuja condição de existência exige carga reƟda
+inferior a 100% — concentra o risco de reequilíbrio nos anos intermediários da transição
+(2027-2032), o que permite triagem prévia dos contratos por margem setorial.
+1.3 ObjeƟvos
+ObjeƟvo  geral:  desenvolver,  formalizar  e  validar  empiricamente  um  método  de
+cálculo do Índice de Reequilíbrio Tributário Expurgado (IRT-E), apto a quan Ɵﬁcar a alteração
+da carga tributária efe Ɵva suportada por contratadas da Administração Pública em razão da
+implantação do IBS e da CBS.
+Como  objeƟvos  especíﬁcos:  (i)  formalizar  a  idenƟdade  algébrica de  formação  de
+preços que disƟngue tributos por dentro e por fora e deduzir o fator geral de preservação da
+receita  líquida,  com  a  análise de  seu  domínio  de  existência  e  de  suas  propriedades  de
+homogeneidade  e monotonicidade; (ii) especiﬁcar as  regras  de expurgo dos  efeitos  não
+tributários, com ênfase na parametrização do coeﬁciente de repasse κ a par Ɵr da literatura
+de incidência e de esƟmaƟvas setoriais de elasƟcidade-preço da demanda; (iii) incorporar ao
+método o cronograma de transição cons Ɵtucional (arts. 125 a 129 do ADCT) como função
+em degraus, iden Ɵﬁcando os anos de quebra e as singularidades do fator; (iv) validar o
+método em planilhas de formação de preços de atas de registro de preços e de contratos de
+serviços con Ɵnuados, por meio de testes de estresse nos vér Ɵces do espaço legal (com e
+5
+===== PÁGINA 6 =====
+sem crédito de PIS/Coﬁns, dentro e fora do Simples Nacional, com e sem reduções setoriais);
+(v) propor uma cláusula contratual padrão e um protocolo administra Ɵvo de instrução e
+decisão compa ơveis com os prazos do art. 376 da LC 214/2025, incluindo critérios para o
+reequilíbrio provisório.
+1.4 JusƟﬁcaƟva, importância e atualidade
+A  jus ƟﬁcaƟva  é  simultaneamente  cien ơﬁca,  econômica  e  ins Ɵtucional.
+CienƟﬁcamente, inexiste método padronizado — nacional ou internacional — para isolar a
+parcela tributária do desequilíbrio contratual em uma transição entre regimes de tributação
+do consumo; a literatura de reequilíbrio trata majoritariamente de inﬂação, variação cambial
+e fatos do príncipe clássicos, sem operacionalizar a mensuração da carga efe Ɵva em troca de
+base tributária. Economicamente, o Brasil operará, entre 2027 e 2032, dois sistemas de
+tributação do consumo em paralelo, e os governos — maiores compradores organizados do
+país — enfrentarão milhares de pleitos cujo valor agregado é potencialmente bilionário; um
+índice objeƟvo reduz custos de transação, orienta a revisão de o İcio do art. 375 e protege o
+erário tanto do enriquecimento sem causa quanto da descon Ɵnuidade de serviços essenciais
+por insolvência de contratadas. InsƟtucionalmente, o prazo decisório de noventa dias do art.
+376 só é exeqüível com instrumento de cálculo previamente validado, o que converte a
+pesquisa em insumo direto para a gestão de contratações públicas. A atualidade é absoluta:
+o ano-teste de 2026 já exige o destaque de IBS e CBS nos documentos ﬁscais, e 2027 é o
+primeiro gaƟlho efeƟvo de pedidos de reequilíbrio.
+2 LINHA DE PESQUISA DE ADERÊNCIA
+O projeto se inscreve na linha de pesquisa "Economia, Desenvolvimento e Gestão",
+que versa sobre o papel do Estado na economia, os instrumentos e processos de polí Ɵca
+econômica, a economia e as ﬁnanças do setor público e os instrumentos de gestão nos
+âmbitos intraorganizacional e da provisão de serviços públicos. A aderência é direta em três
+dimensões: (i) na dimensão das ﬁnanças públicas, a pesquisa quan Ɵﬁca o impacto da maior
+reforma  tributária  das  úlƟmas  décadas  sobre  o  custo  das  contratações  estatais;  (ii)  na
+dimensão  dos  instrumentos  de  gestão,  entrega  um  método  de  cálculo  e  um  protocolo
+decisório aplicáveis pelas áreas de contratos, controle interno e assessorias jurídicas dos
+entes federaƟvos; (iii) na dimensão da provisão de serviços públicos, protege a con Ɵnuidade
+6
+===== PÁGINA 7 =====
+da prestação ao conferir previsibilidade ao ajuste de contratos de longo prazo durante a
+transição para o IVA dual.
+3 REFERENCIAL TEÓRICO
+3.1 O equilíbrio econômico-ﬁnanceiro dos contratos administraƟvos
+O  equilíbrio  econômico-ﬁnanceiro  é  a  relação  inicialmente  pactuada  entre  os
+encargos do contratado e a retribuição da Administração, que deve ser man Ɵda ao longo da
+execução  para  evitar  a  indevida  redução  dos  lucros  normais  do  empreendimento
+(MEIRELLES, 2021). A doutrina consolidou três matrizes explica Ɵvas do desequilíbrio: a álea
+administraƟva, decorrente de ato da própria contratante, na forma de alteração unilateral
+ou  de  fato  do  príncipe  —  ato  estatal  geral  que,  sem  se  dirigir  ao  contrato,  repercute
+indiretamente  sobre  ele,  como  a  criação  ou  majoração  de  tributos  com  comprovada
+repercussão nos preços (DI PIETRO, 2021); a álea econômica extraordinária, assentada na
+teoria da  imprevisão, para  eventos estranhos à vontade das  partes, imprevisíveis ou de
+consequências  incalculáveis;  e  a  álea  ordinária,  que  permanece  a  cargo  do  contratado.
+Sundfeld (1995) registra que a garan Ɵa nasceu na doutrina francesa como compensação
+pelas prerrogaƟvas da Administração e foi depois ampliada pela teoria da imprevisão. A Lei
+nº 14.133/2021 recepcionou esse acervo ao prever a revisão por acordo das partes (art. 124,
+II, "d"), respeitada a reparƟção objeƟva de riscos, e ao disciplinar o reequilíbrio por alteração
+de tributos (art. 128), cuja comprovação deve decorrer de parecer técnico e da apresentação
+da planilha de formação de preços — elemento probatório central para este projeto. Ribeiro
+(2021) adverte que o motor de arranque de qualquer recomposição é a matriz de riscos,
+embora a LC 214/2025 tenha afastado esse óbice para os impactos da reforma (art. 374, §
+2º). Os tribunais de contas, por ﬁm, consolidaram a exigência de demonstração técnica do
+desequilíbrio e do nexo causal, com parecer de especialista, como condição de deferimento
+(TRIBUNAL DE  CONTAS DO ESTADO DE  MINAS GERAIS, 2023; TRIBUNAL  DE CONTAS DA
+UNIÃO, 2013).
+3.2 A reforma tributária do consumo e o regime jurídico da transição
+A EC 132/2023 adotou o modelo de imposto sobre valor agregado com tributação no
+desƟno, não cumula Ɵvidade plena e base ampla, encerrando a cumula Ɵvidade parcial e a
+guerra ﬁscal do regime anterior. A LC 214/2025 operacionalizou o modelo: deﬁniu fatos
+7
+===== PÁGINA 8 =====
+geradores,  bases  de  cálculo,  creditamento,  regimes  diferenciados  e  especíﬁcos,  o  split
+payment e o cronograma de transição, no qual o crédito de PIS/Coﬁns só existe no regime
+anƟgo — exƟnto a parƟr de 2027 (art. 378). Para os contratos administra Ɵvos, os arts. 373 a
+377  consƟtuem  lex  specialis:  deﬁnem  o  âmbito  subje Ɵvo  e  temporal  (propostas
+apresentadas antes de 16/01/2025), o ga Ɵlho único de alteração da carga tributária efe Ɵva,
+os quatro vetores obrigatórios de apuração, o dever de revisão de o İcio em caso de redução
+de carga, o procedimento decisório com prazo e a aplicação subsidiária da legislação de
+regência. A LC 227/2026 promoveu ajustes conceituais relevantes — como a reclassiﬁcação
+de  locações  e  arrendamentos  como  bens  e  a  disciplina  de  plataformas  digitais  —  que
+deverão ser incorporados à parametrização do método. A literatura jurídica sobre o capítulo
+ainda  é  embrionária  e  predominantemente  ensaísƟca:  apontam-se  como  controvérsias
+abertas  a  apuração  da  carga  por  contrato  ou  por  CNPJ,  o  tratamento  da  exƟnção  de
+incenƟvos  ﬁscais  e  a  assimetria  operacional  entre  a  avalanche  esperada  de  pedidos  de
+aumento  e  a  frágil  capacidade  da  Administração  de  apurar  reduções.  Nenhum  desses
+trabalhos,  contudo,  propõe  método  de  cálculo  —  lacuna  que  este  projeto  pretende
+preencher.
+3.3 Incidência tributária e repasse de preços
+A teoria econômica da incidência ensina que a carga legal de um tributo raramente
+coincide  com  sua  carga  econômica:  a  divisão  do  ônus  entre  fornecedor  e  adquirente
+depende das elasƟcidades relaƟvas de oferta e demanda (FULLERTON; METCALF, 2002). Sob
+concorrência  imperfeita,  o  repasse  pode  ser  inferior,  igual  ou  até  superior  ao  integral,
+conforme  a  curvatura  da  demanda  (WEYL;  FABINGER,  2013).  Evidências  empíricas  de
+reformas de IVA na França mostram repasses heterogêneos e frequentemente incompletos
+(CARBONNIER,  2007),  bem  como  assimetrias  entre  cortes  e  aumentos  de  alíquota
+(BENZARTI; CARLONI, 2019). A consequência norma Ɵva é direta: recompor o preço pelo
+fator bruto F, que pressupõe repasse integral, transfere ao contratante público uma parcela
+de encargo que, em mercados compe ƟƟvos, a contratada não suportaria integralmente —
+conﬁgurando enriquecimento sem causa, vedado pelo art. 376 da LC 214/2025 em sua lógica
+de  preservação,  e  pela  própria  modelagem  de  cláusulas  de  reajuste  tributário.  Daí  a
+necessidade do coeﬁciente κ = |ε|/(1+|ε|), que converte o teto técnico em recomposição
+devida, e a perƟnência de esƟmaƟvas setoriais de elasƟcidade como insumo do expurgo.
+8
+===== PÁGINA 9 =====
+3.4 Mensuração da carga tributária efeƟva e métodos de recomposição
+A prá Ɵca de reequilíbrio no Brasil desenvolveu métodos consolidados para outros
+gaƟlhos:  a  recomposição  de  perdas  inﬂacionárias  por  índices  de  preços,  o  método  do
+balanço para adi Ɵvos quan ƟtaƟvos e, nas concessões, a recomposição da taxa interna de
+retorno  por  ﬂuxo  de  caixa  marginal  (MARQUES  NETO,  2017).  Todos  comparƟlham  a
+exigência de lastro documental e de neutralidade — recompõe-se o efeito do evento, nem
+mais, nem menos. Para o ga Ɵlho tributário da reforma do consumo, porém, esses métodos
+são insuﬁcientes, pois o efeito não é uma variação de custo observável no mercado, mas
+uma mudança de regime: tributos que incidiam por dentro do preço (ICMS, ISS, PIS/Coﬁns)
+cedem lugar a tributos cobrados por fora (IBS/CBS), com estruturas de crédito dis Ɵntas e
+alíquotas efeƟvas dependentes de redutores setoriais. A abordagem algébrica adotada neste
+projeto — que deriva o fator de preservação da receita líquida a par Ɵr da iden Ɵdade de
+formação de preços e demonstra sua homogeneidade de grau zero, sua monotonicidade nos
+parâmetros legais e sua singularidade quando a carga reƟda se aproxima de 100% — oferece
+a base formal para superar essa insuﬁciência, permi Ɵndo ainda análise de sensibilidade (as
+derivadas parciais do fator em relação a redutores, créditos e alíquotas) e triagem de risco
+pela razão entre a margem setorial ơpica e a folga até a singularidade.
+3.5 Síntese e lacuna
+O  referencial  revela  uma  lacuna  precisa  na  interseção  de  três  campos:  o  direito
+administraƟvo  dos  contratos,  que  fornece  o  dever  de  recomposição  e  seus  requisitos
+probatórios; a teoria da incidência tributária, que fornece o critério de expurgo do repasse; e
+a economia do setor público, que fornece a moldura da transição para o IVA dual. Nenhum
+trabalho  até aqui ar Ɵculou os  três campos  em  um método de cálculo auditável.  É essa
+arƟculação que a pesquisa realiza.
+4 METODOLOGIA
+Trata-se  de  pesquisa  aplicada,  de  natureza  quanƟtaƟva  com  dedução  formal  e
+validação  empírica,  conduzida  pelo  método  deduƟvo  e  complementada  por  análise
+documental  e  simulação  computacional.  O  desenho  ar Ɵcula  pesquisa  bibliográﬁca,
+modelagem matemáƟca e estudos de casos múl Ɵplos em contratos públicos reais, em sete
+etapas:
+9
+===== PÁGINA 10 =====
+Etapa  1  —  Revisão  sistemáƟca  da  literatura  nacional  e  internacional  sobre
+reequilíbrio contratual, incidência e repasse de tributos sobre o consumo e mensuração de
+carga tributária efe Ɵva, incluindo o levantamento da jurisprudência dos tribunais de contas
+sobre os requisitos de comprovação técnica do desequilíbrio.
+Etapa 2 — Formalização matemá Ɵca do método: demonstração das propriedades do
+fator de preservação da receita líquida (homogeneidade de grau zero, monotonicidade nos
+parâmetros,  condição  de  existência), decomposição  da carga  por dentro e por  fora  por
+regime tributário (Simples Nacional puro e híbrido, lucro presumido, lucro real) e derivação
+das elas Ɵcidades analí Ɵcas do fator (derivadas parciais em relação a redutores setoriais,
+créditos de PIS/Coﬁns e alíquotas de transição).
+Etapa 3 — Especiﬁcação das regras de expurgo: deﬁnição operacional do coeﬁciente
+de repasse κ a par Ɵr de esƟmaƟvas setoriais de elas Ɵcidade-preço da demanda (com faixas
+paramétricas quando a evidência brasileira for escassa), tratamento do reajuste anual por
+índice de preços para evitar dupla contagem, e regras  de atribuição causal entre efeito
+tributário e escolhas gerenciais.
+Etapa  4  —  Construção  do  instrumento  de  cálculo:  implementação  do  IRT-E  em
+planilha auditável e em algoritmo aberto, com parametrização do cronograma de transição
+(ano-teste de 2026, CBS plena em 2027, escada do IBS de 2029 a 2032), dos redutores
+setoriais e das classiﬁcações ﬁscais vigentes, com registro de versões para rastreabilidade.
+Etapa  5  —  Validação  por  testes  de  estresse:  pela  monotonicidade  do  fator  nos
+parâmetros, os cenários extremos situam-se nos vér Ɵces do espaço legal (com e sem crédito
+de PIS/Coﬁns no ano-base, dentro e fora do Simples, redução setorial nula ou máxima), de
+modo que um número reduzido de cenários cerca o resultado; a triagem de risco será feita
+pela razão entre a margem setorial ơpica e a folga até a singularidade, iden Ɵﬁcando objetos
+contratuais em zona de instabilidade.
+Etapa  6  —  Estudos  de  casos  múlƟplos: aplicação  do  instrumento  a  planilhas  de
+formação de preços de atas de registro de preços e de contratos de serviços con Ɵnuados
+obƟdas em portais de transparência (com anonimização dos fornecedores), comparando o
+IRT-E calculado com as recomposições efe Ɵvamente pra Ɵcadas ou pleiteadas, e simulação
+10
+===== PÁGINA 11 =====
+do  procedimento  do  art.  376  da  LC  214/2025,  incluindo  a  avaliação  de  cabimento  do
+reequilíbrio provisório.
+Etapa 7 — Validação por juízo de especialistas e proposição norma Ɵva: submissão do
+método a gestores de contratos, membros de órgãos de controle e especialistas em direito
+administraƟvo e em ﬁnanças públicas, e redação ﬁnal da cláusula contratual padrão e do
+protocolo administraƟvo de instrução, decisão e revisão de oİcio.
+O  recorte  empírico  abrange  contratos  regidos  pela  Lei  nº  14.133/2021  de
+fornecimento de produtos e de prestação de serviços con Ɵnuados, nos regimes geral e do
+Simples Nacional, no horizonte 2026-2033; concessões e parcerias público-privadas serão
+tratadas como extensão analí Ɵca. Entre as limitações previstas, destacam-se a escassez de
+esƟmaƟvas de elas Ɵcidade-preço desagregadas para o Brasil — mi Ɵgada pelo uso de faixas
+paramétricas e de análise de sensibilidade — e a natureza dinâmica da regulamentação em
+curso, mi Ɵgada pela parametrização aberta do instrumento. A pesquisa não envolve seres
+humanos como sujeitos de pesquisa e uƟlizará exclusivamente dados públicos anonimizados,
+dispensando  submissão  a  comitê  de  éƟca,  sem  prejuízo  da  observância  das  normas  de
+integridade cienơﬁca.
+5 CRONOGRAMA
+O cronograma está distribuído nos oito trimestres do curso (2027-2028), compa ơvel com a
+duração máxima de 24 meses prevista no edital.
+AƟvidade 1º/27 2º/27 3º/27 4º/27 1º/28 2º/28 3º/28 4º/28
+Integralização de créditos e disciplinas
+obrigatórias
+X X X X X X
+Etapa 1 — Revisão sistemáƟca da
+literatura
+X X
+Etapa 2 — Formalização matemáƟca
+do método
+X X
+Etapa 3 — Especiﬁcação das regras de
+expurgo
+X X
+Etapa 4 — Construção do
+instrumento de cálculo
+X X
+Qualiﬁcação do projeto de
+dissertação
+X
+11
+===== PÁGINA 12 =====
+AƟvidade 1º/27 2º/27 3º/27 4º/27 1º/28 2º/28 3º/28 4º/28
+Etapa 5 — Validação por testes de
+estresse
+X X
+Etapa 6 — Estudos de casos múlƟplos X X
+Etapa 7 — Juízo de especialistas e
+proposição normaƟva
+X
+Elaboração e submissão de arƟgo
+derivado
+X X X
+Redação ﬁnal da dissertação X X
+Defesa da dissertação X
+6 REFERÊNCIAS
+BENZARTI, Youssef; CARLONI, Dorian. Who really beneﬁts from consumpƟon tax cuts? Evidence from
+a large VAT reform in France. American Economic Journal: Economic Policy, v. 11, n. 1, p. 38-63,
+2019.
+BRASIL.  ConsƟtuição  da  República  FederaƟva  do  Brasil  de  1988.  Brasília,  DF:  Presidência  da
+República, 1988.
+BRASIL. Emenda Cons Ɵtucional nº 132, de 20 de dezembro de 2023. Altera o Sistema Tributário
+Nacional e dá outras providências. Brasília, DF: Presidência da República, 2023.
+BRASIL. Lei nº 14.133, de 1º de abril de 2021. Lei de Licitações e Contratos Administra Ɵvos. Brasília,
+DF: Presidência da República, 2021.
+BRASIL. Lei Complementar nº 214, de 16 de janeiro de 2025. InsƟtui o Imposto sobre Bens e Serviços,
+a Contribuição sobre Bens e Serviços e o Imposto Sele Ɵvo. Brasília, DF: Presidência da República,
+2025.
+BRASIL. Lei Complementar nº 227, de 15 de janeiro de 2026. Altera a Lei Complementar nº 214, de 16
+de janeiro de 2025, e dá outras providências. Brasília, DF: Presidência da República, 2026.
+CARBONNIER,  Clément.  Who  pays  sales  taxes?  Evidence  from  French  VAT  reforms,  1987-1999.
+Journal of Public Economics, v. 91, n. 5-6, p. 1219-1229, 2007.
+DI PIETRO, Maria Sylvia Zanella. Direito administraƟvo. 34. ed. São Paulo: Atlas, 2021.
+FULLERTON, Don; METCALF, Gilbert E. Tax incidence. In: AUERBACH, Alan J.; FELDSTEIN, Mar Ɵn (ed.).
+Handbook of Public Economics. Amsterdam: Elsevier, 2002. v. 4, cap. 26, p. 1787-1872.
+JUSTEN FILHO, Marçal. Curso de direito administraƟvo. 17. ed. São Paulo: Saraiva, 2021.
+12
+===== PÁGINA 13 =====
+MARQUES NETO, Floriano de Azevedo. Reequilíbrio econômico-ﬁnanceiro e taxa interna de retorno
+nos contratos de concessão. 2. ed. Belo Horizonte: Fórum, 2017.
+MEIRELLES, Hely Lopes. Direito administra Ɵvo brasileiro. 46. ed. atual. por Meirelles Cou Ɵnho e J.
+Emmanuel Burle Filho. São Paulo: Malheiros, 2021.
+RIBEIRO, Maurício Portugal. Reequilíbrio de contratos administra Ɵvos e a Lei nº 14.133/2021. Belo
+Horizonte: Fórum, 2021.
+SUNDFELD, Carlos Ari. Licitação e contrato administraƟvo. 2. ed. São Paulo: Malheiros, 1995.
+TRIBUNAL  DE  CONTAS  DO  ESTADO  DE  MINAS  GERAIS.  Reequilíbrio  econômico-ﬁnanceiro  dos
+contratos administraƟvos. Belo Horizonte: TCEMG, 2023.
+WEYL, E. Glen; FABINGER, Michal. Pass-through as an economic tool: principles of incidence under
+imperfect compeƟƟon. Journal of PoliƟcal Economy, v. 121, n. 3, p. 528-583, 2013.
+13

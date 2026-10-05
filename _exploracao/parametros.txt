@@ -1,0 +1,250 @@
+B2	'PARÂMETROS GERAIS — IBS, CBS, TRANSIÇÃO, REGIMES E REDUÇÕES'
+B3	'Células amarelas são inputs. Alíquotas oficiais: resolução do Senado até 15/12/2026 — substitua as ESTIMATIVAS BRUTAS (L6:L8) e o REDUTOR (I15:I22, só setor público); D6:D8 e toda a planilha recalculam.'
+B5	'ALÍQUOTAS DE REFERÊNCIA — brutas (Res. CGIBS 14/2026) em L6:L8; EFETIVAS EM USO em D6:D8 (limitadas ao teto de 26,5%, bloco K5:L11)'
+K5	'TETO DA TRAVA (soma IBS+CBS ≤ 26,5%)'
+B6	'IBS Estadual (MG) — EFETIVA EM USO (após teto)'
+D6	F:=IF($L$10=1,$L$6*MIN(1,$L$9/($L$6+$L$7+$L$8)),$L$6)	V:0.0887764242207094
+K6	'Estimativa bruta IBS-MG (Res. CGIBS 14/2026)'
+L6	0.0935
+B7	'IBS Municipal (BH) — EFETIVA EM USO (após teto)'
+D7	F:=IF($L$10=1,$L$7*MIN(1,$L$9/($L$6+$L$7+$L$8)),$L$7)	V:0.0887764242207094
+K7	'Estimativa bruta IBS-BH (Res. CGIBS 14/2026)'
+L7	0.0935
+B8	'CBS — EFETIVA EM USO (após teto; −0,1 p.p. em 2027–2028 via fator D16/D17)'
+D8	F:=IF($L$10=1,$L$8*MIN(1,$L$9/($L$6+$L$7+$L$8)),$L$8)	V:0.0874471515585812
+K8	'Estimativa bruta CBS (implícita por diferença)'
+L8	0.0921
+B9	'Trava de 26,5%: aplicada como TETO às estimativas (bloco K5:L11 — escalonamento proporcional IBS/CBS; ative/desative em L10). A trava dinâmica anual (parâmetro de equilíbrio fiscal e devolução do excedente — LC 214/2025, arts. 349–361 e 475; ADCT, art. 130) permanece fora do cálculo.'
+K9	'Teto (LC 214/2025 — se excedido, Executivo envia PLC)'
+L9	0.265
+B10	'Base legal do reequilíbrio: LC 214/2025, arts. 373–377 — reequilíbrio pela alteração da carga tributária efetiva (art. 374) e revisão de ofício pela Administração, inclusive para redução do preço (art. 375). Comprovação pela planilha de formação de preços da licitação.'
+K10	'Aplicar teto às estimativas? (1=sim, 0=não)'
+L10	1
+B11	'Nota: a decomposição 9,35% MG / 9,35% BH (D6/D7) é convenção 50/50 da estimativa de referência (Res. CGIBS 14/2026) — substituir quando MG e BH fixarem alíquotas próprias por lei.'
+K11	'Convenção: D6:D8 = brutas × min[1; teto ÷ Σ brutas], mesmo fator p/ IBS e CBS. Substitua L6:L8 pelas alíquotas oficiais quando o Senado publicar (até 15/12/2026).'
+B13	'CRONOGRAMA DE TRANSIÇÃO (ADCT, arts. 125–129 — LC 214/2025)'
+B14	'Ano'
+C14	'Fator IBS (fração da alíquota de referência)'
+D14	'Fator CBS'
+E14	'Fator ICMS/ISS vigente'
+F14	'PIS/COFINS vigente (1=sim)'
+G14	'IPI vigente (1=sim)'
+H14	'Observação — v5: fatores de 2027–2028 preenchidos (IBS 0,0053 = 0,1% ÷ 18,7%; CBS plena = 1), conforme as próprias notas H15–H17 e a estratégia de Timing (salto de F em 2027).'
+I14	'Redutor compras gov. (art. 472) — input %'
+B15	2026
+C15	F:=IF($D$6+$D$7=0,0,0.001/($D$6+$D$7))	V:0.00563212592069418
+D15	F:=IF($D$8=0,0,0.009/$D$8)	V:0.102919304283695
+E15	1
+F15	1
+G15	1
+H15	'Ano-teste: IBS 0,1% + CBS 0,9%, compensados com créditos de PIS/COFINS (efeito neutro). Fator IBS = alíquota vigente ÷ referência (0,1% ÷ 18,70%)'
+I15	0
+B16	2027
+C16	0.0053
+D16	F:=($D$8-0.001)/$D$8	V:0.988564521746256
+E16	1
+F16	0
+G16	0
+H16	'CBS plena (referência − 0,1pp) · PIS/COFINS extintos · IPI zerado (exceto ZFM) · IBS simbólico 0,1% (fator 0,0053)'
+I16	0
+B17	2028
+C17	0.0053
+D17	F:=($D$8-0.001)/$D$8	V:0.988564521746256
+E17	1
+F17	0
+G17	0
+H17	'Idem 2027 — CBS referência − 0,1pp · IBS simbólico 0,1% (fator 0,0053)'
+I17	0
+B18	2029
+C18	0.1
+D18	1
+E18	0.9
+F18	0
+G18	0
+H18	'IBS = 10% da alíquota de referência (fator 0,1) · ICMS/ISS a 90% · benefícios fiscais na mesma proporção'
+I18	0
+B19	2030
+C19	0.2
+D19	1
+E19	0.8
+F19	0
+G19	0
+H19	'IBS 20% da referência · ICMS/ISS a 80%'
+I19	0
+B20	2031
+C20	0.3
+D20	1
+E20	0.7
+F20	0
+G20	0
+H20	'IBS 30% da referência · ICMS/ISS a 70%'
+I20	0
+B21	2032
+C21	0.4
+D21	1
+E21	0.6
+F21	0
+G21	0
+H21	'IBS 40% da referência · ICMS/ISS a 60%'
+I21	0
+B22	2033
+C22	1
+D22	1
+E22	0
+F22	0
+G22	0
+H22	'Regime pleno: IBS/CBS integral · ICMS/ISS extintos'
+I22	0
+B25	'REGIME DO FORNECEDOR (PIS/COFINS e DAS)'
+B26	'Regime'
+C26	'PIS/COFINS t0'
+D26	'Nota'
+B27	'Lucro real'
+C27	0.0925
+D27	'9,25% — sem créditos presumidos'
+B28	'Lucro presumido'
+C28	0.0365
+D28	'3,65% — sem direito a crédito'
+B29	'Simples Nacional'
+C29	0
+D29	'Simples Nacional puro: IBS/CBS permanecem recolhidos dentro do DAS. Não se apropria de reduções setoriais de IBS/CBS fora do DAS — fator de reequilíbrio = 1.'
+B30	'Simples híbrido (IBS/CBS pelo regime regular)'
+C30	0
+D30	'Simples híbrido / regime regular: IBS/CBS apurados fora do DAS. Pode captar reduções setoriais de IBS/CBS (ex.: Anexo VIII) desde que o NCM esteja na lista.'
+B31	'α — parcela indireta (ICMS/ISS) da DAS — MÉTODO ANTERIOR (legado — não usado nas matrizes)'
+C31	0.3
+D31	'Método vigente: repartição por Anexo+Faixa+Ano informados diretamente nas matrizes, com consulta às tabelas legais da aba Simples_Tabelas (LC 214/2025, art. 519 e Anexos XVIII–XXII). PURO: DAS t1 = alíquota efetiva do ano-alvo. HÍBRIDO: DAS t1 = alíquota efetiva do ano-alvo × [IRPJ+CSLL+CPP(+IPI) + ICMS/ISS da repartição do próprio ano-alvo] ÷ 100. Como a tabela já incorpora a transição do ICMS/ISS a partir de 2029, não se aplica fator adicional.'
+B32	'Simples em 2027: o fornecedor escolhe entre Simples puro e Simples híbrido (opção por semestre — set/2026 com efeitos em jan/2027, ou mar/2027 com efeitos em jul/2027; art. 40-D, Res. 140/2018). Pergunte qual opção ele fez; muda a DAS t1.'
+B33	'Sublimite R$ 3,6 mi (art. 9º, Res. 140/2018, red. Res. 190/2026): acima dele, ICMS/ISS/IBS saem do Simples — verificar no extrato PGDAS-D do fornecedor antes de informar Anexo/Faixa nas matrizes.'
+D33	'Sublimite de R$ 3,6 mi (LC 123/2006, art. 13-A, redação dada pela LC 214/2025): acima dele, ICMS/ISS/IBS saem do Simples — verificar no extrato PGDAS-D do fornecedor antes de informar Anexo/Faixa nas matrizes.'
+B34	'REDUÇÕES SETORIAIS IBS/CBS (LC 214/2025, arts. 127–146 — reduções de 60%, 30% e alíquota zero)'
+B35	'Situação (dropdown da matriz)'
+C35	'ρ (redução)'
+D35	'Fundamento'
+E35	'Nota'
+B36	'Regra geral (sem redução)'
+C36	0
+D36	'LC 214/2025 — alíquota cheia'
+E36	'Padrão para bens e serviços fora das listas dos anexos'
+B37	'Alimentos destinados ao consumo humano (60%)'
+C37	0.6
+D37	'art. 135, Anexo VII'
+E37	'Alimentos em geral (cesta básica ampla)'
+B38	'Higiene pessoal e limpeza — baixa renda (60%)'
+C38	0.6
+D38	'art. 136, Anexo VIII'
+E38	'Redução de 60% do IBS/CBS (LC 214/2025, art. 136, Anexo VIII) — aplica-se apenas aos NCMs listados no Anexo VIII (ex.: 3401.11.90, 3401.19.00, 3306.10.00, 4818.10.00, 3808.94.19, 9603.21.00, 9619.00.00). NCM 3402.90.90 (sabão líquido) NÃO está no Anexo VIII; aplica-se a regra geral.'
+B39	'Serviços de educação (60%)'
+C39	0.6
+D39	'art. 129, Anexo II'
+E39	'Sobre a contraprestação do serviço listado'
+B40	'Serviços de saúde (60%)'
+C40	0.6
+D40	'art. 130, Anexo III'
+E40	'Glosas não pagas não integram a base de cálculo'
+B41	'Medicamentos (60%)'
+C41	0.6
+D41	'art. 133'
+E41	'Ressalvados os de alíquota zero; condição CMED/TAC'
+B42	'Dispositivos médicos (60%)'
+C42	0.6
+D42	'art. 131, Anexo IV'
+E42	'Regularizados na Anvisa'
+B43	'Dispositivos de acessibilidade — PcD (60%)'
+C43	0.6
+D43	'art. 132, Anexo V'
+B44	'Agro in natura e insumos agropecuários (60%)'
+C44	0.6
+D44	'arts. 137–138, Anexo IX'
+B45	'Produções artísticas/culturais e desportivas (60%)'
+C45	0.6
+D45	'arts. 139–141'
+E45	'Inclui comunicação institucional'
+B46	'Soberania e segurança nacional/cibernética (60%)'
+C46	0.6
+D46	'art. 142, Anexo XI'
+E46	'Fornecimento à Administração Pública direta, autarquias e fundações'
+B47	'Profissões regulamentadas (30%)'
+C47	0.3
+D47	'art. 127'
+E47	'Advocacia, contabilidade, engenharia, medicina, educação física etc.'
+B48	'Alíquota zero — cesta básica nacional (100%)'
+C48	1
+D48	'art. 125 e Anexo I'
+E48	'ρ = 1 zera IBS e CBS'
+B49	'Alíquota zero — medicamentos essenciais (100%)'
+C49	1
+D49	'art. 146 (redação LC 227/2026)'
+E49	'Doenças raras e negligenciadas, oncologia, diabetes, HIV, Farmácia Popular'
+B50	'Alíquota zero — transporte coletivo de passageiros (100%)'
+C50	1
+D50	'isenção: art. 157 (rodoviário/metroviário urbano); alíquota zero: art. 285 (ferroviário/hidroviário urbano)'
+E50	'Ônibus urbano/metropolitano, metrô, trem urbano'
+B51	'Transporte coletivo intermunicipal/interestadual e aéreo regional (40%)'
+C51	0.4
+D51	'arts. 286–287, LC 214/2025'
+E51	'Ônibus intermunicipal/interestadual e aviação regional'
+B52	'Alíquota zero — medicamentos/dispositivos adquiridos por órgão público (100%)'
+C52	1
+D52	'art. 144, II, LC 214/2025'
+E52	'Aquisição direta pela Administração Pública ou entidades SUS/CEBAS'
+B53	'NOTAS'
+B54	'Trava constitucional — dinâmica ano a ano, com devolução do excedente — fora do cálculo (LC 214/2025, arts. 349–361 e 475; ADCT, art. 130)'
+B55	'Split payment a partir de 2027, recolhimento na liquidação financeira — efeito de fluxo de caixa, não modelado no fator'
+B57	'CREDITAMENTO NA TRANSIÇÃO — CRÉDITOS DE PIS/COFINS E CBS (LC 214/2025, arts. 378–383; RCBS — Decreto 12.955/2026, arts. 602–613)'
+B58	'REGRA DESTE MODELO: NÃO EXISTE crédito de PIS/COFINS no ano-alvo (t1 ≥ 2027). O parâmetro c das matrizes é exclusivo do ano-base (t0). Por deliberado cenário conservador, o modelo NÃO abate créditos na formação do preço de t1 — as rotas abaixo valem para a planilha de formação de preços do fornecedor e para a defesa do reequilíbrio.'
+B59	'Rota'
+C59	'O que é'
+D59	'Base legal'
+E59	'Uso e prazos'
+B60	'1. Saldo credor migrado'
+C60	'Saldos de PIS/COFINS escriturados até 31/12/2026 (ordinários, presumidos, de estoque) permanecem válidos, mantida a fluência do prazo'
+D60	'art. 378 LC 214 · art. 602 RCBS'
+E60	'Compensação com débitos de CBS; ressarcimento ou compensação com outros tributos federais APENAS se o crédito já tiver essa natureza hoje (art. 74, Lei 9.430/96). Uso via PER/DCOMP Web. PREFERÊNCIA de utilização sobre os créditos de CBS (art. 382).'
+B61	'2. Devoluções'
+C61	'Devoluções recebidas a partir de 01/01/2027 relativas a vendas anteriores tributadas'
+D61	'art. 379 LC 214 · art. 603 RCBS'
+E61	'Geram crédito de CBS de USO RESTRITO: compensa apenas CBS; vedado ressarcimento e compensação com outros tributos.'
+B62	'3. Ativo imobilizado'
+C62	'Quotas mensais de PIS/COFINS vinculadas a depreciação/amortização ainda em curso em 31/12/2026'
+D62	'art. 380 LC 214 · art. 604 RCBS'
+E62	'Convertem-se em CRÉDITO PRESUMIDO de CBS, continuando a apropriação; a alienação antecipada do bem interrompe as parcelas futuras.'
+B63	'4. Estoque em 01/01/2027'
+C63	'Crédito presumido de CBS sobre o estoque existente em 01/01/2027, para quem NÃO se creditou (regime cumulativo, substituição tributária/monofásico, vedação parcial do misto)'
+D63	'art. 381 LC 214 · arts. 605–613 RCBS'
+E63	'Nacional: 9,25% do valor do estoque · Importado: PIS/COFINS-Importação efetivamente pago. Inventário em 31/12/2026 (Livro de Inventário, segregar nacional/importado); apurar e apropriar ATÉ 30/06/2027; usar em 12 parcelas mensais iguais; EXCLUSIVO contra CBS; vedado ressarcimento. Ativo imobilizado e imóveis NÃO geram crédito.'
+B64	'5. Aquisições sob o novo regime'
+C64	'Não cumulatividade plena da CBS — crédito ordinário do imposto destacado nas aquisições'
+D64	'arts. 47–56 LC 214 · Seção XII RCBS (arts. 47 ss.)'
+E64	'Crédito segregado CBS/IBS (vedada compensação cruzada), condicionado a documento fiscal idôneo; bens de capital: CRÉDITO INTEGRAL E IMEDIATO (art. 108, LC 214).'
+B65	'PRAZO: 5 anos para utilização dos créditos migrados (art. 383, LC 214), contados do último dia do período de apropriação. Operacionalização via PER/DCOMP Web (orientação da RFB, jun/2026).'
+B66	'Fontes oficiais e técnicas: aba Fontes_Legais.'
+B67	'NOTAS v6 — ATUALIZAÇÕES E REGRAS COMPLEMENTARES'
+B68	'TETO DE 26,5%: D6:D8 = estimativas brutas (L6:L8) escalonadas proporcionalmente quando a soma supera o teto (L9) — convenção de modelagem ativada em L10. A alíquota oficial sai da resolução do Senado (até 15/12/2026); se superar 26,5%, o Executivo envia PLC de redução (o teto não corta automaticamente). Substituam L6:L8 pelas oficiais quando publicadas.'
+B69	'CBS 2027–2028: fator corrigido para (referência − 0,1 p.p.) ÷ referência (LC 214/2025, art. 347; ADCT, art. 127, parágrafo único), compensando o IBS-teste de 0,1% — a observação já dizia isso, mas o fator aplicava a CBS cheia.'
+B70	'REDUTOR DE COMPRAS GOVERNAMENTAIS (arts. 472/473, LC 214/2025, red. LC 227/2026): aplicado automaticamente a fornecedores NÃO optantes pelo Simples (lucro real/presumido). I15:I22 = 0 até a publicação pelo Senado — ENQUANTO 0, o F do setor público está SUPERESTIMADO. Em 2027–2028 o redutor incide sobre a CBS (art. 370, §1º); de 2029 em diante, sobre IBS+CBS (equivalência plena com ICMS/ISS — art. 370, caput e §2º).'
+B71	'DESTINAÇÃO (art. 473): na aquisição municipal, a arrecadação é 100% do ente comprador — CBS zero, IBS estadual zero e IBS municipal = (IBS+CBS) × (1 − redutor). O redutor busca neutralidade em relação à carga atual do ente, e o RCBS (art. 442, §2º) exige sua aplicação na formação de preços de licitação.'
+B72	'EXCEÇÕES AO REDUTOR (parágrafo único do art. 472): aquisições dispensadas de licitação com exigência de presencialidade; alíquotas nacionalmente uniformes; fornecedores do Simples/MEI (esta última já embutida na fórmula). As duas primeiras NÃO estão na fórmula — verificar item a item.'
+B73	'ART. 41, §5º, LC 214 (art. 40-E, Res. 140/2018, red. Res. CGSN 190/2026): o optante pelo recolhimento do IBS/CBS pelo regime regular (híbrido) que tiver recebido RESSARCIMENTO de créditos desses tributos no ano corrente ou anterior NÃO pode retornar ao recolhimento unificado — verificar antes de escolher puro × híbrido.'
+B74	'SUBLIMITE R$ 3,6 MI — REGRA DOS 20% (LC 123/2006, art. 20, §§1º e 1º-A): RBT acima do sublimite em até 20% → ICMS/ISS/IBS fora do DAS apenas no ano-calendário SEGUINTE; acima de 20% → a partir do MÊS seguinte. A CBS não está no rol — permanece no DAS.'
+B75	'IPI — ZFM: itens industrializados na Zona Franca de Manaus mantêm IPI (redução progressiva até 2032). Havendo itens ZFM, informar IPI t1 na coluna O da Matriz_Produtos (padrão 0).'
+B76	'2026: alíquotas-teste (IBS 0,1% + CBS 0,9%) com dispensa de recolhimento para quem cumpre as obrigações acessórias; não se aplicam ao Simples. Tratadas como neutras no ano-base (S/O = 0).'
+B78	'IRT-E — EXPURGO DO REPASSE: ELASTICIDADE (ε) E COEFICIENTE κ (metodologia do pré-projeto)'
+B79	'ε padrão — elasticidade-preço da demanda (input; usado quando a matriz não informa ε do item)'
+D79	-1
+B80	'κ padrão = |ε| ÷ (1+|ε|) — coeficiente de repasse'
+D80	F:=ABS(D79)/(1+ABS(D79))	V:0.5
+B81	'IRT-E = 1 + κ·(F−1): o expurgo retira do fator bruto F (teto, repasse integral) o componente repassável a terceiros. ε → 0 (demanda inelástica) ⇒ κ → 0 e IRT-E → 1; |ε| alto (demanda elástica) ⇒ κ → 1 e IRT-E → F. Calibre ε por item nas colunas ε das matrizes; as faixas abaixo são ponto de partida paramétrico (literatura de incidência: Fullerton & Metcalf 2002; Carbonnier 2007; Benzarti & Carloni 2019) — substitua por estimativa setorial do objeto.'
+B83	'Objeto típico'
+C83	'Faixa de ε (ponto de partida)'
+D83	'κ resultante'
+B84	'Serviços contínuos com dedicação de mão de obra (vigilância, limpeza, portaria)'
+C84	'−0,3 a −0,8'
+D84	'κ ≈ 0,23 – 0,44'
+B85	'Produtos padronizados com vários fornecedores (expediente, limpeza, TI)'
+C85	'−1,0 a −3,0'
+D85	'κ ≈ 0,50 – 0,75'
+B86	'Bens/serviços com poucos substitutos (fornecedor único, demanda cativa)'
+C86	'−0,1 a −0,3'
+D86	'κ ≈ 0,09 – 0,23'
+B87	'Simples Nacional puro: F = 1 por construção (IBS/CBS dentro do DAS) ⇒ IRT-E = 1 independentemente de ε.'

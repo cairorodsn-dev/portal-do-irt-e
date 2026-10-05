@@ -1,0 +1,735 @@
+:root {
+  --ink: #16283f;
+  --ink-soft: #33465e;
+  --paper: #f7f6f2;
+  --card: #ffffff;
+  --line: #d8d5cc;
+  --accent: #1d4e89;
+  --accent-dark: #143a68;
+  --warn-bg: #fdf3e0;
+  --warn-ink: #7a5a1c;
+  --error-bg: #fbeeee;
+  --error-ink: #8c2f2f;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+h1,
+h2,
+h3 {
+  font-family: Georgia, 'Times New Roman', serif;
+  color: var(--ink);
+  line-height: 1.25;
+}
+
+.container {
+  max-width: 880px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.aviso-estimativa {
+  background: var(--warn-bg);
+  color: var(--warn-ink);
+  font-size: 13px;
+  text-align: center;
+  padding: 6px 16px;
+  border-bottom: 1px solid #ecd9ae;
+}
+
+.site-header {
+  background: var(--ink);
+  color: #fff;
+}
+
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 20px;
+}
+
+.brand {
+  color: #fff;
+  text-decoration: none;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 20px;
+}
+
+.brand strong {
+  letter-spacing: 0.04em;
+}
+
+.nav a {
+  color: #cdd7e4;
+  text-decoration: none;
+  margin-left: 22px;
+  font-size: 15px;
+}
+
+.nav a:hover {
+  color: #fff;
+  text-decoration: underline;
+}
+
+main.container {
+  padding-top: 40px;
+  padding-bottom: 64px;
+  min-height: 60vh;
+}
+
+.hero {
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 32px;
+  margin-bottom: 36px;
+}
+
+.hero h1 {
+  font-size: 40px;
+  margin: 0 0 12px;
+}
+
+.hero p.lead {
+  font-size: 19px;
+  color: var(--ink-soft);
+  max-width: 640px;
+}
+
+.pilares {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+  margin: 28px 0;
+}
+
+.pilar {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 18px 20px;
+}
+
+.pilar h3 {
+  margin: 0 0 8px;
+  font-size: 18px;
+}
+
+.pilar p {
+  margin: 0;
+  font-size: 14.5px;
+  color: var(--ink-soft);
+}
+
+.cta-row {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin: 24px 0 40px;
+}
+
+.btn {
+  display: inline-block;
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 12px 22px;
+  font-size: 15.5px;
+  text-decoration: none;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.btn:hover {
+  background: var(--accent-dark);
+}
+
+.btn.secundario {
+  background: transparent;
+  color: var(--accent);
+  border: 1px solid var(--accent);
+}
+
+.btn.secundario:hover {
+  background: #eaf1f9;
+}
+
+.chamativa {
+  margin: 0 0 12px;
+  font-size: 16.5px;
+}
+
+.chamativa a {
+  color: var(--accent-dark);
+  font-weight: 700;
+  text-decoration: none;
+  border-bottom: 2px solid var(--accent);
+}
+
+.chamativa a:hover {
+  color: var(--accent);
+}
+
+.bases-legais {
+  font-size: 14px;
+  color: var(--ink-soft);
+  border-top: 1px solid var(--line);
+  padding-top: 20px;
+}
+
+/* Consulta */
+.form-consulta {
+  display: flex;
+  gap: 10px;
+  margin: 20px 0 8px;
+  flex-wrap: wrap;
+}
+
+.form-consulta input {
+  flex: 1 1 320px;
+  font-size: 16px;
+  padding: 12px 14px;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  font-family: ui-monospace, 'Cascadia Mono', Consolas, monospace;
+}
+
+.form-consulta select {
+  font-size: 15.5px;
+  padding: 12px 10px;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  background: var(--card);
+  font-family: inherit;
+  color: var(--ink);
+}
+
+.form-consulta input:focus,
+.form-consulta select:focus {
+  outline: 2px solid var(--accent);
+  outline-offset: -1px;
+}
+
+.hint {
+  font-size: 13.5px;
+  color: var(--ink-soft);
+}
+
+.hint code {
+  background: #eeece5;
+  padding: 2px 6px;
+  border-radius: 3px;
+}
+
+.erros {
+  background: var(--error-bg);
+  color: var(--error-ink);
+  border: 1px solid #e4bcbc;
+  border-radius: 4px;
+  padding: 12px 16px;
+  margin: 18px 0;
+  font-size: 14.5px;
+}
+
+.resultado {
+  margin-top: 26px;
+}
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 20px 24px;
+  margin-bottom: 18px;
+}
+
+.card h2,
+.card h3 {
+  margin-top: 0;
+}
+
+table.tabela-periodos {
+  width: 100%;
+  border-collapse: collapse;
+  font-variant-numeric: tabular-nums;
+}
+
+.tabela-periodos th,
+.tabela-periodos td {
+  text-align: right;
+  padding: 8px 10px;
+  border-bottom: 1px solid var(--line);
+}
+
+.tabela-periodos th:first-child,
+.tabela-periodos td:first-child {
+  text-align: left;
+}
+
+.tabela-periodos thead th {
+  border-bottom: 2px solid var(--ink-soft);
+  font-size: 13.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--ink-soft);
+}
+
+.dados-serie dt {
+  font-weight: 600;
+  margin-top: 8px;
+}
+
+.dados-serie dd {
+  margin: 0;
+  color: var(--ink-soft);
+}
+
+.meta {
+  font-size: 13.5px;
+  color: var(--ink-soft);
+}
+
+/* Método */
+.formula {
+  background: #f0efe9;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  padding: 14px 18px;
+  font-family: ui-monospace, 'Cascadia Mono', Consolas, monospace;
+  font-size: 15px;
+  overflow-x: auto;
+  margin: 12px 0 20px;
+}
+
+.referencias li {
+  margin-bottom: 6px;
+}
+
+.clausula {
+  background: #f0efe9;
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--ink-soft);
+  border-radius: 4px;
+  padding: 16px 20px;
+  margin: 12px 0 20px;
+}
+
+.clausula p {
+  margin: 0 0 12px;
+}
+
+.clausula p:last-child {
+  margin-bottom: 0;
+}
+
+.site-footer {
+  border-top: 1px solid var(--line);
+  background: #efece4;
+  font-size: 13.5px;
+  color: var(--ink-soft);
+  padding: 22px 0;
+}
+
+.site-footer p {
+  margin: 4px 0;
+}
+
+.muted {
+  color: #6b7a8d;
+}
+
+/* Wizard */
+.passos {
+  display: flex;
+  gap: 8px;
+  list-style: none;
+  padding: 0;
+  margin: 0 0 24px;
+  flex-wrap: wrap;
+}
+
+.passos li {
+  font-size: 13px;
+  color: var(--ink-soft);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 4px 14px;
+  background: var(--card);
+}
+
+.passos li.feito {
+  background: #e8eef6;
+  border-color: var(--accent);
+  color: var(--accent-dark);
+}
+
+.passos li.atual {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+  font-weight: 600;
+}
+
+.progresso {
+  height: 6px;
+  background: #e8e5dc;
+  border-radius: 3px;
+  margin: 6px 0 22px;
+  overflow: hidden;
+}
+
+.progresso div {
+  height: 100%;
+  background: var(--accent);
+  border-radius: 3px;
+  transition: width 0.2s ease;
+}
+
+.opcoes {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 12px;
+  margin: 8px 0 16px;
+}
+
+.opcao {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 14px 16px;
+  background: var(--card);
+  cursor: pointer;
+}
+
+.opcao:hover {
+  border-color: var(--accent);
+}
+
+.opcao.selecionada {
+  border-color: var(--accent);
+  background: #eaf1f9;
+}
+
+.opcao input {
+  margin: 0;
+}
+
+.opcao-titulo {
+  font-weight: 600;
+}
+
+.opcao-detalhe {
+  font-size: 13.5px;
+  color: var(--ink-soft);
+}
+
+.campo {
+  margin: 14px 0;
+}
+
+.campo label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.campo select,
+.campo input[type='number'] {
+  font-size: 16px;
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  font-family: inherit;
+  width: 100%;
+  max-width: 420px;
+  background: var(--card);
+}
+
+.campo select:focus,
+.campo input:focus {
+  outline: 2px solid var(--accent);
+  outline-offset: -1px;
+}
+
+.campo-input {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  max-width: 420px;
+}
+
+.campo-input input {
+  flex: 1;
+}
+
+.campo-input .unidade {
+  color: var(--ink-soft);
+}
+
+.campo-sufixo {
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 12px 16px;
+  margin: 12px 0;
+  background: var(--card);
+}
+
+.sufixo-check {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.pacotes {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 14px;
+  margin: 18px 0;
+}
+
+.pacote {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  text-align: left;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 18px;
+  background: var(--card);
+  cursor: pointer;
+  font-family: inherit;
+  color: var(--ink);
+}
+
+.pacote:hover {
+  border-color: var(--accent);
+}
+
+.pacote-preco {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--accent-dark);
+  font-family: Georgia, 'Times New Roman', serif;
+}
+
+.pacote-nome {
+  font-weight: 600;
+}
+
+.pacote-detalhe {
+  font-size: 13.5px;
+  color: var(--ink-soft);
+}
+
+.pacote.doc {
+  cursor: default;
+}
+
+.pacote.doc .btn {
+  margin-top: 8px;
+  align-self: flex-start;
+}
+
+.passo-rodape {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 26px;
+  flex-wrap: wrap;
+}
+
+.resumo-item {
+  border-top: 1px solid var(--line);
+  padding: 12px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+.resumo-acoes {
+  display: flex;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.resumo-item h3 {
+  margin: 0 0 4px;
+  font-size: 16px;
+}
+
+.resumo-item code {
+  background: #eeece5;
+  padding: 2px 6px;
+  border-radius: 3px;
+  font-size: 14px;
+}
+
+.qr-simulado {
+  border: 2px dashed var(--line);
+  border-radius: 8px;
+  width: 220px;
+  height: 220px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: var(--ink-soft);
+  font-size: 13.5px;
+  margin: 16px 0;
+  padding: 12px;
+}
+
+/* Modal de pagamento (dummy — vira checkout Mercado Pago) */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(22, 40, 63, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  z-index: 50;
+}
+
+.modal {
+  background: var(--card);
+  border-radius: 6px;
+  padding: 24px 28px;
+  width: 100%;
+  max-width: 460px;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.25);
+}
+
+
+/* Régua de elasticidade (escala partida — ε = 1 no centro) */
+.regua {
+  width: 100%;
+  accent-color: var(--accent);
+}
+
+.regua-marcas {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.regua-marcas .centro {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  color: var(--accent);
+}
+
+.regua-zonas {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12.5px;
+  color: var(--ink-soft);
+  margin-top: 2px;
+}
+
+/* Ícone de ajuda com balão ao passar o mouse (ou foco pelo teclado) */
+.info-icone {
+  position: relative;
+  cursor: help;
+  color: var(--accent);
+}
+
+.info-balao {
+  display: none;
+  position: absolute;
+  left: 0;
+  top: 1.6em;
+  z-index: 20;
+  width: 340px;
+  max-width: 80vw;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 12px 14px;
+  font-size: 13.5px;
+  font-weight: 400;
+  color: var(--ink);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+.info-balao strong {
+  color: var(--accent);
+}
+
+.info-icone:hover .info-balao,
+.info-icone:focus .info-balao {
+  display: block;
+}
+
+
+/* Pílula de etapa clicável (ex.: "Resumo" durante o preenchimento de um item) */
+.passos .passo-link {
+  background: none;
+  border: none;
+  padding: 0;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.passos .passo-link:hover {
+  color: var(--accent-dark);
+}
+
+
+/* Nome do item editável no resumo (separado do selo "IRT-E localizado") */
+.resumo-item-titulo {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.nome-item {
+  font: inherit;
+  color: inherit;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  padding: 1px 6px;
+  margin-left: -6px;
+  max-width: 340px;
+}
+
+.nome-item:hover {
+  border-color: var(--line);
+}
+
+.nome-item:focus {
+  outline: none;
+  border-color: var(--accent);
+  background: var(--card);
+}
+
+.selo-localizado {
+  font-size: 13px;
+  color: var(--accent);
+  letter-spacing: 0.02em;
+}

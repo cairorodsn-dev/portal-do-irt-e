@@ -1,0 +1,528 @@
+B2	'MEMÓRIA DE CÁLCULO — REEQUILÍBRIO ECONÔMICO-FINANCEIRO PELO IRT-E (ÍNDICE DE REEQUILÍBRIO TRIBUTÁRIO EXPURGADO)'
+B5	'Ano de referência da correção'
+C5	'DE:'
+D5	F:=Dashboard!E6	V:2026
+F5	'PARA:'
+G5	F:=Dashboard!E7	V:2033
+B7	'Item'
+C7	'Tipo'
+D7	'Preço t0 (R$)'
+E7	'Fator F (teto — repasse integral)'
+F7	'κ = |ε|/(1+|ε|)'
+G7	'IRT-E = 1+κ(F−1)'
+H7	'Preço reajustado pelo IRT-E (R$)'
+I7	'Variação IRT-E (R$)'
+J7	'Variação IRT-E (%)'
+K7	'Preço-teto F (R$, referência)'
+B8	<openpyxl.worksheet.formula.ArrayFormula object at 0x0000024E7A718830>
+C8	F:=IF(B8="","","Produto")	V:'Produto'
+D8	<openpyxl.worksheet.formula.ArrayFormula object at 0x0000024E7A74DBD0>
+E8	<openpyxl.worksheet.formula.ArrayFormula object at 0x0000024E7A74DD10>
+F8	F:=IF($B8="","",INDEX(Matriz_Produtos!$AG$7:$AG$501,1))	V:0.666666666666667
+G8	F:=IF($B8="","",INDEX(Matriz_Produtos!$AH$7:$AH$501,1))	V:0.910665333333333
+H8	F:=IF($B8="","",D8*G8)	V:91.0665333333333
+I8	F:=IF($B8="","",H8-D8)	V:-8.93346666666666
+J8	F:=IF($B8="","",G8-1)	V:-0.0893346666666666
+K8	F:=IF($B8="","",D8*E8)	V:86.5998
+B9	<openpyxl.worksheet.formula.ArrayFormula object at 0x0000024E7A6A5F30>
+C9	F:=IF(B9="","","Produto")	V:'Produto'
+D9	<openpyxl.worksheet.formula.ArrayFormula object at 0x0000024E7A6A6060>
+E9	<openpyxl.worksheet.formula.ArrayFormula object at 0x0000024E7A738290>
+F9	F:=IF($B9="","",INDEX(Matriz_Produtos!$AG$7:$AG$501,2))	V:0.666666666666667
+G9	F:=IF($B9="","",INDEX(Matriz_Produtos!$AH$7:$AH$501,2))	V:0.989762916666667
+H9	F:=IF($B9="","",D9*G9)	V:98.9762916666667
+I9	F:=IF($B9="","",H9-D9)	V:-1.02370833333333
+J9	F:=IF($B9="","",G9-1)	V:-0.0102370833333333
+K9	F:=IF($B9="","",D9*E9)	V:98.4644375
+B10	<openpyxl.worksheet.formula.ArrayFormula object at 0x0000024E7A64BAC0>
+C10	F:=IF(B10="","","Produto")	V:'Produto'
+D10	<openpyxl.worksheet.formula.ArrayFormula object at 0x0000024E7A64B790>
+E10	<openpyxl.worksheet.formula.ArrayFormula object at 0x0000024E7A6D5E50>
+F10	F:=IF($B10="","",INDEX(Matriz_Produtos!$AG$7:$AG$501,3))	V:0.666666666666667
+G10	F:=IF($B10="","",INDEX(Matriz_Produtos!$AH$7:$AH$501,3))	V:1
+H10	F:=IF($B10="","",D10*G10)	V:100
+I10	F:=IF($B10="","",H10-D10)	V:0
+J10	F:=IF($B10="","",G10-1)	V:0
+K10	F:=IF($B10="","",D10*E10)	V:100
+B11	<openpyxl.worksheet.formula.ArrayFormula object at 0x0000024E7A6D6350>
+C11	F:=IF(B11="","","Produto")	V:'Produto'
+D11	<openpyxl.worksheet.formula.ArrayFormula object at 0x0000024E7A7248C0>
+E11	<openpyxl.worksheet.formula.ArrayFormula object at 0x0000024E7A724D70>
+F11	F:=IF($B11="","",INDEX(Matriz_Produtos!$AG$7:$AG$501,4))	V:0.666666666666667
+G11	F:=IF($B11="","",INDEX(Matriz_Produtos!$AH$7:$AH$501,4))	V:0.934016666666667
+H11	F:=IF($B11="","",D11*G11)	V:93.4016666666667
+I11	F:=IF($B11="","",H11-D11)	V:-6.59833333333333
+J11	F:=IF($B11="","",G11-1)	V:-0.0659833333333333
+K11	F:=IF($B11="","",D11*E11)	V:90.1025
+B12	<openpyxl.worksheet.formula.ArrayFormula object at 0x0000024E7A6EDE10>
+C12	F:=IF(B12="","","Produto")	V:'Produto'
+D12	<openpyxl.worksheet.formula.ArrayFormula object at 0x0000024E7A6EDEF0>
+E12	<openpyxl.worksheet.formula.ArrayFormula object at 0x0000024E7A7714A0>
+F12	F:=IF($B12="","",INDEX(Matriz_Produtos!$AG$7:$AG$501,5))	V:0.666666666666667
+G12	F:=IF($B12="","",INDEX(Matriz_Produtos!$AH$7:$AH$501,5))	V:0.9858625
+H12	F:=IF($B12="","",D12*G12)	V:98.58625
+I12	F:=IF($B12="","",H12-D12)	V:-1.41375000000001
+J12	F:=IF($B12="","",G12-1)	V:-0.0141375
+K12	F:=IF($B12="","",D12*E12)	V:97.879375
+B13	<openpyxl.worksheet.formula.ArrayFormula object at 0x0000024E7A701310>
+C13	F:=IF(B13="","","Produto")	V:'Produto'
+D13	<openpyxl.worksheet.formula.ArrayFormula object at 0x0000024E7A7013D0>
+E13	<openpyxl.worksheet.formula.ArrayFormula object at 0x0000024E7A6E7490>
+F13	F:=IF($B13="","",INDEX(Matriz_Produtos!$AG$7:$AG$501,6))	V:0.666666666666667
+G13	F:=IF($B13="","",INDEX(Matriz_Produtos!$AH$7:$AH$501,6))	V:1.03420623808964
+H13	F:=IF($B13="","",D13*G13)	V:103.420623808964
+I13	F:=IF($B13="","",H13-D13)	V:3.42062380896415
+J13	F:=IF($B13="","",G13-1)	V:0.0342062380896415
+K13	F:=IF($B13="","",D13*E13)	V:105.130935713446
+B14	<openpyxl.worksheet.formula.ArrayFormula object at 0x0000024E7A6E76A0>
+C14	F:=IF(B14="","","Produto")	V:'Produto'
+D14	<openpyxl.worksheet.formula.ArrayFormula object at 0x0000024E7A734A50>
+E14	<openpyxl.worksheet.formula.ArrayFormula object at 0x0000024E7A734B90>
+F14	F:=IF($B14="","",INDEX(Matriz_Produtos!$AG$7:$AG$501,7))	V:0.666666666666667
+G14	F:=IF($B14="","",INDEX(Matriz_Produtos!$AH$7:$AH$501,7))	V:0.9225
+H14	F:=IF($B14="","",D14*G14)	V:92.25
+I14	F:=IF($B14="","",H14-D14)	V:-7.75
+J14	F:=IF($B14="","",G14-1)	V:-0.0775
+K14	F:=IF($B14="","",D14*E14)	V:88.375
+B15	<openpyxl.worksheet.formula.ArrayFormula object at 0x0000024E7A696F90>
+C15	F:=IF(B15="","","Produto")	V:'Produto'
+D15	<openpyxl.worksheet.formula.ArrayFormula object at 0x0000024E7A6BE1D0>
+E15	<openpyxl.worksheet.formula.ArrayFormula object at 0x0000024E7A7A05D0>
+F15	F:=IF($B15="","",INDEX(Matriz_Produtos!$AG$7:$AG$501,8))	V:0.666666666666667
+G15	F:=IF($B15="","",INDEX(Matriz_Produtos!$AH$7:$AH$501,8))	V:0.953757433489828
+H15	F:=IF($B15="","",D15*G15)	V:95.3757433489828
+I15	F:=IF($B15="","",H15-D15)	V:-4.62425665101721
+J15	F:=IF($B15="","",G15-1)	V:-0.046242566510172
+K15	F:=IF($B15="","",D15*E15)	V:93.0636150234742
+B16	<openpyxl.worksheet.formula.ArrayFormula object at 0x0000024E7A75D5C0>
+C16	F:=IF(B16="","","Produto")	V:None
+D16	<openpyxl.worksheet.formula.ArrayFormula object at 0x0000024E7A75D630>
+E16	<openpyxl.worksheet.formula.ArrayFormula object at 0x0000024E7A72E5D0>
+F16	F:=IF($B16="","",INDEX(Matriz_Produtos!$AG$7:$AG$501,9))	V:None
+G16	F:=IF($B16="","",INDEX(Matriz_Produtos!$AH$7:$AH$501,9))	V:None
+H16	F:=IF($B16="","",D16*G16)	V:None
+I16	F:=IF($B16="","",H16-D16)	V:None
+J16	F:=IF($B16="","",G16-1)	V:None
+K16	F:=IF($B16="","",D16*E16)	V:None
+B17	<openpyxl.worksheet.formula.ArrayFormula object at 0x0000024E7A72DA90>
+C17	F:=IF(B17="","","Produto")	V:None
+D17	<openpyxl.worksheet.formula.ArrayFormula object at 0x0000024E7A72E570>
+E17	<openpyxl.worksheet.formula.ArrayFormula object at 0x0000024E7A72E6F0>
+F17	F:=IF($B17="","",INDEX(Matriz_Produtos!$AG$7:$AG$501,10))	V:None
+G17	F:=IF($B17="","",INDEX(Matriz_Produtos!$AH$7:$AH$501,10))	V:None
+H17	F:=IF($B17="","",D17*G17)	V:None
+I17	F:=IF($B17="","",H17-D17)	V:None
+J17	F:=IF($B17="","",G17-1)	V:None
+K17	F:=IF($B17="","",D17*E17)	V:None
+B18	<openpyxl.worksheet.formula.ArrayFormula object at 0x0000024E7A72DC10>
+C18	F:=IF(B18="","","Produto")	V:None
+D18	<openpyxl.worksheet.formula.ArrayFormula object at 0x0000024E7A72D910>
+E18	<openpyxl.worksheet.formula.ArrayFormula object at 0x0000024E7A72E810>
+F18	F:=IF($B18="","",INDEX(Matriz_Produtos!$AG$7:$AG$501,11))	V:None
+G18	F:=IF($B18="","",INDEX(Matriz_Produtos!$AH$7:$AH$501,11))	V:None
+H18	F:=IF($B18="","",D18*G18)	V:None
+I18	F:=IF($B18="","",H18-D18)	V:None
+J18	F:=IF($B18="","",G18-1)	V:None
+K18	F:=IF($B18="","",D18*E18)	V:None
+B19	<openpyxl.worksheet.formula.ArrayFormula object at 0x0000024E7A72DD90>
+C19	F:=IF(B19="","","Produto")	V:None
+D19	<openpyxl.worksheet.formula.ArrayFormula object at 0x0000024E7A72E690>
+E19	<openpyxl.worksheet.formula.ArrayFormula object at 0x0000024E7A72E930>
+F19	F:=IF($B19="","",INDEX(Matriz_Produtos!$AG$7:$AG$501,12))	V:None
+G19	F:=IF($B19="","",INDEX(Matriz_Produtos!$AH$7:$AH$501,12))	V:None
+H19	F:=IF($B19="","",D19*G19)	V:None
+I19	F:=IF($B19="","",H19-D19)	V:None
+J19	F:=IF($B19="","",G19-1)	V:None
+K19	F:=IF($B19="","",D19*E19)	V:None
+B20	<openpyxl.worksheet.formula.ArrayFormula object at 0x0000024E7A72DF10>
+C20	F:=IF(B20="","","Produto")	V:None
+D20	<openpyxl.worksheet.formula.ArrayFormula object at 0x0000024E7A72E7B0>
+E20	<openpyxl.worksheet.formula.ArrayFormula object at 0x0000024E7A72EA50>
+F20	F:=IF($B20="","",INDEX(Matriz_Produtos!$AG$7:$AG$501,13))	V:None
+G20	F:=IF($B20="","",INDEX(Matriz_Produtos!$AH$7:$AH$501,13))	V:None
+H20	F:=IF($B20="","",D20*G20)	V:None
+I20	F:=IF($B20="","",H20-D20)	V:None
+J20	F:=IF($B20="","",G20-1)	V:None
+K20	F:=IF($B20="","",D20*E20)	V:None
+B21	<openpyxl.worksheet.formula.ArrayFormula object at 0x0000024E7A72E090>
+C21	F:=IF(B21="","","Produto")	V:None
+D21	<openpyxl.worksheet.formula.ArrayFormula object at 0x0000024E7A72E8D0>
+E21	<openpyxl.worksheet.formula.ArrayFormula object at 0x0000024E7A72EB70>
+F21	F:=IF($B21="","",INDEX(Matriz_Produtos!$AG$7:$AG$501,14))	V:None
+G21	F:=IF($B21="","",INDEX(Matriz_Produtos!$AH$7:$AH$501,14))	V:None
+H21	F:=IF($B21="","",D21*G21)	V:None
+I21	F:=IF($B21="","",H21-D21)	V:None
+J21	F:=IF($B21="","",G21-1)	V:None
+K21	F:=IF($B21="","",D21*E21)	V:None
+B22	<openpyxl.worksheet.formula.ArrayFormula object at 0x0000024E7A72E210>
+C22	F:=IF(B22="","","Produto")	V:None
+D22	<openpyxl.worksheet.formula.ArrayFormula object at 0x0000024E7A72E9F0>
+E22	<openpyxl.worksheet.formula.ArrayFormula object at 0x0000024E7A72EC90>
+F22	F:=IF($B22="","",INDEX(Matriz_Produtos!$AG$7:$AG$501,15))	V:None
+G22	F:=IF($B22="","",INDEX(Matriz_Produtos!$AH$7:$AH$501,15))	V:None
+H22	F:=IF($B22="","",D22*G22)	V:None
+I22	F:=IF($B22="","",H22-D22)	V:None
+J22	F:=IF($B22="","",G22-1)	V:None
+K22	F:=IF($B22="","",D22*E22)	V:None
+B23	<openpyxl.worksheet.formula.ArrayFormula object at 0x0000024E7A72E390>
+C23	F:=IF(B23="","","Produto")	V:None
+D23	<openpyxl.worksheet.formula.ArrayFormula object at 0x0000024E7A72EB10>
+E23	<openpyxl.worksheet.formula.ArrayFormula object at 0x0000024E7A72EDB0>
+F23	F:=IF($B23="","",INDEX(Matriz_Produtos!$AG$7:$AG$501,16))	V:None
+G23	F:=IF($B23="","",INDEX(Matriz_Produtos!$AH$7:$AH$501,16))	V:None
+H23	F:=IF($B23="","",D23*G23)	V:None
+I23	F:=IF($B23="","",H23-D23)	V:None
+J23	F:=IF($B23="","",G23-1)	V:None
+K23	F:=IF($B23="","",D23*E23)	V:None
+B24	<openpyxl.worksheet.formula.ArrayFormula object at 0x0000024E7A72EE70>
+C24	F:=IF(B24="","","Produto")	V:None
+D24	<openpyxl.worksheet.formula.ArrayFormula object at 0x0000024E7A7941D0>
+E24	<openpyxl.worksheet.formula.ArrayFormula object at 0x0000024E7A794290>
+F24	F:=IF($B24="","",INDEX(Matriz_Produtos!$AG$7:$AG$501,17))	V:None
+G24	F:=IF($B24="","",INDEX(Matriz_Produtos!$AH$7:$AH$501,17))	V:None
+H24	F:=IF($B24="","",D24*G24)	V:None
+I24	F:=IF($B24="","",H24-D24)	V:None
+J24	F:=IF($B24="","",G24-1)	V:None
+K24	F:=IF($B24="","",D24*E24)	V:None
+B25	<openpyxl.worksheet.formula.ArrayFormula object at 0x0000024E7A72EED0>
+C25	F:=IF(B25="","","Produto")	V:None
+D25	<openpyxl.worksheet.formula.ArrayFormula object at 0x0000024E7A794230>
+E25	<openpyxl.worksheet.formula.ArrayFormula object at 0x0000024E7A7943B0>
+F25	F:=IF($B25="","",INDEX(Matriz_Produtos!$AG$7:$AG$501,18))	V:None
+G25	F:=IF($B25="","",INDEX(Matriz_Produtos!$AH$7:$AH$501,18))	V:None
+H25	F:=IF($B25="","",D25*G25)	V:None
+I25	F:=IF($B25="","",H25-D25)	V:None
+J25	F:=IF($B25="","",G25-1)	V:None
+K25	F:=IF($B25="","",D25*E25)	V:None
+B26	<openpyxl.worksheet.formula.ArrayFormula object at 0x0000024E7A72F050>
+C26	F:=IF(B26="","","Produto")	V:None
+D26	<openpyxl.worksheet.formula.ArrayFormula object at 0x0000024E7A794110>
+E26	<openpyxl.worksheet.formula.ArrayFormula object at 0x0000024E7A7944D0>
+F26	F:=IF($B26="","",INDEX(Matriz_Produtos!$AG$7:$AG$501,19))	V:None
+G26	F:=IF($B26="","",INDEX(Matriz_Produtos!$AH$7:$AH$501,19))	V:None
+H26	F:=IF($B26="","",D26*G26)	V:None
+I26	F:=IF($B26="","",H26-D26)	V:None
+J26	F:=IF($B26="","",G26-1)	V:None
+K26	F:=IF($B26="","",D26*E26)	V:None
+B27	<openpyxl.worksheet.formula.ArrayFormula object at 0x0000024E7A72F1D0>
+C27	F:=IF(B27="","","Produto")	V:None
+D27	<openpyxl.worksheet.formula.ArrayFormula object at 0x0000024E7A794350>
+E27	<openpyxl.worksheet.formula.ArrayFormula object at 0x0000024E7A7945F0>
+F27	F:=IF($B27="","",INDEX(Matriz_Produtos!$AG$7:$AG$501,20))	V:None
+G27	F:=IF($B27="","",INDEX(Matriz_Produtos!$AH$7:$AH$501,20))	V:None
+H27	F:=IF($B27="","",D27*G27)	V:None
+I27	F:=IF($B27="","",H27-D27)	V:None
+J27	F:=IF($B27="","",G27-1)	V:None
+K27	F:=IF($B27="","",D27*E27)	V:None
+B28	<openpyxl.worksheet.formula.ArrayFormula object at 0x0000024E7A72F350>
+C28	F:=IF(B28="","","Produto")	V:None
+D28	<openpyxl.worksheet.formula.ArrayFormula object at 0x0000024E7A794470>
+E28	<openpyxl.worksheet.formula.ArrayFormula object at 0x0000024E7A794710>
+F28	F:=IF($B28="","",INDEX(Matriz_Produtos!$AG$7:$AG$501,21))	V:None
+G28	F:=IF($B28="","",INDEX(Matriz_Produtos!$AH$7:$AH$501,21))	V:None
+H28	F:=IF($B28="","",D28*G28)	V:None
+I28	F:=IF($B28="","",H28-D28)	V:None
+J28	F:=IF($B28="","",G28-1)	V:None
+K28	F:=IF($B28="","",D28*E28)	V:None
+B29	<openpyxl.worksheet.formula.ArrayFormula object at 0x0000024E7A72F7D0>
+C29	F:=IF(B29="","","Produto")	V:None
+D29	<openpyxl.worksheet.formula.ArrayFormula object at 0x0000024E7A794590>
+E29	<openpyxl.worksheet.formula.ArrayFormula object at 0x0000024E7A794830>
+F29	F:=IF($B29="","",INDEX(Matriz_Produtos!$AG$7:$AG$501,22))	V:None
+G29	F:=IF($B29="","",INDEX(Matriz_Produtos!$AH$7:$AH$501,22))	V:None
+H29	F:=IF($B29="","",D29*G29)	V:None
+I29	F:=IF($B29="","",H29-D29)	V:None
+J29	F:=IF($B29="","",G29-1)	V:None
+K29	F:=IF($B29="","",D29*E29)	V:None
+B30	<openpyxl.worksheet.formula.ArrayFormula object at 0x0000024E7A72FAD0>
+C30	F:=IF(B30="","","Produto")	V:None
+D30	<openpyxl.worksheet.formula.ArrayFormula object at 0x0000024E7A7946B0>
+E30	<openpyxl.worksheet.formula.ArrayFormula object at 0x0000024E7A794950>
+F30	F:=IF($B30="","",INDEX(Matriz_Produtos!$AG$7:$AG$501,23))	V:None
+G30	F:=IF($B30="","",INDEX(Matriz_Produtos!$AH$7:$AH$501,23))	V:None
+H30	F:=IF($B30="","",D30*G30)	V:None
+I30	F:=IF($B30="","",H30-D30)	V:None
+J30	F:=IF($B30="","",G30-1)	V:None
+K30	F:=IF($B30="","",D30*E30)	V:None
+B31	<openpyxl.worksheet.formula.ArrayFormula object at 0x0000024E7A72FC50>
+C31	F:=IF(B31="","","Produto")	V:None
+D31	<openpyxl.worksheet.formula.ArrayFormula object at 0x0000024E7A7947D0>
+E31	<openpyxl.worksheet.formula.ArrayFormula object at 0x0000024E7A794A70>
+F31	F:=IF($B31="","",INDEX(Matriz_Produtos!$AG$7:$AG$501,24))	V:None
+G31	F:=IF($B31="","",INDEX(Matriz_Produtos!$AH$7:$AH$501,24))	V:None
+H31	F:=IF($B31="","",D31*G31)	V:None
+I31	F:=IF($B31="","",H31-D31)	V:None
+J31	F:=IF($B31="","",G31-1)	V:None
+K31	F:=IF($B31="","",D31*E31)	V:None
+B32	<openpyxl.worksheet.formula.ArrayFormula object at 0x0000024E7A72FDD0>
+C32	F:=IF(B32="","","Produto")	V:None
+D32	<openpyxl.worksheet.formula.ArrayFormula object at 0x0000024E7A7948F0>
+E32	<openpyxl.worksheet.formula.ArrayFormula object at 0x0000024E7A794B90>
+F32	F:=IF($B32="","",INDEX(Matriz_Produtos!$AG$7:$AG$501,25))	V:None
+G32	F:=IF($B32="","",INDEX(Matriz_Produtos!$AH$7:$AH$501,25))	V:None
+H32	F:=IF($B32="","",D32*G32)	V:None
+I32	F:=IF($B32="","",H32-D32)	V:None
+J32	F:=IF($B32="","",G32-1)	V:None
+K32	F:=IF($B32="","",D32*E32)	V:None
+B33	<openpyxl.worksheet.formula.ArrayFormula object at 0x0000024E7A72FF50>
+C33	F:=IF(B33="","","Serviço")	V:'Serviço'
+D33	<openpyxl.worksheet.formula.ArrayFormula object at 0x0000024E7A72FFB0>
+E33	<openpyxl.worksheet.formula.ArrayFormula object at 0x0000024E7A794050>
+F33	F:=IF($B33="","",INDEX(Matriz_Serviços!$Z$7:$Z$501,1))	V:0.333333333333333
+G33	F:=IF($B33="","",INDEX(Matriz_Serviços!$AA$7:$AA$501,1))	V:1.03604666666667
+H33	F:=IF($B33="","",D33*G33)	V:103.604666666667
+I33	F:=IF($B33="","",H33-D33)	V:3.60466666666667
+J33	F:=IF($B33="","",G33-1)	V:0.0360466666666668
+K33	F:=IF($B33="","",D33*E33)	V:110.814
+B34	<openpyxl.worksheet.formula.ArrayFormula object at 0x0000024E7A7940B0>
+C34	F:=IF(B34="","","Serviço")	V:'Serviço'
+D34	<openpyxl.worksheet.formula.ArrayFormula object at 0x0000024E7A794BF0>
+E34	<openpyxl.worksheet.formula.ArrayFormula object at 0x0000024E7A794A10>
+F34	F:=IF($B34="","",INDEX(Matriz_Serviços!$Z$7:$Z$501,2))	V:0.333333333333333
+G34	F:=IF($B34="","",INDEX(Matriz_Serviços!$AA$7:$AA$501,2))	V:1.037996875
+H34	F:=IF($B34="","",D34*G34)	V:103.7996875
+I34	F:=IF($B34="","",H34-D34)	V:3.79968750000002
+J34	F:=IF($B34="","",G34-1)	V:0.0379968750000002
+K34	F:=IF($B34="","",D34*E34)	V:111.3990625
+B35	<openpyxl.worksheet.formula.ArrayFormula object at 0x0000024E7A794CB0>
+C35	F:=IF(B35="","","Serviço")	V:'Serviço'
+D35	<openpyxl.worksheet.formula.ArrayFormula object at 0x0000024E7A794D10>
+E35	<openpyxl.worksheet.formula.ArrayFormula object at 0x0000024E7A794D70>
+F35	F:=IF($B35="","",INDEX(Matriz_Serviços!$Z$7:$Z$501,3))	V:0.333333333333333
+G35	F:=IF($B35="","",INDEX(Matriz_Serviços!$AA$7:$AA$501,3))	V:1.05185916666667
+H35	F:=IF($B35="","",D35*G35)	V:105.185916666667
+I35	F:=IF($B35="","",H35-D35)	V:5.18591666666666
+J35	F:=IF($B35="","",G35-1)	V:0.0518591666666666
+K35	F:=IF($B35="","",D35*E35)	V:115.55775
+B36	<openpyxl.worksheet.formula.ArrayFormula object at 0x0000024E7A794E30>
+C36	F:=IF(B36="","","Serviço")	V:'Serviço'
+D36	<openpyxl.worksheet.formula.ArrayFormula object at 0x0000024E7A794E90>
+E36	<openpyxl.worksheet.formula.ArrayFormula object at 0x0000024E7A794EF0>
+F36	F:=IF($B36="","",INDEX(Matriz_Serviços!$Z$7:$Z$501,4))	V:0.333333333333333
+G36	F:=IF($B36="","",INDEX(Matriz_Serviços!$AA$7:$AA$501,4))	V:1
+H36	F:=IF($B36="","",D36*G36)	V:100
+I36	F:=IF($B36="","",H36-D36)	V:0
+J36	F:=IF($B36="","",G36-1)	V:0
+K36	F:=IF($B36="","",D36*E36)	V:100
+B37	<openpyxl.worksheet.formula.ArrayFormula object at 0x0000024E7A794FB0>
+C37	F:=IF(B37="","","Serviço")	V:'Serviço'
+D37	<openpyxl.worksheet.formula.ArrayFormula object at 0x0000024E7A795010>
+E37	<openpyxl.worksheet.formula.ArrayFormula object at 0x0000024E7A795070>
+F37	F:=IF($B37="","",INDEX(Matriz_Serviços!$Z$7:$Z$501,5))	V:0.333333333333333
+G37	F:=IF($B37="","",INDEX(Matriz_Serviços!$AA$7:$AA$501,5))	V:1.02765141666667
+H37	F:=IF($B37="","",D37*G37)	V:102.765141666667
+I37	F:=IF($B37="","",H37-D37)	V:2.76514166666667
+J37	F:=IF($B37="","",G37-1)	V:0.0276514166666666
+K37	F:=IF($B37="","",D37*E37)	V:108.295425
+B38	<openpyxl.worksheet.formula.ArrayFormula object at 0x0000024E7A795130>
+C38	F:=IF(B38="","","Serviço")	V:'Serviço'
+D38	<openpyxl.worksheet.formula.ArrayFormula object at 0x0000024E7A795190>
+E38	<openpyxl.worksheet.formula.ArrayFormula object at 0x0000024E7A7951F0>
+F38	F:=IF($B38="","",INDEX(Matriz_Serviços!$Z$7:$Z$501,6))	V:0.333333333333333
+G38	F:=IF($B38="","",INDEX(Matriz_Serviços!$AA$7:$AA$501,6))	V:1.06748231970316
+H38	F:=IF($B38="","",D38*G38)	V:106.748231970316
+I38	F:=IF($B38="","",H38-D38)	V:6.74823197031628
+J38	F:=IF($B38="","",G38-1)	V:0.0674823197031629
+K38	F:=IF($B38="","",D38*E38)	V:120.244695910949
+B39	<openpyxl.worksheet.formula.ArrayFormula object at 0x0000024E7A7952B0>
+C39	F:=IF(B39="","","Serviço")	V:None
+D39	<openpyxl.worksheet.formula.ArrayFormula object at 0x0000024E7A795310>
+E39	<openpyxl.worksheet.formula.ArrayFormula object at 0x0000024E7A795370>
+F39	F:=IF($B39="","",INDEX(Matriz_Serviços!$Z$7:$Z$501,7))	V:None
+G39	F:=IF($B39="","",INDEX(Matriz_Serviços!$AA$7:$AA$501,7))	V:None
+H39	F:=IF($B39="","",D39*G39)	V:None
+I39	F:=IF($B39="","",H39-D39)	V:None
+J39	F:=IF($B39="","",G39-1)	V:None
+K39	F:=IF($B39="","",D39*E39)	V:None
+B40	<openpyxl.worksheet.formula.ArrayFormula object at 0x0000024E7A795430>
+C40	F:=IF(B40="","","Serviço")	V:None
+D40	<openpyxl.worksheet.formula.ArrayFormula object at 0x0000024E7A795490>
+E40	<openpyxl.worksheet.formula.ArrayFormula object at 0x0000024E7A7954F0>
+F40	F:=IF($B40="","",INDEX(Matriz_Serviços!$Z$7:$Z$501,8))	V:None
+G40	F:=IF($B40="","",INDEX(Matriz_Serviços!$AA$7:$AA$501,8))	V:None
+H40	F:=IF($B40="","",D40*G40)	V:None
+I40	F:=IF($B40="","",H40-D40)	V:None
+J40	F:=IF($B40="","",G40-1)	V:None
+K40	F:=IF($B40="","",D40*E40)	V:None
+B41	<openpyxl.worksheet.formula.ArrayFormula object at 0x0000024E7A7955B0>
+C41	F:=IF(B41="","","Serviço")	V:None
+D41	<openpyxl.worksheet.formula.ArrayFormula object at 0x0000024E7A795610>
+E41	<openpyxl.worksheet.formula.ArrayFormula object at 0x0000024E7A795670>
+F41	F:=IF($B41="","",INDEX(Matriz_Serviços!$Z$7:$Z$501,9))	V:None
+G41	F:=IF($B41="","",INDEX(Matriz_Serviços!$AA$7:$AA$501,9))	V:None
+H41	F:=IF($B41="","",D41*G41)	V:None
+I41	F:=IF($B41="","",H41-D41)	V:None
+J41	F:=IF($B41="","",G41-1)	V:None
+K41	F:=IF($B41="","",D41*E41)	V:None
+B42	<openpyxl.worksheet.formula.ArrayFormula object at 0x0000024E7A7956D0>
+C42	F:=IF(B42="","","Serviço")	V:None
+D42	<openpyxl.worksheet.formula.ArrayFormula object at 0x0000024E7A7957F0>
+E42	<openpyxl.worksheet.formula.ArrayFormula object at 0x0000024E7A795850>
+F42	F:=IF($B42="","",INDEX(Matriz_Serviços!$Z$7:$Z$501,10))	V:None
+G42	F:=IF($B42="","",INDEX(Matriz_Serviços!$AA$7:$AA$501,10))	V:None
+H42	F:=IF($B42="","",D42*G42)	V:None
+I42	F:=IF($B42="","",H42-D42)	V:None
+J42	F:=IF($B42="","",G42-1)	V:None
+K42	F:=IF($B42="","",D42*E42)	V:None
+B43	<openpyxl.worksheet.formula.ArrayFormula object at 0x0000024E7A7958B0>
+C43	F:=IF(B43="","","Serviço")	V:None
+D43	<openpyxl.worksheet.formula.ArrayFormula object at 0x0000024E7A795970>
+E43	<openpyxl.worksheet.formula.ArrayFormula object at 0x0000024E7A7959D0>
+F43	F:=IF($B43="","",INDEX(Matriz_Serviços!$Z$7:$Z$501,11))	V:None
+G43	F:=IF($B43="","",INDEX(Matriz_Serviços!$AA$7:$AA$501,11))	V:None
+H43	F:=IF($B43="","",D43*G43)	V:None
+I43	F:=IF($B43="","",H43-D43)	V:None
+J43	F:=IF($B43="","",G43-1)	V:None
+K43	F:=IF($B43="","",D43*E43)	V:None
+B44	<openpyxl.worksheet.formula.ArrayFormula object at 0x0000024E7A795A30>
+C44	F:=IF(B44="","","Serviço")	V:None
+D44	<openpyxl.worksheet.formula.ArrayFormula object at 0x0000024E7A795AF0>
+E44	<openpyxl.worksheet.formula.ArrayFormula object at 0x0000024E7A795B50>
+F44	F:=IF($B44="","",INDEX(Matriz_Serviços!$Z$7:$Z$501,12))	V:None
+G44	F:=IF($B44="","",INDEX(Matriz_Serviços!$AA$7:$AA$501,12))	V:None
+H44	F:=IF($B44="","",D44*G44)	V:None
+I44	F:=IF($B44="","",H44-D44)	V:None
+J44	F:=IF($B44="","",G44-1)	V:None
+K44	F:=IF($B44="","",D44*E44)	V:None
+B45	<openpyxl.worksheet.formula.ArrayFormula object at 0x0000024E7A795BB0>
+C45	F:=IF(B45="","","Serviço")	V:None
+D45	<openpyxl.worksheet.formula.ArrayFormula object at 0x0000024E7A795C70>
+E45	<openpyxl.worksheet.formula.ArrayFormula object at 0x0000024E7A795CD0>
+F45	F:=IF($B45="","",INDEX(Matriz_Serviços!$Z$7:$Z$501,13))	V:None
+G45	F:=IF($B45="","",INDEX(Matriz_Serviços!$AA$7:$AA$501,13))	V:None
+H45	F:=IF($B45="","",D45*G45)	V:None
+I45	F:=IF($B45="","",H45-D45)	V:None
+J45	F:=IF($B45="","",G45-1)	V:None
+K45	F:=IF($B45="","",D45*E45)	V:None
+B46	<openpyxl.worksheet.formula.ArrayFormula object at 0x0000024E7A795D30>
+C46	F:=IF(B46="","","Serviço")	V:None
+D46	<openpyxl.worksheet.formula.ArrayFormula object at 0x0000024E7A795DF0>
+E46	<openpyxl.worksheet.formula.ArrayFormula object at 0x0000024E7A795E50>
+F46	F:=IF($B46="","",INDEX(Matriz_Serviços!$Z$7:$Z$501,14))	V:None
+G46	F:=IF($B46="","",INDEX(Matriz_Serviços!$AA$7:$AA$501,14))	V:None
+H46	F:=IF($B46="","",D46*G46)	V:None
+I46	F:=IF($B46="","",H46-D46)	V:None
+J46	F:=IF($B46="","",G46-1)	V:None
+K46	F:=IF($B46="","",D46*E46)	V:None
+B47	<openpyxl.worksheet.formula.ArrayFormula object at 0x0000024E7A795EB0>
+C47	F:=IF(B47="","","Serviço")	V:None
+D47	<openpyxl.worksheet.formula.ArrayFormula object at 0x0000024E7A795F70>
+E47	<openpyxl.worksheet.formula.ArrayFormula object at 0x0000024E7A795FD0>
+F47	F:=IF($B47="","",INDEX(Matriz_Serviços!$Z$7:$Z$501,15))	V:None
+G47	F:=IF($B47="","",INDEX(Matriz_Serviços!$AA$7:$AA$501,15))	V:None
+H47	F:=IF($B47="","",D47*G47)	V:None
+I47	F:=IF($B47="","",H47-D47)	V:None
+J47	F:=IF($B47="","",G47-1)	V:None
+K47	F:=IF($B47="","",D47*E47)	V:None
+B48	<openpyxl.worksheet.formula.ArrayFormula object at 0x0000024E7A796030>
+C48	F:=IF(B48="","","Serviço")	V:None
+D48	<openpyxl.worksheet.formula.ArrayFormula object at 0x0000024E7A7960F0>
+E48	<openpyxl.worksheet.formula.ArrayFormula object at 0x0000024E7A796150>
+F48	F:=IF($B48="","",INDEX(Matriz_Serviços!$Z$7:$Z$501,16))	V:None
+G48	F:=IF($B48="","",INDEX(Matriz_Serviços!$AA$7:$AA$501,16))	V:None
+H48	F:=IF($B48="","",D48*G48)	V:None
+I48	F:=IF($B48="","",H48-D48)	V:None
+J48	F:=IF($B48="","",G48-1)	V:None
+K48	F:=IF($B48="","",D48*E48)	V:None
+B49	<openpyxl.worksheet.formula.ArrayFormula object at 0x0000024E7A7961B0>
+C49	F:=IF(B49="","","Serviço")	V:None
+D49	<openpyxl.worksheet.formula.ArrayFormula object at 0x0000024E7A796270>
+E49	<openpyxl.worksheet.formula.ArrayFormula object at 0x0000024E7A7962D0>
+F49	F:=IF($B49="","",INDEX(Matriz_Serviços!$Z$7:$Z$501,17))	V:None
+G49	F:=IF($B49="","",INDEX(Matriz_Serviços!$AA$7:$AA$501,17))	V:None
+H49	F:=IF($B49="","",D49*G49)	V:None
+I49	F:=IF($B49="","",H49-D49)	V:None
+J49	F:=IF($B49="","",G49-1)	V:None
+K49	F:=IF($B49="","",D49*E49)	V:None
+B50	<openpyxl.worksheet.formula.ArrayFormula object at 0x0000024E7A796330>
+C50	F:=IF(B50="","","Serviço")	V:None
+D50	<openpyxl.worksheet.formula.ArrayFormula object at 0x0000024E7A7963F0>
+E50	<openpyxl.worksheet.formula.ArrayFormula object at 0x0000024E7A796450>
+F50	F:=IF($B50="","",INDEX(Matriz_Serviços!$Z$7:$Z$501,18))	V:None
+G50	F:=IF($B50="","",INDEX(Matriz_Serviços!$AA$7:$AA$501,18))	V:None
+H50	F:=IF($B50="","",D50*G50)	V:None
+I50	F:=IF($B50="","",H50-D50)	V:None
+J50	F:=IF($B50="","",G50-1)	V:None
+K50	F:=IF($B50="","",D50*E50)	V:None
+B51	<openpyxl.worksheet.formula.ArrayFormula object at 0x0000024E7A7964B0>
+C51	F:=IF(B51="","","Serviço")	V:None
+D51	<openpyxl.worksheet.formula.ArrayFormula object at 0x0000024E7A796570>
+E51	<openpyxl.worksheet.formula.ArrayFormula object at 0x0000024E7A7965D0>
+F51	F:=IF($B51="","",INDEX(Matriz_Serviços!$Z$7:$Z$501,19))	V:None
+G51	F:=IF($B51="","",INDEX(Matriz_Serviços!$AA$7:$AA$501,19))	V:None
+H51	F:=IF($B51="","",D51*G51)	V:None
+I51	F:=IF($B51="","",H51-D51)	V:None
+J51	F:=IF($B51="","",G51-1)	V:None
+K51	F:=IF($B51="","",D51*E51)	V:None
+B52	<openpyxl.worksheet.formula.ArrayFormula object at 0x0000024E7A796630>
+C52	F:=IF(B52="","","Serviço")	V:None
+D52	<openpyxl.worksheet.formula.ArrayFormula object at 0x0000024E7A7966F0>
+E52	<openpyxl.worksheet.formula.ArrayFormula object at 0x0000024E7A796750>
+F52	F:=IF($B52="","",INDEX(Matriz_Serviços!$Z$7:$Z$501,20))	V:None
+G52	F:=IF($B52="","",INDEX(Matriz_Serviços!$AA$7:$AA$501,20))	V:None
+H52	F:=IF($B52="","",D52*G52)	V:None
+I52	F:=IF($B52="","",H52-D52)	V:None
+J52	F:=IF($B52="","",G52-1)	V:None
+K52	F:=IF($B52="","",D52*E52)	V:None
+B53	<openpyxl.worksheet.formula.ArrayFormula object at 0x0000024E7A7967B0>
+C53	F:=IF(B53="","","Serviço")	V:None
+D53	<openpyxl.worksheet.formula.ArrayFormula object at 0x0000024E7A796870>
+E53	<openpyxl.worksheet.formula.ArrayFormula object at 0x0000024E7A7968D0>
+F53	F:=IF($B53="","",INDEX(Matriz_Serviços!$Z$7:$Z$501,21))	V:None
+G53	F:=IF($B53="","",INDEX(Matriz_Serviços!$AA$7:$AA$501,21))	V:None
+H53	F:=IF($B53="","",D53*G53)	V:None
+I53	F:=IF($B53="","",H53-D53)	V:None
+J53	F:=IF($B53="","",G53-1)	V:None
+K53	F:=IF($B53="","",D53*E53)	V:None
+B54	<openpyxl.worksheet.formula.ArrayFormula object at 0x0000024E7A796930>
+C54	F:=IF(B54="","","Serviço")	V:None
+D54	<openpyxl.worksheet.formula.ArrayFormula object at 0x0000024E7A7969F0>
+E54	<openpyxl.worksheet.formula.ArrayFormula object at 0x0000024E7A796A50>
+F54	F:=IF($B54="","",INDEX(Matriz_Serviços!$Z$7:$Z$501,22))	V:None
+G54	F:=IF($B54="","",INDEX(Matriz_Serviços!$AA$7:$AA$501,22))	V:None
+H54	F:=IF($B54="","",D54*G54)	V:None
+I54	F:=IF($B54="","",H54-D54)	V:None
+J54	F:=IF($B54="","",G54-1)	V:None
+K54	F:=IF($B54="","",D54*E54)	V:None
+B55	<openpyxl.worksheet.formula.ArrayFormula object at 0x0000024E7A796AB0>
+C55	F:=IF(B55="","","Serviço")	V:None
+D55	<openpyxl.worksheet.formula.ArrayFormula object at 0x0000024E7A796B70>
+E55	<openpyxl.worksheet.formula.ArrayFormula object at 0x0000024E7A796BD0>
+F55	F:=IF($B55="","",INDEX(Matriz_Serviços!$Z$7:$Z$501,23))	V:None
+G55	F:=IF($B55="","",INDEX(Matriz_Serviços!$AA$7:$AA$501,23))	V:None
+H55	F:=IF($B55="","",D55*G55)	V:None
+I55	F:=IF($B55="","",H55-D55)	V:None
+J55	F:=IF($B55="","",G55-1)	V:None
+K55	F:=IF($B55="","",D55*E55)	V:None
+B56	<openpyxl.worksheet.formula.ArrayFormula object at 0x0000024E7A796C30>
+C56	F:=IF(B56="","","Serviço")	V:None
+D56	<openpyxl.worksheet.formula.ArrayFormula object at 0x0000024E7A796CF0>
+E56	<openpyxl.worksheet.formula.ArrayFormula object at 0x0000024E7A796D50>
+F56	F:=IF($B56="","",INDEX(Matriz_Serviços!$Z$7:$Z$501,24))	V:None
+G56	F:=IF($B56="","",INDEX(Matriz_Serviços!$AA$7:$AA$501,24))	V:None
+H56	F:=IF($B56="","",D56*G56)	V:None
+I56	F:=IF($B56="","",H56-D56)	V:None
+J56	F:=IF($B56="","",G56-1)	V:None
+K56	F:=IF($B56="","",D56*E56)	V:None
+B57	<openpyxl.worksheet.formula.ArrayFormula object at 0x0000024E7A796DB0>
+C57	F:=IF(B57="","","Serviço")	V:None
+D57	<openpyxl.worksheet.formula.ArrayFormula object at 0x0000024E7A796E70>
+E57	<openpyxl.worksheet.formula.ArrayFormula object at 0x0000024E7A796ED0>
+F57	F:=IF($B57="","",INDEX(Matriz_Serviços!$Z$7:$Z$501,25))	V:None
+G57	F:=IF($B57="","",INDEX(Matriz_Serviços!$AA$7:$AA$501,25))	V:None
+H57	F:=IF($B57="","",D57*G57)	V:None
+I57	F:=IF($B57="","",H57-D57)	V:None
+J57	F:=IF($B57="","",G57-1)	V:None
+K57	F:=IF($B57="","",D57*E57)	V:None
+B58	'TOTAL DO CONTRATO'
+D58	F:=SUM(Matriz_Produtos!$V$7:$V$501)+SUM(Matriz_Serviços!$Q$7:$Q$501)	V:1400
+H58	F:=SUM(Matriz_Produtos!$AI$7:$AI$501)+SUM(Matriz_Serviços!$AB$7:$AB$501)	V:1395.18075329493
+I58	F:=H58-D58	V:-4.8192467050701
+K58	F:=SUM(Matriz_Produtos!$Z$7:$Z$501)+SUM(Matriz_Serviços!$T$7:$T$501)	V:1425.92659664787
+B60	'ÍNDICE PONDERADO DO CONTRATO — IRT-E'
+D60	F:=IFERROR(H58/D58,"—")	V:0.99655768092495
+B61	'Variação global do contrato (IRT-E)'
+D61	F:=IFERROR(D60-1,"—")	V:-0.0034423190750501
+B62	'Teto de referência — F ponderado (repasse integral)'
+D62	F:=IFERROR(K58/D58,"—")	V:1.01851899760562
+B63	'Nota metodológica (metodologia IRT-E): a identidade de formação de preços P(1−B) = R(1+A) separa tributos por fora (A = g + h: IBS/CBS efetivos, IPI remanescente e Imposto Seletivo) dos retidos por dentro (B = b + d: ICMS/ISS legados, parcela não creditada de PIS/COFINS e DAS do Simples). A preservação da receita líquida entre o ano-base (t0) e o ano-alvo (t1) gera o fator bruto F = [(1+g₁+h₁)(1−b₀−d₀)] ÷ [(1+g₀+h₀)(1−b₁−d₁)], homogêneo de grau zero no preço — calculado item a item nas matrizes (coluna FATOR F) como Preço(t1) ÷ Preço(t0). F é o TETO: pressupõe repasse integral do encargo ao contratante. O expurgo retira o componente repassável a terceiros: IRT-E = 1 + κ·(F−1), com κ = |ε| ÷ (1+|ε|) e ε = elasticidade-preço da demanda do objeto (input por item na coluna ε das matrizes; vazio = ε padrão de Parâmetros!D79). Coluna H: Preço reajustado = Preço t0 × IRT-E — é o valor devido na repactuação; a coluna K guarda, só como referência, o preço-teto F. No próximo reajuste anual por índice de preços, expurgar a parcela já recomposta por esta repactuação (vedada dupla contagem — Ac. TCU 1431/2017).'

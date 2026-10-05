@@ -1,0 +1,17 @@
+{
+  "name": "@portal-irt-e/engine",
+  "version": "0.1.0",
+  "description": "Motor de cálculo IRT-E — TypeScript puro, sem dependências de runtime",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "typescript": "^5.6.0",
+    "vitest": "^2.1.0"
+  }
+}
