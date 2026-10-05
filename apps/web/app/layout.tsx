@@ -24,6 +24,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               Portal do <strong>IRT-E</strong>
             </Link>
             <nav className="nav">
+              <Link href="/assinantes">Assinantes</Link>
               <Link href="/wizard">Descoberta de série</Link>
               <Link href="/consulta">Consulta pública</Link>
               <Link href="/metodo">Método</Link>

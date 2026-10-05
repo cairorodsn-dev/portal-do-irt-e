@@ -39,7 +39,7 @@ export default function Home() {
             <p>
               Descobrir qual série corresponde ao seu item, obter a memória de cálculo e gerir
               carteiras de contratos multi-item são serviços pagos — sobre um índice que permanece
-              público e gratuito.
+              público e gratuito. <Link href="/assinantes">Conheça a área de assinantes</Link>.
             </p>
           </div>
           <div className="pilar">

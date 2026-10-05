@@ -733,3 +733,140 @@ table.tabela-periodos {
   color: var(--accent);
   letter-spacing: 0.02em;
 }
+
+
+/* Área de assinantes */
+.abas {
+  display: flex;
+  gap: 8px;
+  margin: 0 0 18px;
+}
+
+.aba {
+  font: inherit;
+  font-size: 15px;
+  color: var(--ink-soft);
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 8px 22px;
+  cursor: pointer;
+}
+
+.aba:hover {
+  border-color: var(--accent);
+}
+
+.aba.ativa {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+  font-weight: 600;
+}
+
+.campo input[type='text'],
+.campo input[type='email'],
+.campo input[type='password'] {
+  font-size: 16px;
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  font-family: inherit;
+  width: 100%;
+  max-width: 420px;
+  background: var(--card);
+}
+
+.dashboard-topo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 18px;
+}
+
+.contrato-cabecalho {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 14px;
+}
+
+.contrato-cabecalho h2 {
+  margin: 0;
+}
+
+.contrato-cabecalho .form-consulta {
+  flex: 1;
+  margin: 0;
+}
+
+.form-item {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  align-items: center;
+  margin: 14px 0 6px;
+  border-top: 1px solid var(--line);
+  padding-top: 14px;
+}
+
+.form-item input[type='text'] {
+  font-size: 15px;
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  font-family: inherit;
+  background: var(--card);
+  flex: 1 1 160px;
+  min-width: 140px;
+}
+
+.form-item input[name='codigo'] {
+  flex: 2 1 280px;
+  font-family: ui-monospace, 'Cascadia Mono', Consolas, monospace;
+}
+
+.form-item select {
+  font-size: 15px;
+  padding: 10px;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  background: var(--card);
+  font-family: inherit;
+  color: var(--ink);
+}
+
+.form-item input:focus,
+.form-item select:focus {
+  outline: 2px solid var(--accent);
+  outline-offset: -1px;
+}
+
+.preco-edicao {
+  width: 110px;
+  font-size: 14px;
+  padding: 4px 8px;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  font-family: inherit;
+  margin-right: 6px;
+}
+
+.tabela-rolagem {
+  overflow-x: auto;
+}
+
+.item-invalido {
+  background: var(--warn-bg);
+  border: 1px solid #ecd9ae;
+  border-radius: 4px;
+  padding: 10px 14px;
+}
+
+.form-consulta input.form-texto {
+  font-family: inherit;
+}

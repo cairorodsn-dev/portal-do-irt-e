@@ -1,5 +1,6 @@
 'use client';
 
+import { useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
 import {
   apurarLegadaEfetiva,
@@ -122,7 +123,12 @@ const reguaParaEpsilon = (s: number) => {
 };
 
 export default function WizardClient({ opcoes }: { opcoes: OpcoesWizard }) {
-  const [etapa, setEtapa] = useState<Etapa>('pacote');
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  // Modo assinante (?origem=assinante): item único, sem pacote e sem pagamento — o
+  // resultado volta para o dashboard de assinantes com o código descoberto.
+  const modoAssinante = searchParams.get('origem') === 'assinante';
+  const [etapa, setEtapa] = useState<Etapa>(modoAssinante ? 'item' : 'pacote');
   const [pacote, setPacote] = useState<PacoteWizard | null>(null);
   const [itens, setItens] = useState<RespostasWizard[]>([]);
   const [rascunho, setRascunho] = useState<RespostasWizard>(() => novoRascunho());
@@ -161,13 +167,20 @@ export default function WizardClient({ opcoes }: { opcoes: OpcoesWizard }) {
     setRascunho((r) => (r.aliquotaLegada === sugerida ? r : { ...r, aliquotaLegada: sugerida }));
   }, [rascunho.tipo, rascunho.uf, opcoes.cargaLegada]);
 
-  // Ao entrar no resumo, calcula os índices dos itens (uma única vez por composição).
+  // Se os search params só ficarem disponíveis após a montagem, entra no modo assinante.
+  useEffect(() => {
+    if (modoAssinante && etapa === 'pacote') setEtapa('item');
+  }, [modoAssinante, etapa]);
+
+  // Ao entrar no resumo (ou direto no resultado, no modo assinante), calcula os índices
+  // dos itens (uma única vez por composição).
   // Timeout de 20 s: se a camada de rede travar (ex.: service worker obsoleto), cai no
   // estado de erro em vez de ficar "Calculando…" para sempre.
   // A chave por composição (e não `carregandoCalculo` nas dependências) evita que o
   // próprio setCarregandoCalculo(true) reexecute o efeito e aborte o fetch em andamento.
   useEffect(() => {
-    if (etapa !== 'resumo' || itens.length === 0) return;
+    const calculavel = etapa === 'resumo' || (modoAssinante && etapa === 'resultado');
+    if (!calculavel || itens.length === 0) return;
     const chave = JSON.stringify(itens);
     if (chaveCalculoRef.current === chave && calculo) return;
     chaveCalculoRef.current = chave;
@@ -198,7 +211,7 @@ export default function WizardClient({ opcoes }: { opcoes: OpcoesWizard }) {
       cancelado = true;
       controleAborto.abort();
     };
-  }, [etapa, calculo, itens]);
+  }, [etapa, calculo, itens, modoAssinante]);
 
   const passos: { id: PassoId; titulo: string }[] = [
     { id: 'tipo', titulo: 'O que o fornecedor entrega?' },
@@ -255,12 +268,14 @@ export default function WizardClient({ opcoes }: { opcoes: OpcoesWizard }) {
     legadaEditada.current = false;
     setPassoAtual(0);
     setCalculo(null);
-    setEtapa('resumo');
+    setEtapa(modoAssinante ? 'resultado' : 'resumo');
   }
 
   function voltar() {
     if (passoAtual > 0) {
       setPassoAtual(passoAtual - 1);
+    } else if (modoAssinante) {
+      router.push('/assinantes/dashboard');
     } else if (itens.length > 0) {
       setEditandoIndex(null);
       setEtapa('resumo');
@@ -342,9 +357,22 @@ export default function WizardClient({ opcoes }: { opcoes: OpcoesWizard }) {
     setEtapa('pedido');
   }
 
-  const MACRO = ['Começo', 'Perguntas', 'Resumo', 'Pagamento', 'Resultado'];
-  const macroAtual =
-    etapa === 'pacote' ? 0 : etapa === 'item' ? 1 : etapa === 'resumo' ? 2 : etapa === 'pedido' ? 3 : 4;
+  const MACRO = modoAssinante
+    ? ['Perguntas', 'Resultado']
+    : ['Começo', 'Perguntas', 'Resumo', 'Pagamento', 'Resultado'];
+  const macroAtual = modoAssinante
+    ? etapa === 'resultado'
+      ? 1
+      : 0
+    : etapa === 'pacote'
+      ? 0
+      : etapa === 'item'
+        ? 1
+        : etapa === 'resumo'
+          ? 2
+          : etapa === 'pedido'
+            ? 3
+            : 4;
 
   return (
     <div className="wizard">
@@ -389,12 +417,21 @@ export default function WizardClient({ opcoes }: { opcoes: OpcoesWizard }) {
         </section>
       )}
 
-      {etapa === 'item' && pacote && (
+      {etapa === 'item' && (pacote || modoAssinante) && (
         <section className="card">
           <p className="meta">
-            {editandoIndex != null ? `Editando item ${editandoIndex + 1}` : `Item ${itens.length + 1}`}{' '}
-            (pacote {pacote.nome.toLowerCase()}) · pergunta {passoAtual + 1} de{' '}
-            {passos.length}: <strong>{passo.titulo}</strong>
+            {modoAssinante ? (
+              <>
+                Descoberta para item de contrato · pergunta {passoAtual + 1} de {passos.length}:{' '}
+                <strong>{passo.titulo}</strong>
+              </>
+            ) : (
+              <>
+                {editandoIndex != null ? `Editando item ${editandoIndex + 1}` : `Item ${itens.length + 1}`}{' '}
+                (pacote {pacote?.nome.toLowerCase()}) · pergunta {passoAtual + 1} de{' '}
+                {passos.length}: <strong>{passo.titulo}</strong>
+              </>
+            )}
           </p>
           <div className="progresso">
             <div style={{ width: `${((passoAtual + 1) / passos.length) * 100}%` }} />
@@ -774,6 +811,98 @@ export default function WizardClient({ opcoes }: { opcoes: OpcoesWizard }) {
             </div>
           </div>
         </div>
+      )}
+
+      {etapa === 'resultado' && modoAssinante && (
+        <>
+          {carregandoCalculo && (
+            <section className="card">
+              <p className="hint">Calculando os índices…</p>
+            </section>
+          )}
+
+          {calculo && !calculo.ok && (
+            <section className="card">
+              <div className="erros" role="alert">
+                <strong>Ops — não consegui calcular.</strong>
+                <ul>
+                  {calculo.erros.flatMap((e) =>
+                    e.erros.map((msg) => <li key={`${e.item}-${msg}`}>{msg}</li>),
+                  )}
+                </ul>
+              </div>
+              <div className="passo-rodape">
+                <button
+                  className="btn secundario"
+                  onClick={() => {
+                    setItens([]);
+                    setRascunho(novoRascunho());
+                    legadaEditada.current = false;
+                    setPassoAtual(0);
+                    setCalculo(null);
+                    setEtapa('item');
+                  }}
+                >
+                  Refazer as perguntas
+                </button>
+                <button className="btn secundario" onClick={() => router.push('/assinantes/dashboard')}>
+                  Voltar ao dashboard
+                </button>
+              </div>
+            </section>
+          )}
+
+          {calculo?.ok && calculo.resultados[0] && (
+            <section className="card">
+              <h2>Código descoberto</h2>
+              <h3>
+                <code>{calculo.resultados[0].codigo}</code>
+              </h3>
+              <p className="meta">{descreverSerial(calculo.resultados[0].serial).join(' · ')}</p>
+              <table className="tabela-periodos">
+                <thead>
+                  <tr>
+                    <th>Período</th>
+                    <th>F (repasse integral)</th>
+                    <th>IRT-E</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {calculo.resultados[0].periodos.map((p) => (
+                    <tr key={p.t1}>
+                      <td>
+                        {p.t0} → {p.t1}
+                      </td>
+                      <td>{num4(p.F)}</td>
+                      <td>{num4(p.irte)}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+              {calculo.avisoEstimativa && (
+                <p className="meta">
+                  <strong>{calculo.avisoEstimativa}</strong>
+                </p>
+              )}
+              <p className="meta">{calculo.disclaimer}</p>
+              <div className="passo-rodape">
+                <button className="btn secundario" onClick={() => router.push('/assinantes/dashboard')}>
+                  Voltar ao dashboard
+                </button>
+                <button
+                  className="btn"
+                  onClick={() =>
+                    router.push(
+                      `/assinantes/dashboard?codigo=${encodeURIComponent(calculo.resultados[0]!.codigo)}`,
+                    )
+                  }
+                >
+                  Usar este código no item
+                </button>
+              </div>
+            </section>
+          )}
+        </>
       )}
 
       {etapa === 'resultado' && calculo?.ok && pacote && (

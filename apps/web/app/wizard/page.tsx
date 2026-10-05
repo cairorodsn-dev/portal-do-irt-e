@@ -1,3 +1,4 @@
+import { Suspense } from 'react';
 import { PARAMS_V2026_10 } from '@portal-irt-e/engine';
 import WizardClient from './WizardClient';
 
@@ -39,7 +40,9 @@ export default function WizardPage() {
           Cálculo completos.
         </p>
       </section>
-      <WizardClient opcoes={opcoes} />
+      <Suspense fallback={null}>
+        <WizardClient opcoes={opcoes} />
+      </Suspense>
     </>
   );
 }

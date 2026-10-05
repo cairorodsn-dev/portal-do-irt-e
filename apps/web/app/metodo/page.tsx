@@ -142,8 +142,7 @@ export default function Metodo() {
         <h2>7. O código serial</h2>
         <p>
           A gramática v1 codifica a parametrização em um serial verificável com dígito
-          verificador módulo 11 — especificação completa no documento{' '}
-          <em>IRT-E_Serializacao_v1.md</em>:
+          verificador módulo 11:
         </p>
         <div className="formula">
           IRT-E &lt;tipo&gt;&lt;regime&gt;&lt;ε&gt;.&lt;ρ&gt;.&lt;ℓ&gt;.&lt;c&gt;.D&lt;UF&gt;&lt;i_M&gt;
