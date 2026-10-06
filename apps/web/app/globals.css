@@ -870,3 +870,29 @@ table.tabela-periodos {
 .form-consulta input.form-texto {
   font-family: inherit;
 }
+
+
+/* Lista de contratos (Meus Contratos) */
+.contrato-linha {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  border-top: 1px solid var(--line);
+  padding: 14px 0;
+}
+
+.contrato-linha > a {
+  flex: 1;
+  text-decoration: none;
+  color: inherit;
+}
+
+.contrato-linha h3 {
+  margin: 0 0 4px;
+  font-size: 17px;
+}
+
+.contrato-linha > a:hover h3 {
+  color: var(--accent);
+}

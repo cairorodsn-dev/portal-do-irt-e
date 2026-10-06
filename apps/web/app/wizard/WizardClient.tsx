@@ -128,6 +128,10 @@ export default function WizardClient({ opcoes }: { opcoes: OpcoesWizard }) {
   // Modo assinante (?origem=assinante): item único, sem pacote e sem pagamento — o
   // resultado volta para o dashboard de assinantes com o código descoberto.
   const modoAssinante = searchParams.get('origem') === 'assinante';
+  const contratoId = searchParams.get('contrato');
+  const destinoAssinante = contratoId
+    ? `/assinantes/dashboard/contrato/${encodeURIComponent(contratoId)}`
+    : '/assinantes/dashboard';
   const [etapa, setEtapa] = useState<Etapa>(modoAssinante ? 'item' : 'pacote');
   const [pacote, setPacote] = useState<PacoteWizard | null>(null);
   const [itens, setItens] = useState<RespostasWizard[]>([]);
@@ -275,7 +279,7 @@ export default function WizardClient({ opcoes }: { opcoes: OpcoesWizard }) {
     if (passoAtual > 0) {
       setPassoAtual(passoAtual - 1);
     } else if (modoAssinante) {
-      router.push('/assinantes/dashboard');
+      router.push(destinoAssinante);
     } else if (itens.length > 0) {
       setEditandoIndex(null);
       setEtapa('resumo');
@@ -845,7 +849,7 @@ export default function WizardClient({ opcoes }: { opcoes: OpcoesWizard }) {
                 >
                   Refazer as perguntas
                 </button>
-                <button className="btn secundario" onClick={() => router.push('/assinantes/dashboard')}>
+                <button className="btn secundario" onClick={() => router.push(destinoAssinante)}>
                   Voltar ao dashboard
                 </button>
               </div>
@@ -886,14 +890,14 @@ export default function WizardClient({ opcoes }: { opcoes: OpcoesWizard }) {
               )}
               <p className="meta">{calculo.disclaimer}</p>
               <div className="passo-rodape">
-                <button className="btn secundario" onClick={() => router.push('/assinantes/dashboard')}>
+                <button className="btn secundario" onClick={() => router.push(destinoAssinante)}>
                   Voltar ao dashboard
                 </button>
                 <button
                   className="btn"
                   onClick={() =>
                     router.push(
-                      `/assinantes/dashboard?codigo=${encodeURIComponent(calculo.resultados[0]!.codigo)}`,
+                      `${destinoAssinante}?codigo=${encodeURIComponent(calculo.resultados[0]!.codigo)}`,
                     )
                   }
                 >

@@ -2,17 +2,17 @@ import { Suspense } from 'react';
 import DashboardClient from './DashboardClient';
 
 export const metadata = {
-  title: 'Dashboard — Área de assinantes — Portal do IRT-E',
+  title: 'Meus Contratos — Área de assinantes — Portal do IRT-E',
 };
 
 export default function DashboardPage() {
   return (
     <>
       <section className="hero">
-        <h1>Dashboard de contratos</h1>
+        <h1>Meus Contratos</h1>
         <p className="lead">
-          Gerencie a sua carteira de contratos multi-item e simule o reajuste de cada item —
-          e o total de cada contrato — período a período, até 2033.
+          A sua carteira de contratos multi-item. Abra um contrato para gerir os itens e simular
+          o reajuste de cada um — e o total do contrato — período a período, até 2033.
         </p>
       </section>
       <Suspense fallback={null}>
