@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import type { Contrato, ItemContrato } from '../../../../lib/assinantes';
+import type { Contrato, ItemContrato, RegimeContrato } from '../../../../lib/assinantes';
 import { getSql } from '../../../../lib/db';
 
 export const dynamic = 'force-dynamic';
@@ -34,7 +34,7 @@ function sanitizarContratos(lista: unknown[]): Contrato[] | null {
   const limpos: Contrato[] = [];
   for (const bruto of lista) {
     if (typeof bruto !== 'object' || bruto == null) return null;
-    const { id, nome, anoBase, itens } = bruto as Record<string, unknown>;
+    const { id, nome, anoBase, regime, itens } = bruto as Record<string, unknown>;
     if (typeof id !== 'string' || !id.trim()) return null;
     if (typeof nome !== 'string' || !nome.trim()) return null;
     if (!Array.isArray(itens)) return null;
@@ -45,12 +45,18 @@ function sanitizarContratos(lista: unknown[]): Contrato[] | null {
       }
       base = anoBase;
     }
+    let reg: RegimeContrato = 'R';
+    if (regime !== undefined) {
+      if (regime !== 'R' && regime !== 'P' && regime !== 'H') return null;
+      reg = regime;
+    }
     const itensLimpos = sanitizarItens(itens);
     if (!itensLimpos) return null;
     limpos.push({
       id: id.trim().slice(0, 64),
       nome: nome.trim().slice(0, 80),
       anoBase: base,
+      regime: reg,
       itens: itensLimpos,
     });
   }

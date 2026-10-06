@@ -11,13 +11,16 @@ import {
 } from '@portal-irt-e/engine';
 import type { ResultadoConsulta } from '@portal-irt-e/engine';
 import type { Contrato, ItemContrato } from '../../../../../lib/assinantes';
-import { PRECO_MEMORIA_CALCULO } from '../../../../../lib/assinantes';
+import { PRECO_MEMORIA_CALCULO, ROTULOS_REGIME } from '../../../../../lib/assinantes';
 import PagamentoDummy from '../../../PagamentoDummy';
 import TopoConta from '../../../TopoConta';
 import { useContaAssinante } from '../../../useContaAssinante';
 
 const brl = (v: number) =>
   v.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL', minimumFractionDigits: 2 });
+
+const num4 = (v: number) =>
+  v.toLocaleString('pt-BR', { minimumFractionDigits: 4, maximumFractionDigits: 4 });
 
 function parsePreco(texto: string): number | null {
   const v = Number(texto.trim().replace(/\./g, '').replace(',', '.'));
@@ -167,7 +170,9 @@ export default function ContratoClient({ id }: { id: string }) {
             <>
               <div>
                 <h2>{contrato.nome}</h2>
-                <p className="meta">Ano-base {contrato.anoBase}</p>
+                <p className="meta">
+                  Ano-base {contrato.anoBase} · Regime do fornecedor: {ROTULOS_REGIME[contrato.regime]}
+                </p>
               </div>
               <div className="resumo-acoes">
                 <button className="btn secundario" onClick={iniciarRenomeacao}>
@@ -213,7 +218,7 @@ export default function ContratoClient({ id }: { id: string }) {
           <button
             type="button"
             className="btn secundario btn-wizard"
-            onClick={() => router.push(`/wizard?origem=assinante&contrato=${contrato.id}`)}
+            onClick={() => router.push(`/assinantes/wizard?contrato=${contrato.id}`)}
           >
             Descobrir com o wizard
           </button>
@@ -259,6 +264,8 @@ export default function ContratoClient({ id }: { id: string }) {
 }
 
 function SimulacaoContrato({ contrato }: { contrato: Contrato }) {
+  const [anoAlvo, setAnoAlvo] = useState(contrato.anoBase + 1);
+
   if (contrato.itens.length === 0) return null;
 
   const simulacoes: SimulacaoItem[] = contrato.itens.map((item) => ({
@@ -279,51 +286,91 @@ function SimulacaoContrato({ contrato }: { contrato: Contrato }) {
     );
   }
 
-  const linhas = Array.from({ length: 2033 - contrato.anoBase }, (_, i) => contrato.anoBase + 1 + i);
-
-  const irtePorT1 = validas.map(
-    (s) => new Map(s.resultado.ok ? s.resultado.periodos.map((p) => [p.t1, p.irte]) : []),
+  const anosAlvo = Array.from(
+    { length: 2033 - contrato.anoBase },
+    (_, i) => contrato.anoBase + 1 + i,
   );
+
+  const linhas = validas.map((s) => {
+    const periodo = s.resultado.periodos.find((p) => p.t1 === anoAlvo)!;
+    return {
+      item: s.item,
+      F: periodo.F,
+      irte: periodo.irte,
+      repasse: s.item.precoBase * periodo.F,
+      valor: s.item.precoBase * periodo.irte,
+    };
+  });
+
+  const somaPreco = linhas.reduce((total, l) => total + l.item.precoBase, 0);
+  const somaRepasse = linhas.reduce((total, l) => total + l.repasse, 0);
+  const somaValor = linhas.reduce((total, l) => total + l.valor, 0);
+  const fPonderado = somaRepasse / somaPreco;
+  const irtePonderado = somaValor / somaPreco;
 
   const temEstimativa = validas.some((s) => s.resultado.ok && s.resultado.parametrosEstimados);
 
   return (
     <div className="resultado">
-      <h3>Simulação de reajuste — valores por período</h3>
-      <div className="tabela-rolagem">
-        <table className="tabela-periodos">
-          <thead>
-            <tr>
-              <th>Período</th>
-              {validas.map((s, i) => (
-                <th key={`${s.item.codigo}-${i}`}>{s.item.nome}</th>
-              ))}
-              <th>Total do contrato</th>
-            </tr>
-          </thead>
-          <tbody>
-            {linhas.map((t1) => {
-              let total = 0;
-              const celulas = irtePorT1.map((porT1, i) => {
-                const irte = porT1.get(t1);
-                if (irte == null) return <td key={i}>—</td>;
-                const valor = validas[i].item.precoBase * irte;
-                total += valor;
-                return <td key={i}>{brl(valor)}</td>;
-              });
-              return (
-                <tr key={t1}>
-                  <td>
-                    {contrato.anoBase} → {t1}
-                  </td>
-                  {celulas}
-                  <td>{brl(total)}</td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
+      <div className="simulacao-topo">
+        <h3>
+          Simulação de reajuste — {contrato.anoBase} → {anoAlvo}
+        </h3>
+        <label className="meta no-print">
+          Ano-alvo{' '}
+          <select
+            value={anoAlvo}
+            onChange={(e) => setAnoAlvo(Number(e.target.value))}
+            aria-label="Ano-alvo"
+          >
+            {anosAlvo.map((ano) => (
+              <option key={ano} value={ano}>
+                {ano}
+              </option>
+            ))}
+          </select>
+        </label>
       </div>
+      <table className="tabela-periodos">
+        <thead>
+          <tr>
+            <th>Item</th>
+            <th>Preço base</th>
+            <th>Fator F</th>
+            <th>Repasse integral</th>
+            <th>IRT-E</th>
+            <th>Valor do contrato</th>
+          </tr>
+        </thead>
+        <tbody>
+          {linhas.map((l, i) => (
+            <tr key={`${l.item.codigo}-${i}`}>
+              <td>
+                {l.item.nome}
+                <br />
+                <span className="meta">
+                  <code>{l.item.codigo.replace(/^IRT-E\s*/, '')}</code>
+                </span>
+              </td>
+              <td>{brl(l.item.precoBase)}</td>
+              <td>{num4(l.F)}</td>
+              <td>{brl(l.repasse)}</td>
+              <td>{num4(l.irte)}</td>
+              <td>{brl(l.valor)}</td>
+            </tr>
+          ))}
+        </tbody>
+        <tfoot>
+          <tr>
+            <td>Contrato</td>
+            <td>{brl(somaPreco)}</td>
+            <td>{num4(fPonderado)}</td>
+            <td>{brl(somaRepasse)}</td>
+            <td>{num4(irtePonderado)}</td>
+            <td>{brl(somaValor)}</td>
+          </tr>
+        </tfoot>
+      </table>
 
       {invalidas.map((s, i) => (
         <p key={`${s.item.codigo}-${i}`} className="meta item-invalido">
@@ -334,7 +381,8 @@ function SimulacaoContrato({ contrato }: { contrato: Contrato }) {
 
       <p className="meta">
         Valores = preço-base × IRT-E do período, com os parâmetros versionados da consulta pública
-        (versão atual: v2026-10-estimativa).
+        (versão atual: v2026-10-estimativa). Fator F e IRT-E do rodapé são médias ponderadas pelo
+        preço-base.
       </p>
       {temEstimativa && (
         <p className="meta">

@@ -1,32 +1,25 @@
+import { redirect } from 'next/navigation';
 import { Suspense } from 'react';
-import { PARAMS_V2026_10 } from '@portal-irt-e/engine';
-import WizardClient from './WizardClient';
+import WizardClient from '../../components/WizardClient';
+import { opcoesWizard } from '../../lib/wizard-opcoes';
 
 export const metadata = {
   title: 'Descoberta de série — Portal do IRT-E',
 };
 
-export default function WizardPage() {
-  const p = PARAMS_V2026_10;
-  const opcoes = {
-    pacotes: p.wizard.pacotes,
-    ufs: p.ufs.map((u) => ({
-      uf: u.uf,
-      ibsEstadual: u.ibsEstadual,
-      estimativa: u.estimativa,
-      fonte: u.fonte ?? null,
-    })),
-    reducoes: p.reducoesSetoriais,
-    faixasEpsilon: p.faixasElasticidade,
-    cargaLegada: p.cargaLegada,
-    simplesFaixas: p.simplesFaixas,
-    simplesNominal2027: p.simples
-      .filter((s) => s.ano === 2027)
-      .map((s) => ({ anexo: s.anexo, faixa: s.faixa, aliquotaNominal: s.aliquotaNominal })),
-    // Estimativa de referência do IBS municipal (Res. CGIBS 14/2026, convenção 50/50) —
-    // rotulada como estimativa editável no campo.
-    ibsMunicipalPadrao: 0.0935,
-  };
+export default async function WizardPage({
+  searchParams,
+}: {
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
+}) {
+  // Endereço antigo do wizard do assinante (?origem=assinante&contrato=...) — o fluxo
+  // logado mudou para /assinantes/wizard.
+  const sp = await searchParams;
+  if (sp.origem === 'assinante') {
+    const contrato =
+      typeof sp.contrato === 'string' ? `?contrato=${encodeURIComponent(sp.contrato)}` : '';
+    redirect(`/assinantes/wizard${contrato}`);
+  }
 
   return (
     <>
@@ -41,7 +34,7 @@ export default function WizardPage() {
         </p>
       </section>
       <Suspense fallback={null}>
-        <WizardClient opcoes={opcoes} />
+        <WizardClient opcoes={opcoesWizard()} />
       </Suspense>
     </>
   );

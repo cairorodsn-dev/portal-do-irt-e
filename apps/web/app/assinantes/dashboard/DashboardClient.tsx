@@ -2,11 +2,13 @@
 
 import Link from 'next/link';
 import { useState } from 'react';
-import type { Contrato } from '../../../lib/assinantes';
+import type { Contrato, RegimeContrato } from '../../../lib/assinantes';
+import { ROTULOS_REGIME } from '../../../lib/assinantes';
 import TopoConta from '../TopoConta';
 import { useContaAssinante } from '../useContaAssinante';
 
 const ANOS_BASE = [2026, 2027, 2028, 2029, 2030, 2031, 2032];
+const REGIMES: RegimeContrato[] = ['R', 'P', 'H'];
 
 const brl = (v: number) =>
   v.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL', minimumFractionDigits: 2 });
@@ -15,6 +17,7 @@ export default function DashboardClient() {
   const { conta, pronto, salvando, persistir } = useContaAssinante();
   const [novoContrato, setNovoContrato] = useState('');
   const [novoAnoBase, setNovoAnoBase] = useState(2026);
+  const [novoRegime, setNovoRegime] = useState<RegimeContrato>('R');
 
   if (!pronto || !conta) return null;
 
@@ -22,9 +25,13 @@ export default function DashboardClient() {
     e.preventDefault();
     const nome = novoContrato.trim();
     if (!nome || !conta) return;
-    persistir([...conta.contratos, { id: crypto.randomUUID(), nome, anoBase: novoAnoBase, itens: [] }]);
+    persistir([
+      ...conta.contratos,
+      { id: crypto.randomUUID(), nome, anoBase: novoAnoBase, regime: novoRegime, itens: [] },
+    ]);
     setNovoContrato('');
     setNovoAnoBase(2026);
+    setNovoRegime('R');
   }
 
   function excluirContrato(contrato: Contrato) {
@@ -64,6 +71,19 @@ export default function DashboardClient() {
             Criar contrato
           </button>
         </form>
+        <div className="regime-selecao" role="group" aria-label="Regime do fornecedor">
+          {REGIMES.map((valor) => (
+            <button
+              key={valor}
+              type="button"
+              className={`btn secundario regime-opcao${novoRegime === valor ? ' selecionado' : ''}`}
+              aria-pressed={novoRegime === valor}
+              onClick={() => setNovoRegime(valor)}
+            >
+              {ROTULOS_REGIME[valor]}
+            </button>
+          ))}
+        </div>
       </section>
 
       <section className="card">
@@ -78,8 +98,8 @@ export default function DashboardClient() {
                   <h3>{contrato.nome}</h3>
                   <p className="meta">
                     {contrato.itens.length === 0
-                      ? `Nenhum item · ano-base ${contrato.anoBase}`
-                      : `${contrato.itens.length} ${contrato.itens.length === 1 ? 'item' : 'itens'} · ano-base ${contrato.anoBase} · ${brl(soma)} em preços-base`}
+                      ? `Nenhum item · ano-base ${contrato.anoBase} · ${ROTULOS_REGIME[contrato.regime]}`
+                      : `${contrato.itens.length} ${contrato.itens.length === 1 ? 'item' : 'itens'} · ano-base ${contrato.anoBase} · ${ROTULOS_REGIME[contrato.regime]} · ${brl(soma)} em preços-base`}
                   </p>
                 </Link>
                 <button className="btn secundario" onClick={() => excluirContrato(contrato)}>

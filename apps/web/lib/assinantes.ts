@@ -11,8 +11,20 @@ export interface Contrato {
   id: string;
   nome: string;
   anoBase: number;
+  /** Regime tributário do fornecedor — vale para o contrato inteiro. */
+  regime: RegimeContrato;
   itens: ItemContrato[];
 }
+
+export type RegimeContrato = 'R' | 'P' | 'H';
+
+export const ROTULOS_REGIME: Record<RegimeContrato, string> = {
+  R: 'Lucro real',
+  P: 'Lucro presumido',
+  H: 'Simples híbrido',
+};
+
+const REGIMES_VALIDOS: readonly string[] = ['R', 'P', 'H'];
 
 export interface Conta {
   nome: string;
@@ -27,11 +39,12 @@ interface Armazenamento {
 
 const CHAVE = 'irt-e:assinantes';
 
-// Modelo antigo tinha o ano-base por item; agora o ano-base é do contrato.
+// Modelo antigo tinha o ano-base por item e não tinha regime; agora ambos são do contrato.
 // A normalização vale tanto para o localStorage quanto para dados vindos do servidor.
 type ItemLegado = ItemContrato & { anoBase?: number };
-type ContratoLegado = Omit<Contrato, 'anoBase' | 'itens'> & {
+type ContratoLegado = Omit<Contrato, 'anoBase' | 'regime' | 'itens'> & {
   anoBase?: number;
+  regime?: RegimeContrato;
   itens?: ItemLegado[];
 };
 
@@ -39,6 +52,7 @@ export function normalizarContratos(lista: ContratoLegado[]): Contrato[] {
   return lista.map((contrato) => ({
     ...contrato,
     anoBase: contrato.anoBase ?? contrato.itens?.[0]?.anoBase ?? 2026,
+    regime: REGIMES_VALIDOS.includes(contrato.regime ?? '') ? contrato.regime! : 'R',
     itens: (contrato.itens ?? []).map((item) => ({
       nome: item.nome,
       codigo: item.codigo,

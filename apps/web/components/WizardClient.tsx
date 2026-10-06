@@ -7,27 +7,16 @@ import {
   faixaPorRbt12,
 } from '@portal-irt-e/engine';
 import type {
-  CargaLegadaUF,
-  FaixaElasticidade,
   PacoteWizard,
-  ReducaoSetorial,
   RegimeTributario,
   RespostasWizard,
   SerialIRTE,
   TipoObjeto,
 } from '@portal-irt-e/engine';
-import { descreverSerial } from '../../lib/decode';
-
-export interface OpcoesWizard {
-  pacotes: PacoteWizard[];
-  ufs: { uf: string; ibsEstadual: number; estimativa: boolean; fonte: string | null }[];
-  reducoes: ReducaoSetorial[];
-  faixasEpsilon: FaixaElasticidade[];
-  cargaLegada: CargaLegadaUF[];
-  simplesFaixas: number[];
-  simplesNominal2027: { anexo: number; faixa: number; aliquotaNominal: number }[];
-  ibsMunicipalPadrao: number;
-}
+import type { RegimeContrato } from '../lib/assinantes';
+import { carregarConta, sessaoAtiva } from '../lib/assinantes';
+import { descreverSerial } from '../lib/decode';
+import type { OpcoesWizard } from '../lib/wizard-opcoes';
 
 interface ResultadoItem {
   item: number;
@@ -122,19 +111,28 @@ const reguaParaEpsilon = (s: number) => {
   return Math.round(v * 100) / 100;
 };
 
-export default function WizardClient({ opcoes }: { opcoes: OpcoesWizard }) {
+export default function WizardClient({
+  opcoes,
+  modoAssinante = false,
+}: {
+  opcoes: OpcoesWizard;
+  // Modo assinante (/assinantes/wizard, atrás do login): item único, sem pacote e sem
+  // pagamento — o resultado volta para a página do contrato com o código descoberto.
+  modoAssinante?: boolean;
+}) {
   const router = useRouter();
   const searchParams = useSearchParams();
-  // Modo assinante (?origem=assinante): item único, sem pacote e sem pagamento — o
-  // resultado volta para o dashboard de assinantes com o código descoberto.
-  const modoAssinante = searchParams.get('origem') === 'assinante';
-  const contratoId = searchParams.get('contrato');
+  const contratoId = modoAssinante ? searchParams.get('contrato') : null;
   const destinoAssinante = contratoId
     ? `/assinantes/dashboard/contrato/${encodeURIComponent(contratoId)}`
     : '/assinantes/dashboard';
   const [etapa, setEtapa] = useState<Etapa>(modoAssinante ? 'item' : 'pacote');
   const [pacote, setPacote] = useState<PacoteWizard | null>(null);
   const [itens, setItens] = useState<RespostasWizard[]>([]);
+  // Modo assinante: o regime vem do contrato (definido na criação), não de pergunta do
+  // wizard. null enquanto o contrato não foi lido do armazenamento local. Declarado
+  // antes do rascunho porque `novoRascunho` o lê no inicializador do useState.
+  const [regimeContrato, setRegimeContrato] = useState<RegimeContrato | null>(null);
   const [rascunho, setRascunho] = useState<RespostasWizard>(() => novoRascunho());
   const [passoAtual, setPassoAtual] = useState(0);
   const [calculo, setCalculo] = useState<RespostaCalculo | null>(null);
@@ -148,12 +146,14 @@ export default function WizardClient({ opcoes }: { opcoes: OpcoesWizard }) {
   // Várias hipóteses da LC 214 dividem o mesmo ρ — o select marca por índice na lista
   // filtrada, não pelo valor, senão a escolha "pula" para a primeira opção com o mesmo ρ.
   const [rhoSel, setRhoSel] = useState<number | null>(null);
+  // Guarda de sessão (modo assinante): sem login, manda para a entrada da área.
+  const [sessaoOk, setSessaoOk] = useState(!modoAssinante);
 
   function novoRascunho(): RespostasWizard {
     return {
       tipo: 'B',
       ibsMunicipal: opcoes.ibsMunicipalPadrao,
-      regime: 'R',
+      regime: regimeContrato ?? 'R',
       aliquotaLegada: 0.18,
       reducaoBase: 0,
       rho: 0,
@@ -161,6 +161,15 @@ export default function WizardClient({ opcoes }: { opcoes: OpcoesWizard }) {
       creditamento: 0,
     };
   }
+
+  // Modo assinante: lê o regime do contrato (escolhido na criação) e aplica ao rascunho.
+  useEffect(() => {
+    if (!modoAssinante || !contratoId || regimeContrato != null) return;
+    const contrato = carregarConta()?.contratos.find((c) => c.id === contratoId);
+    if (!contrato) return;
+    setRegimeContrato(contrato.regime);
+    setRascunho((r) => ({ ...r, regime: contrato.regime }));
+  }, [modoAssinante, contratoId, regimeContrato]);
 
   // Sugestão de carga legada segue UF/tipo enquanto o usuário não editar o campo.
   useEffect(() => {
@@ -171,10 +180,12 @@ export default function WizardClient({ opcoes }: { opcoes: OpcoesWizard }) {
     setRascunho((r) => (r.aliquotaLegada === sugerida ? r : { ...r, aliquotaLegada: sugerida }));
   }, [rascunho.tipo, rascunho.uf, opcoes.cargaLegada]);
 
-  // Se os search params só ficarem disponíveis após a montagem, entra no modo assinante.
+  // Modo assinante é área logada: sem sessão ativa, redireciona para a entrada.
   useEffect(() => {
-    if (modoAssinante && etapa === 'pacote') setEtapa('item');
-  }, [modoAssinante, etapa]);
+    if (!modoAssinante || sessaoOk) return;
+    if (!sessaoAtiva()) router.replace('/assinantes/entrar');
+    else setSessaoOk(true);
+  }, [modoAssinante, sessaoOk, router]);
 
   // Ao entrar no resumo (ou direto no resultado, no modo assinante), calcula os índices
   // dos itens (uma única vez por composição).
@@ -220,7 +231,10 @@ export default function WizardClient({ opcoes }: { opcoes: OpcoesWizard }) {
   const passos: { id: PassoId; titulo: string }[] = [
     { id: 'tipo', titulo: 'O que o fornecedor entrega?' },
     ...(rascunho.regime === 'U' ? [] : [{ id: 'destino' as const, titulo: 'Pra onde o item vai?' }]),
-    { id: 'regime', titulo: 'Qual o regime do fornecedor?' },
+    // Modo assinante com regime lido do contrato: a pergunta some — o regime é do contrato.
+    ...(modoAssinante && regimeContrato != null
+      ? []
+      : [{ id: 'regime' as const, titulo: 'Qual o regime do fornecedor?' }]),
     ...(rascunho.regime === 'H' ? [{ id: 'simples' as const, titulo: 'Simples do fornecedor' }] : []),
     { id: 'legada', titulo: 'Carga legada (ICMS/ISS)' },
     { id: 'rho', titulo: 'O item tem redução setorial?' },
@@ -372,6 +386,14 @@ export default function WizardClient({ opcoes }: { opcoes: OpcoesWizard }) {
           : etapa === 'pedido'
             ? 3
             : 4;
+
+  if (modoAssinante && !sessaoOk) {
+    return (
+      <section className="card">
+        <p className="hint">Verificando sua sessão…</p>
+      </section>
+    );
+  }
 
   return (
     <div className="wizard">

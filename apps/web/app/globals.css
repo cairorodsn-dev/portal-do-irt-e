@@ -852,8 +852,33 @@ table.tabela-periodos {
   outline-offset: -1px;
 }
 
-.tabela-rolagem {
-  overflow-x: auto;
+/* Simulação por ano-alvo (página do contrato) */
+.simulacao-topo {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.simulacao-topo h3 {
+  margin: 0;
+}
+
+.simulacao-topo select {
+  font-size: 15px;
+  padding: 8px 10px;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  background: var(--card);
+  font-family: inherit;
+  color: var(--ink);
+}
+
+.tabela-periodos tfoot td {
+  font-weight: 700;
+  border-top: 2px solid var(--ink-soft);
+  border-bottom: none;
 }
 
 .item-invalido {
@@ -897,6 +922,23 @@ table.tabela-periodos {
   font-weight: 700;
 }
 
+/* Seleção de regime na criação do contrato (Meus Contratos) */
+.regime-selecao {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin: 4px 0 8px;
+}
+
+.regime-opcao.selecionado {
+  background: var(--accent);
+  color: #fff;
+}
+
+.regime-opcao.selecionado:hover {
+  background: var(--accent-dark);
+}
+
 @media print {
   .site-header,
   .site-footer,
@@ -922,4 +964,13 @@ table.tabela-periodos {
     box-shadow: none;
     padding: 0;
   }
+}
+
+.resultado .tabela-periodos th:first-child,
+.resultado .tabela-periodos td:first-child {
+  min-width: 270px;
+}
+
+.resultado .tabela-periodos td:first-child code {
+  white-space: nowrap;
 }
