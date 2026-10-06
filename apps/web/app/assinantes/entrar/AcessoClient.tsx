@@ -183,7 +183,8 @@ export default function AcessoClient() {
       {pagamentoAberto && (
         <PagamentoDummy
           titulo="Assinatura do Portal do IRT-E"
-          descricao={`${nome.trim()} · ${emailCriar.trim()} · ${brl(PRECO_ASSINATURA)}/mês`}
+          descricao={`${nome.trim()} · ${emailCriar.trim()}`}
+          valor={`${brl(PRECO_ASSINATURA)}/mês`}
           confirmando={criando}
           onVoltar={() => setPagamentoAberto(false)}
           onConfirmar={() => void confirmarPagamento()}

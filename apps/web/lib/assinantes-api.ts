@@ -1,5 +1,5 @@
 import type { Conta, Contrato } from './assinantes';
-import { carregarConta, salvarConta, salvarContratos } from './assinantes';
+import { carregarConta, normalizarContratos, salvarConta, salvarContratos } from './assinantes';
 
 export type ResultadoCriarConta =
   | { ok: true; origem: 'servidor' | 'local' }
@@ -44,8 +44,9 @@ export async function entrarRemoto(email: string): Promise<ResultadoEntrar> {
     if (res.status === 501) return entrarLocal(email);
     const json = (await res.json()) as { ok?: boolean; conta?: Conta };
     if (!res.ok || !json.ok || !json.conta) return { ok: false, erro: 'conta_nao_encontrada' };
-    salvarConta(json.conta);
-    return { ok: true, conta: json.conta };
+    const conta = { ...json.conta, contratos: normalizarContratos(json.conta.contratos ?? []) };
+    salvarConta(conta);
+    return { ok: true, conta };
   } catch {
     return entrarLocal(email);
   }
@@ -59,8 +60,9 @@ export async function carregarContratos(email: string): Promise<Contrato[] | nul
     if (!res.ok) return null;
     const json = (await res.json()) as { ok?: boolean; conta?: Conta };
     if (!json.ok || !json.conta || !Array.isArray(json.conta.contratos)) return null;
-    salvarContratos(json.conta.contratos);
-    return json.conta.contratos;
+    const contratos = normalizarContratos(json.conta.contratos);
+    salvarContratos(contratos);
+    return contratos;
   } catch {
     return null;
   }

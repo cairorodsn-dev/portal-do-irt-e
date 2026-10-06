@@ -779,11 +779,17 @@ table.tabela-periodos {
 
 .dashboard-topo {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   align-items: center;
   gap: 12px;
   flex-wrap: wrap;
   margin-bottom: 18px;
+}
+
+/* Com o botão Voltar como primeiro filho, ele fica à esquerda e o resto à direita;
+   sem ele, o margin automático mantém tudo alinhado à direita como antes. */
+.dashboard-topo > :first-child {
+  margin-right: auto;
 }
 
 .contrato-cabecalho {
@@ -846,16 +852,6 @@ table.tabela-periodos {
   outline-offset: -1px;
 }
 
-.preco-edicao {
-  width: 110px;
-  font-size: 14px;
-  padding: 4px 8px;
-  border: 1px solid var(--line);
-  border-radius: 4px;
-  font-family: inherit;
-  margin-right: 6px;
-}
-
 .tabela-rolagem {
   overflow-x: auto;
 }
@@ -895,4 +891,35 @@ table.tabela-periodos {
 
 .contrato-linha > a:hover h3 {
   color: var(--accent);
+}
+
+.btn-wizard {
+  font-weight: 700;
+}
+
+@media print {
+  .site-header,
+  .site-footer,
+  .aviso-estimativa,
+  .dashboard-topo,
+  .no-print,
+  .form-item,
+  .resumo-acoes,
+  .erros {
+    display: none !important;
+  }
+
+  body {
+    background: #fff;
+  }
+
+  main.container {
+    max-width: none;
+  }
+
+  .card {
+    border: none;
+    box-shadow: none;
+    padding: 0;
+  }
 }

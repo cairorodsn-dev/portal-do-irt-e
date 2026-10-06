@@ -16,18 +16,14 @@ function sanitizarItens(lista: unknown[]): ItemContrato[] | null {
   const limpos: ItemContrato[] = [];
   for (const bruto of lista) {
     if (typeof bruto !== 'object' || bruto == null) return null;
-    const { nome, codigo, precoBase, anoBase } = bruto as Record<string, unknown>;
+    const { nome, codigo, precoBase } = bruto as Record<string, unknown>;
     if (typeof nome !== 'string' || !nome.trim()) return null;
     if (typeof codigo !== 'string' || !codigo.trim()) return null;
     if (typeof precoBase !== 'number' || !Number.isFinite(precoBase) || precoBase < 0) return null;
-    if (typeof anoBase !== 'number' || !Number.isInteger(anoBase) || anoBase < 2026 || anoBase > 2032) {
-      return null;
-    }
     limpos.push({
       nome: nome.trim().slice(0, 60),
       codigo: codigo.trim().slice(0, 120),
       precoBase,
-      anoBase,
     });
   }
   return limpos;
@@ -38,13 +34,25 @@ function sanitizarContratos(lista: unknown[]): Contrato[] | null {
   const limpos: Contrato[] = [];
   for (const bruto of lista) {
     if (typeof bruto !== 'object' || bruto == null) return null;
-    const { id, nome, itens } = bruto as Record<string, unknown>;
+    const { id, nome, anoBase, itens } = bruto as Record<string, unknown>;
     if (typeof id !== 'string' || !id.trim()) return null;
     if (typeof nome !== 'string' || !nome.trim()) return null;
     if (!Array.isArray(itens)) return null;
+    let base = 2026;
+    if (anoBase !== undefined) {
+      if (typeof anoBase !== 'number' || !Number.isInteger(anoBase) || anoBase < 2026 || anoBase > 2032) {
+        return null;
+      }
+      base = anoBase;
+    }
     const itensLimpos = sanitizarItens(itens);
     if (!itensLimpos) return null;
-    limpos.push({ id: id.trim().slice(0, 64), nome: nome.trim().slice(0, 80), itens: itensLimpos });
+    limpos.push({
+      id: id.trim().slice(0, 64),
+      nome: nome.trim().slice(0, 80),
+      anoBase: base,
+      itens: itensLimpos,
+    });
   }
   return limpos;
 }

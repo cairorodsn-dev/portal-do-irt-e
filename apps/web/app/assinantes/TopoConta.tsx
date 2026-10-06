@@ -1,10 +1,17 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import type { Conta } from '../../lib/assinantes';
 import { encerrarSessao } from '../../lib/assinantes';
 
-export default function TopoConta({ conta, salvando }: { conta: Conta; salvando: boolean }) {
+export default function TopoConta({
+  salvando,
+  onVoltar,
+  children,
+}: {
+  salvando: boolean;
+  onVoltar?: () => void;
+  children?: React.ReactNode;
+}) {
   const router = useRouter();
 
   function sair() {
@@ -15,10 +22,13 @@ export default function TopoConta({ conta, salvando }: { conta: Conta; salvando:
 
   return (
     <div className="dashboard-topo">
-      <p className="meta">
-        Conta: <strong>{conta.nome}</strong> ({conta.email})
-        {salvando && ' · Salvando…'}
-      </p>
+      {onVoltar && (
+        <button className="btn secundario" onClick={onVoltar}>
+          Voltar
+        </button>
+      )}
+      {salvando && <span className="meta">Salvando…</span>}
+      {children}
       <button className="btn secundario" onClick={sair}>
         Sair
       </button>

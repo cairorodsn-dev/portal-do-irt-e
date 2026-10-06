@@ -1,6 +1,5 @@
 'use client';
 
-import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import {
@@ -12,10 +11,10 @@ import {
 } from '@portal-irt-e/engine';
 import type { ResultadoConsulta } from '@portal-irt-e/engine';
 import type { Contrato, ItemContrato } from '../../../../../lib/assinantes';
+import { PRECO_MEMORIA_CALCULO } from '../../../../../lib/assinantes';
+import PagamentoDummy from '../../../PagamentoDummy';
 import TopoConta from '../../../TopoConta';
 import { useContaAssinante } from '../../../useContaAssinante';
-
-const ANOS_BASE = [2026, 2027, 2028, 2029, 2030, 2031, 2032];
 
 const brl = (v: number) =>
   v.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL', minimumFractionDigits: 2 });
@@ -39,9 +38,9 @@ export default function ContratoClient({ id }: { id: string }) {
 
   const [renomeando, setRenomeando] = useState(false);
   const [nomeEdicao, setNomeEdicao] = useState('');
-  const [editandoPreco, setEditandoPreco] = useState<number | null>(null);
-  const [precoEdicao, setPrecoEdicao] = useState('');
   const [errosItem, setErrosItem] = useState<string[]>([]);
+  const [memoriaItem, setMemoriaItem] = useState<ItemContrato | null>(null);
+  const [memoriaPaga, setMemoriaPaga] = useState(false);
 
   const contrato = conta?.contratos.find((c) => c.id === id) ?? null;
 
@@ -98,7 +97,6 @@ export default function ContratoClient({ id }: { id: string }) {
     const nome = String(dados.get('nome') ?? '').trim();
     const codigo = String(dados.get('codigo') ?? '').trim();
     const precoBase = parsePreco(String(dados.get('preco') ?? ''));
-    const anoBase = Number(dados.get('anoBase') ?? 2026);
 
     const erros: string[] = [];
     const parse = parseSerial(codigo);
@@ -114,7 +112,6 @@ export default function ContratoClient({ id }: { id: string }) {
       nome,
       codigo: parse.ok ? parse.canonico : codigo,
       precoBase: precoBase!,
-      anoBase,
     };
     atualizarContrato({ ...contrato, itens: [...contrato.itens, item] });
     setErrosItem([]);
@@ -127,32 +124,18 @@ export default function ContratoClient({ id }: { id: string }) {
     atualizarContrato({ ...contrato, itens: contrato.itens.filter((_, i) => i !== index) });
   }
 
-  function iniciarEdicaoPreco(index: number, precoAtual: number) {
-    setEditandoPreco(index);
-    setPrecoEdicao(precoAtual.toFixed(2).replace('.', ','));
-  }
-
-  function confirmarEdicaoPreco() {
-    if (!contrato || editandoPreco == null) return;
-    const preco = parsePreco(precoEdicao);
-    if (preco != null) {
-      atualizarContrato({
-        ...contrato,
-        itens: contrato.itens.map((it, i) =>
-          i === editandoPreco ? { ...it, precoBase: preco } : it,
-        ),
-      });
-    }
-    setEditandoPreco(null);
+  function abrirMemoriaCalculo(item: ItemContrato) {
+    setMemoriaPaga(false);
+    setMemoriaItem(item);
   }
 
   return (
     <>
-      <TopoConta conta={conta} salvando={salvando} />
-
-      <p className="meta">
-        <Link href="/assinantes/dashboard">← Voltar para Meus Contratos</Link>
-      </p>
+      <TopoConta salvando={salvando} onVoltar={() => router.push('/assinantes/dashboard')}>
+        <button className="btn secundario" onClick={() => window.print()}>
+          Imprimir contrato
+        </button>
+      </TopoConta>
 
       <section className="card">
         <div className="contrato-cabecalho">
@@ -182,7 +165,10 @@ export default function ContratoClient({ id }: { id: string }) {
             </form>
           ) : (
             <>
-              <h2>{contrato.nome}</h2>
+              <div>
+                <h2>{contrato.nome}</h2>
+                <p className="meta">Ano-base {contrato.anoBase}</p>
+              </div>
               <div className="resumo-acoes">
                 <button className="btn secundario" onClick={iniciarRenomeacao}>
                   Renomear
@@ -201,36 +187,11 @@ export default function ContratoClient({ id }: { id: string }) {
               <h3>
                 {item.nome} — <code>{item.codigo}</code>
               </h3>
-              <p className="meta">
-                Preço-base{' '}
-                {editandoPreco === index ? (
-                  <>
-                    <input
-                      className="preco-edicao"
-                      type="text"
-                      value={precoEdicao}
-                      onChange={(e) => setPrecoEdicao(e.target.value)}
-                      aria-label={`Novo preço-base de ${item.nome}`}
-                    />
-                    <button className="btn secundario" onClick={confirmarEdicaoPreco}>
-                      Salvar
-                    </button>{' '}
-                    <button className="btn secundario" onClick={() => setEditandoPreco(null)}>
-                      Cancelar
-                    </button>
-                  </>
-                ) : (
-                  brl(item.precoBase)
-                )}{' '}
-                · ano-base {item.anoBase}
-              </p>
+              <p className="meta">Preço-base {brl(item.precoBase)}</p>
             </div>
             <div className="resumo-acoes">
-              <button
-                className="btn secundario"
-                onClick={() => iniciarEdicaoPreco(index, item.precoBase)}
-              >
-                Editar preço
+              <button className="btn secundario" onClick={() => abrirMemoriaCalculo(item)}>
+                Memória de Cálculo
               </button>
               <button className="btn secundario" onClick={() => excluirItem(index)}>
                 Excluir
@@ -251,7 +212,7 @@ export default function ContratoClient({ id }: { id: string }) {
           />
           <button
             type="button"
-            className="btn secundario"
+            className="btn secundario btn-wizard"
             onClick={() => router.push(`/wizard?origem=assinante&contrato=${contrato.id}`)}
           >
             Descobrir com o wizard
@@ -264,13 +225,6 @@ export default function ContratoClient({ id }: { id: string }) {
             aria-label="Preço-base em reais"
             required
           />
-          <select name="anoBase" defaultValue={2026} aria-label="Ano-base">
-            {ANOS_BASE.map((ano) => (
-              <option key={ano} value={ano}>
-                Ano-base {ano}
-              </option>
-            ))}
-          </select>
           <button className="btn" type="submit">
             Adicionar item
           </button>
@@ -288,6 +242,18 @@ export default function ContratoClient({ id }: { id: string }) {
 
         <SimulacaoContrato contrato={contrato} />
       </section>
+
+      {memoriaItem && (
+        <PagamentoDummy
+          titulo="Memória de Cálculo"
+          descricao={`${memoriaItem.nome} — ${memoriaItem.codigo}`}
+          valor={brl(PRECO_MEMORIA_CALCULO)}
+          confirmado={memoriaPaga}
+          mensagemSucesso="Pagamento confirmado (demonstração) — nada foi cobrado. A Memória de Cálculo completa do item entra em versão futura."
+          onVoltar={() => setMemoriaItem(null)}
+          onConfirmar={() => setMemoriaPaga(true)}
+        />
+      )}
     </>
   );
 }
@@ -297,7 +263,7 @@ function SimulacaoContrato({ contrato }: { contrato: Contrato }) {
 
   const simulacoes: SimulacaoItem[] = contrato.itens.map((item) => ({
     item,
-    resultado: consultarSerie(item.codigo, PARAMS_V2026_10, item.anoBase),
+    resultado: consultarSerie(item.codigo, PARAMS_V2026_10, contrato.anoBase),
   }));
   const validas = simulacoes.filter(
     (s): s is SimulacaoItem & { resultado: Extract<ResultadoConsulta, { ok: true }> } =>
@@ -313,10 +279,7 @@ function SimulacaoContrato({ contrato }: { contrato: Contrato }) {
     );
   }
 
-  const bases = [...new Set(validas.map((s) => s.item.anoBase))];
-  const baseUnica = bases.length === 1 ? bases[0] : null;
-  const menorT1 = Math.min(...validas.map((s) => s.item.anoBase)) + 1;
-  const linhas = Array.from({ length: 2033 - menorT1 + 1 }, (_, i) => menorT1 + i);
+  const linhas = Array.from({ length: 2033 - contrato.anoBase }, (_, i) => contrato.anoBase + 1 + i);
 
   const irtePorT1 = validas.map(
     (s) => new Map(s.resultado.ok ? s.resultado.periodos.map((p) => [p.t1, p.irte]) : []),
@@ -333,10 +296,7 @@ function SimulacaoContrato({ contrato }: { contrato: Contrato }) {
             <tr>
               <th>Período</th>
               {validas.map((s, i) => (
-                <th key={`${s.item.codigo}-${i}`}>
-                  {s.item.nome}
-                  {baseUnica == null && ` (base ${s.item.anoBase})`}
-                </th>
+                <th key={`${s.item.codigo}-${i}`}>{s.item.nome}</th>
               ))}
               <th>Total do contrato</th>
             </tr>
@@ -353,7 +313,9 @@ function SimulacaoContrato({ contrato }: { contrato: Contrato }) {
               });
               return (
                 <tr key={t1}>
-                  <td>{baseUnica != null ? `${baseUnica} → ${t1}` : `até ${t1}`}</td>
+                  <td>
+                    {contrato.anoBase} → {t1}
+                  </td>
                   {celulas}
                   <td>{brl(total)}</td>
                 </tr>

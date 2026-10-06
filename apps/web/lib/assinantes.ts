@@ -1,15 +1,16 @@
 export const PRECO_ASSINATURA = 199;
+export const PRECO_MEMORIA_CALCULO = 500;
 
 export interface ItemContrato {
   nome: string;
   codigo: string;
   precoBase: number;
-  anoBase: number;
 }
 
 export interface Contrato {
   id: string;
   nome: string;
+  anoBase: number;
   itens: ItemContrato[];
 }
 
@@ -25,6 +26,26 @@ interface Armazenamento {
 }
 
 const CHAVE = 'irt-e:assinantes';
+
+// Modelo antigo tinha o ano-base por item; agora o ano-base é do contrato.
+// A normalização vale tanto para o localStorage quanto para dados vindos do servidor.
+type ItemLegado = ItemContrato & { anoBase?: number };
+type ContratoLegado = Omit<Contrato, 'anoBase' | 'itens'> & {
+  anoBase?: number;
+  itens?: ItemLegado[];
+};
+
+export function normalizarContratos(lista: ContratoLegado[]): Contrato[] {
+  return lista.map((contrato) => ({
+    ...contrato,
+    anoBase: contrato.anoBase ?? contrato.itens?.[0]?.anoBase ?? 2026,
+    itens: (contrato.itens ?? []).map((item) => ({
+      nome: item.nome,
+      codigo: item.codigo,
+      precoBase: item.precoBase,
+    })),
+  }));
+}
 
 function ler(): Armazenamento {
   if (typeof window === 'undefined') return { conta: null, sessao: null };
@@ -48,7 +69,9 @@ function gravar(dados: Armazenamento): void {
 }
 
 export function carregarConta(): Conta | null {
-  return ler().conta;
+  const conta = ler().conta;
+  if (!conta) return null;
+  return { ...conta, contratos: normalizarContratos(conta.contratos ?? []) };
 }
 
 export function salvarConta(conta: Conta): void {

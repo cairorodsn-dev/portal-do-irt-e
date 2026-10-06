@@ -6,12 +6,15 @@ import type { Contrato } from '../../../lib/assinantes';
 import TopoConta from '../TopoConta';
 import { useContaAssinante } from '../useContaAssinante';
 
+const ANOS_BASE = [2026, 2027, 2028, 2029, 2030, 2031, 2032];
+
 const brl = (v: number) =>
   v.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL', minimumFractionDigits: 2 });
 
 export default function DashboardClient() {
   const { conta, pronto, salvando, persistir } = useContaAssinante();
   const [novoContrato, setNovoContrato] = useState('');
+  const [novoAnoBase, setNovoAnoBase] = useState(2026);
 
   if (!pronto || !conta) return null;
 
@@ -19,8 +22,9 @@ export default function DashboardClient() {
     e.preventDefault();
     const nome = novoContrato.trim();
     if (!nome || !conta) return;
-    persistir([...conta.contratos, { id: crypto.randomUUID(), nome, itens: [] }]);
+    persistir([...conta.contratos, { id: crypto.randomUUID(), nome, anoBase: novoAnoBase, itens: [] }]);
     setNovoContrato('');
+    setNovoAnoBase(2026);
   }
 
   function excluirContrato(contrato: Contrato) {
@@ -31,7 +35,7 @@ export default function DashboardClient() {
 
   return (
     <>
-      <TopoConta conta={conta} salvando={salvando} />
+      <TopoConta salvando={salvando} />
 
       <section className="card">
         <form className="form-consulta" onSubmit={criarContrato}>
@@ -45,6 +49,17 @@ export default function DashboardClient() {
             maxLength={80}
             required
           />
+          <select
+            value={novoAnoBase}
+            onChange={(e) => setNovoAnoBase(Number(e.target.value))}
+            aria-label="Ano-base do novo contrato"
+          >
+            {ANOS_BASE.map((ano) => (
+              <option key={ano} value={ano}>
+                Ano-base {ano}
+              </option>
+            ))}
+          </select>
           <button className="btn" type="submit">
             Criar contrato
           </button>
@@ -63,8 +78,8 @@ export default function DashboardClient() {
                   <h3>{contrato.nome}</h3>
                   <p className="meta">
                     {contrato.itens.length === 0
-                      ? 'Nenhum item'
-                      : `${contrato.itens.length} ${contrato.itens.length === 1 ? 'item' : 'itens'} · ${brl(soma)} em preços-base`}
+                      ? `Nenhum item · ano-base ${contrato.anoBase}`
+                      : `${contrato.itens.length} ${contrato.itens.length === 1 ? 'item' : 'itens'} · ano-base ${contrato.anoBase} · ${brl(soma)} em preços-base`}
                   </p>
                 </Link>
                 <button className="btn secundario" onClick={() => excluirContrato(contrato)}>

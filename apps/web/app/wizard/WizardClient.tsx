@@ -361,14 +361,9 @@ export default function WizardClient({ opcoes }: { opcoes: OpcoesWizard }) {
     setEtapa('pedido');
   }
 
-  const MACRO = modoAssinante
-    ? ['Perguntas', 'Resultado']
-    : ['Começo', 'Perguntas', 'Resumo', 'Pagamento', 'Resultado'];
-  const macroAtual = modoAssinante
-    ? etapa === 'resultado'
-      ? 1
-      : 0
-    : etapa === 'pacote'
+  const MACRO = ['Começo', 'Perguntas', 'Resumo', 'Pagamento', 'Resultado'];
+  const macroAtual =
+    etapa === 'pacote'
       ? 0
       : etapa === 'item'
         ? 1
@@ -380,24 +375,26 @@ export default function WizardClient({ opcoes }: { opcoes: OpcoesWizard }) {
 
   return (
     <div className="wizard">
-      <ol className="passos">
-        {MACRO.map((nome, i) => (
-          <li key={nome} className={i < macroAtual ? 'feito' : i === macroAtual ? 'atual' : ''}>
-            {nome === 'Resumo' && etapa === 'item' && itens.length > 0 ? (
-              <button
-                type="button"
-                className="passo-link"
-                onClick={abandonarItem}
-                title="Descartar este item e voltar ao resumo"
-              >
-                {nome}
-              </button>
-            ) : (
-              nome
-            )}
-          </li>
-        ))}
-      </ol>
+      {!modoAssinante && (
+        <ol className="passos">
+          {MACRO.map((nome, i) => (
+            <li key={nome} className={i < macroAtual ? 'feito' : i === macroAtual ? 'atual' : ''}>
+              {nome === 'Resumo' && etapa === 'item' && itens.length > 0 ? (
+                <button
+                  type="button"
+                  className="passo-link"
+                  onClick={abandonarItem}
+                  title="Descartar este item e voltar ao resumo"
+                >
+                  {nome}
+                </button>
+              ) : (
+                nome
+              )}
+            </li>
+          ))}
+        </ol>
+      )}
 
       {etapa === 'pacote' && (
         <section className="card">
